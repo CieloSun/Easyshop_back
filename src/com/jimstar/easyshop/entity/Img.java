@@ -5,9 +5,6 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.sql.Blob;
 
-/**
- * Created by jim on 2016/12/19.
- */
 @Entity
 @Table(name = "Img")
 public class Img {

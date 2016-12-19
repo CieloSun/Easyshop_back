@@ -4,12 +4,11 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
-/**
- * Created by jim on 2016/12/19.
- */
 @Entity
 @Table(name = "User")
 @Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "type")
+@DiscriminatorValue("user")
 public class User implements Serializable {
     private Integer id;
     private String name;

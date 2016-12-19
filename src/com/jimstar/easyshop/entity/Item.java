@@ -6,9 +6,6 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
 
-/**
- * Created by jim on 2016/12/19.
- */
 @Entity
 @Table(name = "Item")
 public class Item {

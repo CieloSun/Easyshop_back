@@ -2,13 +2,10 @@ package com.jimstar.easyshop.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Timestamp;
 
-/**
- * Created by jim on 2016/12/19.
- */
 @Entity
 @PrimaryKeyJoinColumn(name = "UserMerchant")
+@DiscriminatorValue("merchant")
 public class UserMerchant extends User implements Serializable {
     private String shopName;
     private String shopDesc;

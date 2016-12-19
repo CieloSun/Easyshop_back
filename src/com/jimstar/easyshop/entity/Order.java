@@ -7,9 +7,6 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 
-/**
- * Created by jim on 2016/12/19.
- */
 @Entity
 @Table(name = "Orders")
 public class Order implements Serializable {
