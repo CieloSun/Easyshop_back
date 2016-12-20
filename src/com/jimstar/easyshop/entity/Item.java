@@ -8,7 +8,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "Item")
-public class Item {
+public class Item implements Comparable{
     /*
         uid 交易快照标识
         iid 同一商品不变化
@@ -120,6 +120,11 @@ public class Item {
 
     public void setImgs(List<Img> imgs) {
         this.imgs = imgs;
+    }
+
+    @Override
+    public int compareTo(Object o){
+        return ver-((Item) o).getVer();
     }
 
 }
