@@ -14,9 +14,9 @@ public class Item {
         iid 同一商品不变化
         ver 修改商品会改变
     */
-    private String uid;
-    private String iid;
-    private Integer ver;
+    private String uid;//修改商品重新生成
+    private String iid;//同一商品保持不变
+    private Integer ver;//修改时自增
     private String name;
     private Float price;
     private Integer count;
