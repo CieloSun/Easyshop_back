@@ -15,8 +15,11 @@ public class User implements Serializable {
     private Timestamp regTime;
     private String pwdDigest;
 
+    public User() {
+    }
+
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer getId() {
         return id;
     }
@@ -50,9 +53,6 @@ public class User implements Serializable {
 
     public void setPwdDigest(String pwdDigest) {
         this.pwdDigest = pwdDigest;
-    }
-
-    public User() {
     }
 
 }

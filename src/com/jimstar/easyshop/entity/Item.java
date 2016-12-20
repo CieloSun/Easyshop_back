@@ -15,15 +15,18 @@ public class Item {
         ver 修改商品会改变
     */
     private String uid;
-    private Integer iid;
+    private String iid;
     private Integer ver;
     private String name;
     private Float price;
-    private Integer cnt;
+    private Integer count;
     private UserMerchant userMerchant;
     private Timestamp createTime;
     private String description;
     private List<Img> imgs;
+
+    public Item() {
+    }
 
     @Id
     @GenericGenerator(name = "UUIDgen" , strategy = "uuid")
@@ -36,14 +39,17 @@ public class Item {
         this.uid = uid;
     }
 
-    public Integer getIid() {
+    @Basic(optional = false)
+    @Column(nullable = false)
+    public String getIid() {
         return iid;
     }
 
-    public void setIid(Integer iid) {
+    public void setIid(String iid) {
         this.iid = iid;
     }
 
+    @Column(nullable = false)
     public Integer getVer() {
         return ver;
     }
@@ -60,7 +66,6 @@ public class Item {
         this.name = name;
     }
 
-    @Column(columnDefinition = "decimal(5,2)")
     public Float getPrice() {
         return price;
     }
@@ -69,12 +74,13 @@ public class Item {
         this.price = price;
     }
 
-    public Integer getCnt() {
-        return cnt;
+    @Column(name = "_count")
+    public Integer getCount() {
+        return count;
     }
 
-    public void setCnt(Integer cnt) {
-        this.cnt = cnt;
+    public void setCount(Integer count) {
+        this.count = count;
     }
 
     @ManyToOne
@@ -114,9 +120,6 @@ public class Item {
 
     public void setImgs(List<Img> imgs) {
         this.imgs = imgs;
-    }
-
-    public Item() {
     }
 
 }
