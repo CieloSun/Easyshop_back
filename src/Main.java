@@ -111,7 +111,7 @@ public class Main {
         item.setDescription(scanner.next());
         item.setCreateTime(new Timestamp(System.currentTimeMillis()));
         item.setUserMerchant(merchant);
-        item.setIid(UUIDGenerator.gen());
+        item.setIid(UUIDGenerator.genShort());
         return item;
     }
 }
