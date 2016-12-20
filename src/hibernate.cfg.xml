@@ -6,6 +6,8 @@
     <session-factory>
         <property name="connection.url">jdbc:mysql://ecs.jimstar.club:3306/easyshop</property>
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="connection.autocommit">true</property>
+        <property name="connection.useSSL">false</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
 
         <!-- <property name="connection.username"/> -->

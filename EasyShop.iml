@@ -23,16 +23,6 @@
     <facet type="Spring" name="Spring">
       <configuration />
     </facet>
-    <facet type="jpa" name="JPA">
-      <configuration>
-        <setting name="validation-enabled" value="true" />
-        <setting name="provider-name" value="Hibernate" />
-        <datasource-mapping>
-          <factory-entry name="Entities" />
-        </datasource-mapping>
-        <deploymentDescriptor name="persistence.xml" url="file://$MODULE_DIR$/src/META-INF/persistence.xml" />
-      </configuration>
-    </facet>
   </component>
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
@@ -46,9 +36,5 @@
     <orderEntry type="library" exported="" name="Spring-4.3.4.RELEASE" level="project" />
     <orderEntry type="library" exported="" name="Spring MVC-4.3.4.RELEASE" level="project" />
     <orderEntry type="library" exported="" name="mysql-connector-java-5.1.40-bin" level="project" />
-    <orderEntry type="library" exported="" name="Hibernate 5.2.3-5.2.3" level="project" />
-    <orderEntry type="library" name="JPA 2.1-JPA 2.1" level="project" />
-    <orderEntry type="library" name="Hibernate 5.2.3-5.2.3" level="project" />
-    <orderEntry type="library" name="Spring-4.3.4.RELEASE" level="project" />
   </component>
 </module>
