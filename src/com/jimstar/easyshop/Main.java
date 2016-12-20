@@ -1,3 +1,5 @@
+package com.jimstar.easyshop;
+
 import com.jimstar.easyshop.entity.User;
 import com.jimstar.easyshop.entity.UserCustomer;
 import com.jimstar.easyshop.entity.UserMerchant;
