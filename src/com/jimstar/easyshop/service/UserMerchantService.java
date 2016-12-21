@@ -34,7 +34,7 @@ public class UserMerchantService {
         }
     }
 
-    public boolean checkPasswordByNameAndPwd(String name, String password) {
+    public boolean checkPasswordByName(String name, String password) {
         UserMerchant userMerchant = userMerchantDao.selectByName(name);
         try {
             return MD5Generator.checkPassword(password, userMerchant.getPwdDigest());
@@ -45,7 +45,7 @@ public class UserMerchantService {
         }
     }
 
-    public boolean changePasswordByNameAndPwd(String name, String password) {
+    public boolean changePasswordByName(String name, String password) {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         try {
             String pwdDigest = MD5Generator.EncoderByMd5(password);
@@ -59,7 +59,7 @@ public class UserMerchantService {
         }
     }
 
-    public boolean changeShopByNameAndPwd(String name,String shopName, String shopDesc) {
+    public boolean changeShopByName(String name,String shopName, String shopDesc) {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         UserMerchant userMerchant = userMerchantDao.selectByName(name);
         userMerchant.setShopName(shopName);

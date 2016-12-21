@@ -30,7 +30,25 @@ public class ItemDao {
         return false;
     }
 
-    public List<Item> selectByIid(Integer iid){
+    public boolean update(Item item){
+        final Session session = getSession();
+        try {
+            session.beginTransaction();
+            session.update(item);
+            session.getTransaction().commit();
+            System.out.println("Update the item successfully");
+            return true;
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            System.out.println("Fail to update item");
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return false;
+    }
+
+    public List<Item> selectByIid(String iid){
         try (Session session = getSession()) {
             String hql = "from Item as item where item.iid=:iid";
             Query query = session.createQuery(hql);
@@ -43,7 +61,7 @@ public class ItemDao {
         return null;
     }
 
-    public Item selectLatestByIid(Integer iid) {
+    public Item selectLatestByIid(String iid) {
         try (Session session = getSession()) {
             String hql = "from Item as item where item.iid=:iid";
             Query query = session.createQuery(hql);
@@ -58,7 +76,7 @@ public class ItemDao {
         return null;
     }
 
-    public Item selectByUid(Integer uid){
+    public Item selectByUid(String uid){
         try (Session session = getSession()) {
             String hql = "from Item as item where item.uid=:uid";
             Query query = session.createQuery(hql);
@@ -85,7 +103,7 @@ public class ItemDao {
         return null;
     }
 
-    public boolean deleteByIid(Integer iid){
+    public boolean deleteByIid(String iid){
         final Session session = getSession();
         try{
             session.beginTransaction();
@@ -104,7 +122,7 @@ public class ItemDao {
         return false;
     }
 
-    public boolean deleteByUid(Integer uid){
+    public boolean deleteByUid(String uid){
         final Session session = getSession();
         try{
             session.beginTransaction();
