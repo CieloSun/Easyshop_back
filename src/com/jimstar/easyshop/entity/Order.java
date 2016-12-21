@@ -19,6 +19,9 @@ public class Order implements Serializable {
     private ShipAddress shipAddress;
     private List<Item> items;
 
+    public Order() {
+    }
+
     @Id
     @GenericGenerator(name = "UUIDgen" , strategy = "uuid")
     @GeneratedValue(generator = "UUIDgen")
@@ -94,6 +97,13 @@ public class Order implements Serializable {
         this.items = items;
     }
 
-    public Order() {
+    public static class OrderStatus {
+        public final int UNDETERMINED = 1;
+        public final int GENERATED = 2;
+        public final int PAYED = 3;
+        public final int DISPATCHED = 4;
+        public final int COMPLETED = 5;
+        public final int RETURING = 6;
+        public final int CANCELLED = 7;
     }
 }
