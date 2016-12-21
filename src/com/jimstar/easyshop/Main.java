@@ -5,42 +5,28 @@ import com.jimstar.easyshop.entity.Item;
 import com.jimstar.easyshop.entity.UserCustomer;
 import com.jimstar.easyshop.entity.UserMerchant;
 import com.jimstar.easyshop.util.UUIDGenerator;
-import org.hibernate.*;
-import org.hibernate.cfg.Configuration;
+import org.hibernate.Metamodel;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 import javax.persistence.metamodel.EntityType;
 import java.sql.Timestamp;
 import java.util.Scanner;
 
+import static com.jimstar.easyshop.util.HibernateUtil.getSession;
+
+
 public class Main {
-    private static final SessionFactory ourSessionFactory;
     private static Scanner scanner = new Scanner(System.in);
-
-    static {
-        try {
-            Configuration configuration = new Configuration();
-            configuration.configure();
-
-            ourSessionFactory = configuration.buildSessionFactory();
-        } catch (Throwable ex) {
-            throw new ExceptionInInitializerError(ex);
-        }
-    }
-
-    public static Session getSession() throws HibernateException {
-        return ourSessionFactory.openSession();
-    }
 
     public static void main(final String[] args) throws Exception {
         InitUtil();
         TestMain();
-        return;
     }
 
     public static void InitUtil() {
-        final Session session = getSession();
-        try {
+        try (Session session = getSession()) {
             System.out.println("querying all the managed entities...");
             final Metamodel metamodel = session.getSessionFactory().getMetamodel();
             for (EntityType<?> entityType : metamodel.getEntities()) {
@@ -51,14 +37,11 @@ public class Main {
                     System.out.println("  " + o);
                 }
             }
-        } finally {
-            session.close();
         }
     }
 
     public static void TestMain() {
-        final Session session = getSession();
-        try {
+        try (Session session = getSession()) {
 
             Transaction trans = session.beginTransaction();
             UserMerchant merchant = createMerchant();
@@ -70,8 +53,6 @@ public class Main {
             trans.commit();
 
 
-        } finally {
-            session.close();
         }
     }
 

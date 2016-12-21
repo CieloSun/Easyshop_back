@@ -1,6 +1,5 @@
 package com.jimstar.easyshop.dao;
 
-import com.jimstar.easyshop.Main;
 import com.jimstar.easyshop.entity.Img;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -8,17 +7,14 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+import static com.jimstar.easyshop.util.HibernateUtil.getSession;
 
-/**
- * Created by 63289 on 2016/12/20.
- */
 @Repository
 public class ImgDao {
 
     public boolean add(Img img){
-        Session session=null;
+        final Session session = getSession();
         try{
-            session= Main.getSession();
             session.beginTransaction();
             session.save(img);
             session.getTransaction().commit();
@@ -28,14 +24,15 @@ public class ImgDao {
             session.getTransaction().rollback();
             System.out.println("Fail to add img");
             e.printStackTrace();
+        } finally {
+            session.close();
         }
         return false;
     }
 
     public boolean update(Img img){
-        Session session=null;
+        final Session session = getSession();
         try{
-            session= Main.getSession();
             session.beginTransaction();
             session.update(img);
             session.getTransaction().commit();
@@ -45,20 +42,20 @@ public class ImgDao {
             session.getTransaction().rollback();
             System.out.println("Fail to add img");
             e.printStackTrace();
+        } finally {
+            session.close();
         }
         return false;
     }
 
     public Img selectById(String id){
-        Session session=null;
-        try{
-            session=Main.getSession();
-            String hql="from Img as img where img.id=:id";
-            Query query=session.createQuery(hql);
-            query.setParameter("id",id);
-            List list=query.list();
-            return (Img)list.get(0);
-        }catch (Exception e){
+        try (Session session = getSession()) {
+            String hql = "from Img as img where img.id=:id";
+            Query query = session.createQuery(hql);
+            query.setParameter("id", id);
+            List list = query.list();
+            return (Img) list.get(0);
+        } catch (Exception e) {
             System.out.println("Fail to select the image by id");
             e.printStackTrace();
         }
@@ -66,9 +63,8 @@ public class ImgDao {
     }
 
     public boolean deleteById(String id){
-        Session session=null;
+        final Session session = getSession();
         try{
-            session=Main.getSession();
             session.beginTransaction();
             String hql="delete from Img as img where img.id=:id";
             Query query=session.createQuery(hql);
@@ -79,6 +75,8 @@ public class ImgDao {
             session.getTransaction().rollback();
             System.out.println("Fail to delete the image by id");
             e.printStackTrace();
+        } finally {
+            session.close();
         }
         return false;
     }

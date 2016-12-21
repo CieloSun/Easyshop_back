@@ -1,21 +1,16 @@
 package com.jimstar.easyshop.dao;
 
-import com.jimstar.easyshop.Main;
 import com.jimstar.easyshop.entity.ShipAddress;
 import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import static com.jimstar.easyshop.util.HibernateUtil.getSession;
 
-/**
- * Created by 63289 on 2016/12/20.
- */
 @Repository
 public class ShipAddressDao {
     public boolean add(ShipAddress shipAddress){
-        Session session=null;
+        final Session session = getSession();
         try{
-            session= Main.getSession();
             session.beginTransaction();
             session.save(shipAddress);
             session.getTransaction().commit();
@@ -25,14 +20,15 @@ public class ShipAddressDao {
             session.getTransaction().rollback();
             System.out.println("Fail to add shipAddress");
             e.printStackTrace();
+        } finally {
+            session.close();
         }
         return false;
     }
 
     public boolean update(ShipAddress shipAddress){
-        Session session=null;
+        final Session session = getSession();
         try{
-            session= Main.getSession();
             session.beginTransaction();
             session.update(shipAddress);
             session.getTransaction().commit();
@@ -42,6 +38,8 @@ public class ShipAddressDao {
             session.getTransaction().rollback();
             System.out.println("Fail to add shipAddress");
             e.printStackTrace();
+        } finally {
+            session.close();
         }
         return false;
     }
