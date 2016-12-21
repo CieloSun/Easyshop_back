@@ -3,12 +3,13 @@ package com.jimstar.easyshop.entity;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
 @Table(name = "Item")
-public class Item implements Comparable<Item> {
+public class Item implements Serializable, Comparable<Item> {
     /*
         uid 交易快照标识
         iid 同一商品不变化
