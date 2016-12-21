@@ -3,13 +3,17 @@ package com.jimstar.easyshop.entity;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Blob;
 
 @Entity
 @Table(name = "Img")
-public class Img {
+public class Img implements Serializable {
     private String id;
     private Blob value;
+
+    public Img() {
+    }
 
     @Id
     @GenericGenerator(name = "UUIDgen" , strategy = "uuid")
@@ -30,8 +34,5 @@ public class Img {
 
     public void setValue(Blob value) {
         this.value = value;
-    }
-
-    public Img() {
     }
 }

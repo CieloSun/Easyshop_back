@@ -3,12 +3,13 @@ package com.jimstar.easyshop.entity;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
 @Table(name = "Item")
-public class Item implements Comparable{
+public class Item implements Serializable, Comparable<Item> {
     /*
         uid 交易快照标识
         iid 同一商品不变化
@@ -122,9 +123,17 @@ public class Item implements Comparable{
         this.imgs = imgs;
     }
 
+    /**
+     * Compare Ver if Iid is same.
+     * Otherwise, compare Name
+     */
     @Override
-    public int compareTo(Object o){
-        return ver-((Item) o).getVer();
+    public int compareTo(Item o) {
+        if (getIid().equals(o.getIid())) {
+            return getVer() - o.getVer();
+        } else {
+            return getName().compareTo(o.getName());
+        }
     }
 
 }
