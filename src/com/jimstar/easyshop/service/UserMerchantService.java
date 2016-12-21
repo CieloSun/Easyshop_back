@@ -2,15 +2,12 @@ package com.jimstar.easyshop.service;
 
 import com.jimstar.easyshop.dao.UserMerchantDao;
 import com.jimstar.easyshop.entity.UserMerchant;
-import com.jimstar.easyshop.util.MD5Generator;
+import com.jimstar.easyshop.util.DigestUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 
-/**
- * Created by 63289 on 2016/12/21.
- */
 @Service
 public class UserMerchantService {
     @Autowired
@@ -19,7 +16,7 @@ public class UserMerchantService {
     public boolean addUserMerchantByNameAndPwd(String name, String password, String shopName, String shopDesc) {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         try {
-            String pwdDigest = MD5Generator.EncoderByMd5(password);
+            String pwdDigest = DigestUtil.Md5Encoder(password);
             UserMerchant userMerchant = new UserMerchant();
             userMerchant.setRegTime(timestamp);
             userMerchant.setName(name);
@@ -37,7 +34,7 @@ public class UserMerchantService {
     public boolean checkPasswordByName(String name, String password) {
         UserMerchant userMerchant = userMerchantDao.selectByName(name);
         try {
-            return MD5Generator.checkPassword(password, userMerchant.getPwdDigest());
+            return DigestUtil.checkPassword(password, userMerchant.getPwdDigest());
         } catch (Exception e) {
             System.out.println("MD5 error");
             e.printStackTrace();
@@ -48,7 +45,7 @@ public class UserMerchantService {
     public boolean changePasswordByName(String name, String password) {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         try {
-            String pwdDigest = MD5Generator.EncoderByMd5(password);
+            String pwdDigest = DigestUtil.Md5Encoder(password);
             UserMerchant userMerchant = userMerchantDao.selectByName(name);
             userMerchant.setPwdDigest(pwdDigest);
             return userMerchantDao.update(userMerchant);

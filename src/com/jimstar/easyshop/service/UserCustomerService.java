@@ -2,15 +2,12 @@ package com.jimstar.easyshop.service;
 
 import com.jimstar.easyshop.dao.UserCustomerDao;
 import com.jimstar.easyshop.entity.UserCustomer;
-import com.jimstar.easyshop.util.MD5Generator;
+import com.jimstar.easyshop.util.DigestUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 
-/**
- * Created by 63289 on 2016/12/21.
- */
 @Service
 public class UserCustomerService {
     @Autowired
@@ -18,7 +15,7 @@ public class UserCustomerService {
     public boolean addUserCustomerByNameAndPwd(String name, String password){
         Timestamp timestamp=new Timestamp(System.currentTimeMillis());
         try {
-            String pwdDigest= MD5Generator.EncoderByMd5(password);
+            String pwdDigest = DigestUtil.Md5Encoder(password);
             UserCustomer userCustomer=new UserCustomer();
             userCustomer.setRegTime(timestamp);
             userCustomer.setName(name);
@@ -34,7 +31,7 @@ public class UserCustomerService {
     public boolean checkPasswordByNameAndPwd(String name, String password){
         UserCustomer userCustomer=userCustomerDao.selectByName(name);
         try {
-            return MD5Generator.checkPassword(password,userCustomer.getPwdDigest());
+            return DigestUtil.checkPassword(password, userCustomer.getPwdDigest());
         }catch (Exception e){
             System.out.println("MD5 error");
             e.printStackTrace();
@@ -45,7 +42,7 @@ public class UserCustomerService {
     public boolean changePasswordByNameAndPwd(String name, String password){
         Timestamp timestamp=new Timestamp(System.currentTimeMillis());
         try {
-            String pwdDigest= MD5Generator.EncoderByMd5(password);
+            String pwdDigest = DigestUtil.Md5Encoder(password);
             UserCustomer userCustomer=userCustomerDao.selectByName(name);
             userCustomer.setPwdDigest(pwdDigest);
             return userCustomerDao.update(userCustomer);
