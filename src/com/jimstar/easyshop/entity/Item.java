@@ -134,4 +134,19 @@ public class Item implements Serializable, Comparable<Item> {
         }
     }
 
+    @Override
+    public String toString() {
+        return "Item{" +
+                "uid='" + uid + '\'' +
+                ", iid='" + iid + '\'' +
+                ", ver=" + ver +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", count=" + count +
+                ", userMerchant=" + userMerchant.getName() +
+                ", createTime=" + createTime +
+                ", description='" + description + '\'' +
+                ", imgs=" + imgs +
+                '}';
+    }
 }

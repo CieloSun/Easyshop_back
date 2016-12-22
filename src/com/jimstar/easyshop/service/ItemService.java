@@ -11,9 +11,6 @@ import org.springframework.stereotype.Service;
 import java.sql.Timestamp;
 import java.util.List;
 
-/**
- * Created by 63289 on 2016/12/21.
- */
 @Service
 public class ItemService {
     @Autowired

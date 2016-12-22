@@ -25,7 +25,7 @@ public class UserMerchantService {
             userMerchant.setShopDesc(shopDesc);
             return userMerchantDao.add(userMerchant);
         } catch (Exception e) {
-            System.out.println("MD5 error");
+            System.err.println(e.getMessage());
             e.printStackTrace();
             return false;
         }
@@ -62,6 +62,10 @@ public class UserMerchantService {
         userMerchant.setShopName(shopName);
         userMerchant.setShopDesc(shopDesc);
         return userMerchantDao.update(userMerchant);
+    }
+
+    public UserMerchant getUserMerchantByName(String name) {
+        return userMerchantDao.selectByName(name);
     }
 }
 

@@ -1,6 +1,7 @@
 package com.jimstar.easyshop.dao;
 
 import com.jimstar.easyshop.entity.Item;
+import com.jimstar.easyshop.util.LogUtil;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
@@ -18,11 +19,11 @@ public class ItemDao {
             session.beginTransaction();
             session.save(item);
             session.getTransaction().commit();
-            System.out.println("Add the item successfully");
+            LogUtil.log.debug("Add the item successfully");
             return true;
         } catch (Exception e) {
             session.getTransaction().rollback();
-            System.out.println("Fail to add item");
+            LogUtil.log.error("Failed to add " + item.toString(), e);
             e.printStackTrace();
         } finally {
             session.close();

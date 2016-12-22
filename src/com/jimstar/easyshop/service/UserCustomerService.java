@@ -12,6 +12,7 @@ import java.sql.Timestamp;
 public class UserCustomerService {
     @Autowired
     private UserCustomerDao userCustomerDao;
+
     public boolean addUserCustomerByNameAndPwd(String name, String password){
         Timestamp timestamp=new Timestamp(System.currentTimeMillis());
         try {

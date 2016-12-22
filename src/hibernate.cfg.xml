@@ -4,7 +4,7 @@
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
-        <property name="connection.url">jdbc:mysql://ecs.jimstar.club:3306/easyshop</property>
+        <property name="connection.url">jdbc:mysql://localhost:3306/easyshop</property>
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="connection.autocommit">true</property>
         <property name="connection.useSSL">false</property>
@@ -15,7 +15,7 @@
         <property name="connection.username">easyshop</property>
         <property name="connection.password">hahaschool</property>
 
-        <property name="show_sql">true</property>
+        <property name="show_sql">false</property>
         <property name="hbm2ddl.auto">update</property>
 
         <mapping class="com.jimstar.easyshop.entity.User" />

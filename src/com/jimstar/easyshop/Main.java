@@ -4,10 +4,12 @@ package com.jimstar.easyshop;
 import com.jimstar.easyshop.entity.Item;
 import com.jimstar.easyshop.entity.UserCustomer;
 import com.jimstar.easyshop.entity.UserMerchant;
+import com.jimstar.easyshop.service.ItemService;
+import com.jimstar.easyshop.service.UserCustomerService;
+import com.jimstar.easyshop.service.UserMerchantService;
 import com.jimstar.easyshop.util.UUIDGenerator;
 import org.hibernate.Metamodel;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 import javax.persistence.metamodel.EntityType;
@@ -37,23 +39,20 @@ public class Main {
                     System.out.println("  " + o);
                 }
             }
+            System.out.println("Finished!");
         }
     }
 
     public static void TestMain() {
-        try (Session session = getSession()) {
-
-            Transaction trans = session.beginTransaction();
-            UserMerchant merchant = createMerchant();
-            UserCustomer customer = createCustomer();
-            Item item = createItem(merchant);
-            session.saveOrUpdate(merchant);
-            session.saveOrUpdate(customer);
-            session.saveOrUpdate(item);
-            trans.commit();
-
-
-        }
+        //UserMerchant merchant = createMerchant();
+        //UserCustomer customer = createCustomer();
+        //Item item = createItem(merchant);
+        UserCustomerService userCustomerService = new UserCustomerService();
+        UserMerchantService userMerchantService = new UserMerchantService();
+        ItemService itemService = new ItemService();
+        userCustomerService.addUserCustomerByNameAndPwd("c1", "cp1");
+        userMerchantService.addUserMerchantByNameAndPwd("m1", "mp1", "shop1", "shopDesc1");
+        itemService.createItemByInf("item1", new Float(100.53), 100, userMerchantService.getUserMerchantByName("m1"), "itemDesc1", null);
     }
 
     public static UserMerchant createMerchant() {

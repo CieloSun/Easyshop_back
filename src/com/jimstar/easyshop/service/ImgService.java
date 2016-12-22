@@ -8,13 +8,11 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Blob;
 
-/**
- * Created by 63289 on 2016/12/21.
- */
 @Service
 public class ImgService {
     @Autowired
     private ImgDao imgDao;
+
     public boolean addAnImageByValue(Blob value){
         Img img=new Img();
         String uid= UUIDGenerator.genShort();
