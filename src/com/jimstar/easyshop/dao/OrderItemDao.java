@@ -1,7 +1,6 @@
 package com.jimstar.easyshop.dao;
 
-import com.jimstar.easyshop.entity.Img;
-import com.jimstar.easyshop.util.LogUtil;
+import com.jimstar.easyshop.entity.OrderItem;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
@@ -11,19 +10,18 @@ import java.util.List;
 import static com.jimstar.easyshop.util.HibernateUtil.getSession;
 
 @Repository
-public class ImgDao {
-
-    public boolean add(Img img){
+public class OrderItemDao {
+    public boolean add(OrderItem orderItem){
         final Session session = getSession();
         try{
             session.beginTransaction();
-            session.save(img);
+            session.save(orderItem);
             session.getTransaction().commit();
-            LogUtil.log.debug("Add the img successfully");
+            System.out.println("Add the orderItem successfully");
             return true;
         }catch (Exception e){
             session.getTransaction().rollback();
-            LogUtil.log.error("Failed to add " + img.toString(), e);
+            System.out.println("Fail to add orderItem");
             e.printStackTrace();
         } finally {
             session.close();
@@ -31,17 +29,17 @@ public class ImgDao {
         return false;
     }
 
-    public boolean update(Img img){
+    public boolean update(OrderItem orderItem){
         final Session session = getSession();
         try{
             session.beginTransaction();
-            session.update(img);
+            session.update(orderItem);
             session.getTransaction().commit();
-            LogUtil.log.debug("Update the img successfully");
+            System.out.println("Update the orderItem successfully");
             return true;
         }catch (Exception e){
             session.getTransaction().rollback();
-            LogUtil.log.error("Failed to update " + img.toString(), e);
+            System.out.println("Fail to add orderItem");
             e.printStackTrace();
         } finally {
             session.close();
@@ -49,15 +47,15 @@ public class ImgDao {
         return false;
     }
 
-    public Img selectById(String id){
+    public OrderItem selectById(String id){
         try (Session session = getSession()) {
-            String hql = "from Img as img where img.id=:id";
+            String hql = "from OrderItem as orderItem where orderItem.id=:id";
             Query query = session.createQuery(hql);
             query.setParameter("id", id);
             List list = query.list();
-            return (Img) list.get(0);
+            return (OrderItem) list.get(0);
         } catch (Exception e) {
-            System.out.println("Fail to select the image by id");
+            System.out.println("Fail to select the orderItem by id");
             e.printStackTrace();
         }
         return null;
@@ -67,14 +65,14 @@ public class ImgDao {
         final Session session = getSession();
         try{
             session.beginTransaction();
-            String hql="delete from Img as img where img.id=:id";
+            String hql="delete from OrderItem as orderItem where orderItem.id=:id";
             Query query=session.createQuery(hql);
             query.setParameter("id",id);
             session.getTransaction().commit();
             return true;
         }catch (Exception e){
             session.getTransaction().rollback();
-            System.out.println("Fail to delete the image by id");
+            System.out.println("Fail to delete the orderItem by id");
             e.printStackTrace();
         } finally {
             session.close();
