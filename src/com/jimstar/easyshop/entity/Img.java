@@ -7,7 +7,6 @@ import java.io.Serializable;
 import java.sql.Blob;
 
 @Entity
-@Table(name = "Img")
 public class Img implements Serializable {
     private String id;
     private Blob value;

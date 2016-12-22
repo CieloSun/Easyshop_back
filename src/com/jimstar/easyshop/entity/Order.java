@@ -5,10 +5,10 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.List;
+import java.util.Set;
 
 @Entity
-@Table(name = "Orders")
+@Table(name = "Order_")
 public class Order implements Serializable {
     private String id;
     private Timestamp createTime;
@@ -17,7 +17,7 @@ public class Order implements Serializable {
     private UserCustomer customer;
     private UserMerchant merchant;
     private ShipAddress shipAddress;
-    private List<Item> items;
+    private Set<OrderItem> orderItems;
 
     public Order() {
     }
@@ -49,7 +49,7 @@ public class Order implements Serializable {
         this.alterTime = alterTime;
     }
 
-    @Column(name = "_status")
+    @Column(name = "status_")
     public Integer getStatus() {
         return status;
     }
@@ -59,7 +59,6 @@ public class Order implements Serializable {
     }
 
     @ManyToOne
-    @PrimaryKeyJoinColumn
     public UserCustomer getCustomer() {
         return customer;
     }
@@ -69,7 +68,6 @@ public class Order implements Serializable {
     }
 
     @ManyToOne
-    @PrimaryKeyJoinColumn
     public UserMerchant getMerchant() {
         return merchant;
     }
@@ -87,14 +85,13 @@ public class Order implements Serializable {
         this.shipAddress = shipAddress;
     }
 
-    @ManyToMany
-    @JoinTable(name = "Order_Item")
-    public List<Item> getItems() {
-        return items;
+    @OneToMany
+    public Set<OrderItem> getOrderItems() {
+        return orderItems;
     }
 
-    public void setItems(List<Item> items) {
-        this.items = items;
+    public void setOrderItems(Set<OrderItem> orderItems) {
+        this.orderItems = orderItems;
     }
 
     public static class OrderStatus {

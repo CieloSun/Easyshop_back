@@ -8,7 +8,6 @@ import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
-@Table(name = "Item")
 public class Item implements Serializable, Comparable<Item> {
     /*
         uid 交易快照标识
@@ -75,7 +74,7 @@ public class Item implements Serializable, Comparable<Item> {
         this.price = price;
     }
 
-    @Column(name = "_count")
+    @Column(name = "count_")
     public Integer getCount() {
         return count;
     }
@@ -114,7 +113,6 @@ public class Item implements Serializable, Comparable<Item> {
     }
 
     @OneToMany
-    @JoinTable(name = "Item_Img")
     public List<Img> getImgs() {
         return imgs;
     }

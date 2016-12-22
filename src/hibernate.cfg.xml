@@ -24,8 +24,8 @@
         <mapping class="com.jimstar.easyshop.entity.Img" />
         <mapping class="com.jimstar.easyshop.entity.Item" />
         <mapping class="com.jimstar.easyshop.entity.Order" />
+        <mapping class="com.jimstar.easyshop.entity.OrderItem"/>
         <mapping class="com.jimstar.easyshop.entity.ShipAddress" />
-
 
     </session-factory>
 </hibernate-configuration>

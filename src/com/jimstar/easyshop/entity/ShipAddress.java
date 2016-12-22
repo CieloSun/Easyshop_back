@@ -10,7 +10,10 @@ public class ShipAddress implements Serializable {
     private String address;
     private String phone;
 
-    @Column(name = "_name")
+    public ShipAddress() {
+    }
+
+    @Column(name = "name_")
     public String getName() {
         return name;
     }
@@ -33,8 +36,5 @@ public class ShipAddress implements Serializable {
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public ShipAddress() {
     }
 }
