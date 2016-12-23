@@ -9,9 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * Created by 63289 on 2016/12/23.
  */
 @Controller
-@RequestMapping("/Main")
+@RequestMapping("/Img")
 public class ImgController {
     @Autowired
     private ImgService imgService;
-
+    
+    public String add(){
+        return "add";
+    }
 }

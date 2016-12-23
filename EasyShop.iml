@@ -34,7 +34,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="Hibernate 5.2.3-5.2.3" level="project" />
     <orderEntry type="library" exported="" name="Spring-4.3.4.RELEASE" level="project" />
-    <orderEntry type="library" exported="" name="Spring MVC-4.3.4.RELEASE" level="project" />
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
@@ -44,5 +43,7 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="Spring MVC-4.3.4.RELEASE" level="project" />
+    <orderEntry type="library" name="JPA 2.1-JPA 2.1" level="project" />
   </component>
 </module>
