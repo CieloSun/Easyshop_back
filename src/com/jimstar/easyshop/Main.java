@@ -11,6 +11,7 @@ import com.jimstar.easyshop.util.UUIDGenerator;
 import org.hibernate.Metamodel;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.metamodel.EntityType;
@@ -22,10 +23,17 @@ import static com.jimstar.easyshop.util.HibernateUtil.getSession;
 @Component
 public class Main {
     private static Scanner scanner = new Scanner(System.in);
+    @Autowired
+    ItemService itemService;
+    @Autowired
+    private UserCustomerService userCustomerService;
+    @Autowired
+    private UserMerchantService userMerchantService;
 
     public static void main(final String[] args) throws Exception {
+        Main obj = new Main();
         InitUtil();
-        TestMain();
+        obj.TestMain();
     }
 
     public static void InitUtil() {
@@ -42,18 +50,6 @@ public class Main {
             }
             System.out.println("Finished!");
         }
-    }
-
-    public static void TestMain() {
-        //UserMerchant merchant = createMerchant();
-        //UserCustomer customer = createCustomer();
-        //Item item = createItem(merchant);
-        UserCustomerService userCustomerService = new UserCustomerService();
-        UserMerchantService userMerchantService = new UserMerchantService();
-        ItemService itemService = new ItemService();
-        userCustomerService.addUserCustomerByNameAndPwd("c1", "cp1");
-        userMerchantService.addUserMerchantByNameAndPwd("m1", "mp1", "shop1", "shopDesc1");
-        itemService.createItemByInf("item1", 100.53f, 100, userMerchantService.getUserMerchantByName("m1"), "itemDesc1", null);
     }
 
     public static UserMerchant createMerchant() {
@@ -97,5 +93,15 @@ public class Main {
         item.setUserMerchant(merchant);
         item.setIid(UUIDGenerator.genShort());
         return item;
+    }
+
+    public void TestMain() {
+        //UserMerchant merchant = createMerchant();
+        //UserCustomer customer = createCustomer();
+        //Item item = createItem(merchant);
+
+        userCustomerService.addUserCustomerByNameAndPwd("c1", "cp1");
+        userMerchantService.addUserMerchantByNameAndPwd("m1", "mp1", "shop1", "shopDesc1");
+        itemService.createItemByInf("item1", 100.53f, 100, userMerchantService.getUserMerchantByName("m1"), "itemDesc1", null);
     }
 }
