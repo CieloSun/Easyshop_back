@@ -14,6 +14,10 @@ import org.springframework.stereotype.Service;
 public class OrderItemService {
     @Autowired
     private OrderItemDao orderItemDao;
+
+    public OrderItemService() {
+    }
+
     public boolean createOrderItemByItemAndOrderAndCount(Item item, Order order, Integer count){
         OrderItem orderItem=new OrderItem();
         orderItem.setItem(item);
@@ -24,5 +28,13 @@ public class OrderItemService {
 
     public boolean deleteOrderItemById(String id){
         return orderItemDao.deleteById(id);
+    }
+
+    public OrderItemDao getOrderItemDao() {
+        return orderItemDao;
+    }
+
+    public void setOrderItemDao(OrderItemDao orderItemDao) {
+        this.orderItemDao = orderItemDao;
     }
 }

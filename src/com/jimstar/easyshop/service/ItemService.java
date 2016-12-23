@@ -16,6 +16,9 @@ public class ItemService {
     @Autowired
     private ItemDao itemDao;
 
+    public ItemService() {
+    }
+
     public boolean createItemByInf(String name, Float price, Integer count, UserMerchant userMerchant, String description, List<Img> imgs){
         Item item=new Item();
         String iid= UUIDGenerator.genShort();
@@ -68,5 +71,13 @@ public class ItemService {
 
     public boolean deleteByIid(String iid){
         return itemDao.deleteByIid(iid);
+    }
+
+    public ItemDao getItemDao() {
+        return itemDao;
+    }
+
+    public void setItemDao(ItemDao itemDao) {
+        this.itemDao = itemDao;
     }
 }

@@ -12,6 +12,9 @@ import static com.jimstar.easyshop.util.HibernateUtil.getSession;
 
 @Repository
 public class UserMerchantDao {
+    public UserMerchantDao() {
+    }
+
     public boolean add(UserMerchant userMerchant){
         final Session session = getSession();
         try{

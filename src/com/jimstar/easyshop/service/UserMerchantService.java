@@ -13,6 +13,9 @@ public class UserMerchantService {
     @Autowired
     private UserMerchantDao userMerchantDao;
 
+    public UserMerchantService() {
+    }
+
     public boolean addUserMerchantByNameAndPwd(String name, String password, String shopName, String shopDesc) {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         try {
@@ -66,6 +69,14 @@ public class UserMerchantService {
 
     public UserMerchant getUserMerchantByName(String name) {
         return userMerchantDao.selectByName(name);
+    }
+
+    public UserMerchantDao getUserMerchantDao() {
+        return userMerchantDao;
+    }
+
+    public void setUserMerchantDao(UserMerchantDao userMerchantDao) {
+        this.userMerchantDao = userMerchantDao;
     }
 }
 

@@ -8,6 +8,9 @@ import static com.jimstar.easyshop.util.HibernateUtil.getSession;
 
 @Repository
 public class ShipAddressDao {
+    public ShipAddressDao() {
+    }
+
     public boolean add(ShipAddress shipAddress){
         final Session session = getSession();
         try{

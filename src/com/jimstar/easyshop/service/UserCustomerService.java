@@ -13,6 +13,9 @@ public class UserCustomerService {
     @Autowired
     private UserCustomerDao userCustomerDao;
 
+    public UserCustomerService() {
+    }
+
     public boolean addUserCustomerByNameAndPwd(String name, String password){
         Timestamp timestamp=new Timestamp(System.currentTimeMillis());
         try {
@@ -52,5 +55,13 @@ public class UserCustomerService {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public UserCustomerDao getUserCustomerDao() {
+        return userCustomerDao;
+    }
+
+    public void setUserCustomerDao(UserCustomerDao userCustomerDao) {
+        this.userCustomerDao = userCustomerDao;
     }
 }

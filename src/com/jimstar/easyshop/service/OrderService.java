@@ -6,25 +6,47 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
 public class OrderService {
     @Autowired
     private OrderDao orderDao;
 
-    public boolean createOrderInCart(UserCustomer userCustomer, UserMerchant userMerchant, ShipAddress shipAddress, Item item){
+    public OrderService() {
+    }
+
+    public boolean createOrderInCart(UserCustomer userCustomer, UserMerchant userMerchant, ShipAddress shipAddress){
         Timestamp timestamp=new Timestamp(System.currentTimeMillis());
         Integer status=1;
         Order order=new Order();
-        //TODO
-        return false;
+        order.setCreateTime(timestamp);
+        order.setAlterTime(timestamp);
+        order.setCustomer(userCustomer);
+        order.setMerchant(userMerchant);
+        order.setShipAddress(shipAddress);
+        order.setStatus(status);
+        return orderDao.add(order);
     }
-    public boolean createOrderDerictly(){
-        //TODO
-        return false;
+    public boolean addOrderItemToOrderById(String id, OrderItem orderItem){
+        Order order=orderDao.selectById(id);
+        Set<OrderItem> orderItems=new HashSet<>();
+        orderItems.add(orderItem);
+        order.setOrderItems(orderItems);
+        return orderDao.update(order);
     }
-    public boolean createOrderFromCart(){
-        //TODO
-        return false;
+    public boolean changeStatusById(String id, Integer status){
+        Order order=orderDao.selectById(id);
+        order.setStatus(status);
+        return orderDao.update(order);
+    }
+
+    public OrderDao getOrderDao() {
+        return orderDao;
+    }
+
+    public void setOrderDao(OrderDao orderDao) {
+        this.orderDao = orderDao;
     }
 }

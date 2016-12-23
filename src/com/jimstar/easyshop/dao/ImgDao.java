@@ -13,6 +13,9 @@ import static com.jimstar.easyshop.util.HibernateUtil.getSession;
 @Repository
 public class ImgDao {
 
+    public ImgDao() {
+    }
+
     public boolean add(Img img){
         final Session session = getSession();
         try{

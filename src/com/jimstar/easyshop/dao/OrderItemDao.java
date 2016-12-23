@@ -11,6 +11,9 @@ import static com.jimstar.easyshop.util.HibernateUtil.getSession;
 
 @Repository
 public class OrderItemDao {
+    public OrderItemDao() {
+    }
+
     public boolean add(OrderItem orderItem){
         final Session session = getSession();
         try{

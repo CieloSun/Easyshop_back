@@ -13,18 +13,24 @@ public class ImgService {
     @Autowired
     private ImgDao imgDao;
 
+    public ImgService() {
+    }
+
     public boolean addAnImageByValue(Blob value){
         Img img=new Img();
-        String uid= UUIDGenerator.genShort();
-        img.setId(uid);
         img.setValue(value);
         return imgDao.add(img);
     }
 
-    public boolean addAnImageByUidAndValue(String uid, Blob value){
-        Img img=new Img();
-        img.setId(uid);
-        img.setValue(value);
-        return imgDao.add(img);
+    public Img getImgById(String id){
+        return imgDao.selectById(id);
+    }
+
+    public ImgDao getImgDao() {
+        return imgDao;
+    }
+
+    public void setImgDao(ImgDao imgDao) {
+        this.imgDao = imgDao;
     }
 }
