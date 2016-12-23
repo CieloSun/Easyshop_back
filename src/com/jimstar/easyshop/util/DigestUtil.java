@@ -22,7 +22,7 @@ public class DigestUtil {
         }
     }
 
-    public static String Md5Encoder(String str) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+    public static String Md5Encoder(String str) throws UnsupportedEncodingException {
         //确定计算方法
         BASE64Encoder base64en = new BASE64Encoder();
         //加密后的字符串
@@ -40,7 +40,7 @@ public class DigestUtil {
         return Crc32Encode(new ByteArrayInputStream(data));
     }
 
-    public static boolean checkPassword(String inputPasswd, String digest) throws NoSuchAlgorithmException, UnsupportedEncodingException {
-        return Md5Encoder(inputPasswd).equals(digest);
+    public static boolean checkPassword(String inputPassword, String digest) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+        return Md5Encoder(inputPassword).equals(digest);
     }
 }

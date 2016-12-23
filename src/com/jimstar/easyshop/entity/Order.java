@@ -109,7 +109,7 @@ public class Order implements Serializable {
         public final int PAYED = 3;
         public final int DISPATCHED = 4;
         public final int COMPLETED = 5;
-        public final int RETURING = 6;
+        public final int RETURNING = 6;
         public final int CANCELLED = 7;
     }
 }

@@ -13,10 +13,15 @@ import java.util.List;
 
 @Service
 public class ItemService {
-    @Autowired
-    private ItemDao itemDao;
+    private final ItemDao itemDao;
 
-    public ItemService() {
+    @Autowired
+    public ItemService(ItemDao itemDao) {
+        this.itemDao = itemDao;
+    }
+
+    public ItemDao getItemDao() {
+        return itemDao;
     }
 
     public boolean createItemByInf(String name, Float price, Integer count, UserMerchant userMerchant, String description, List<Img> imgs){
@@ -73,11 +78,4 @@ public class ItemService {
         return itemDao.deleteByIid(iid);
     }
 
-    public ItemDao getItemDao() {
-        return itemDao;
-    }
-
-    public void setItemDao(ItemDao itemDao) {
-        this.itemDao = itemDao;
-    }
 }

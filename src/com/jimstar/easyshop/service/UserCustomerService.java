@@ -10,10 +10,11 @@ import java.sql.Timestamp;
 
 @Service
 public class UserCustomerService {
-    @Autowired
-    private UserCustomerDao userCustomerDao;
+    private final UserCustomerDao userCustomerDao;
 
-    public UserCustomerService() {
+    @Autowired
+    public UserCustomerService(UserCustomerDao userCustomerDao) {
+        this.userCustomerDao = userCustomerDao;
     }
 
     public boolean addUserCustomerByNameAndPwd(String name, String password){
@@ -57,11 +58,4 @@ public class UserCustomerService {
         }
     }
 
-    public UserCustomerDao getUserCustomerDao() {
-        return userCustomerDao;
-    }
-
-    public void setUserCustomerDao(UserCustomerDao userCustomerDao) {
-        this.userCustomerDao = userCustomerDao;
-    }
 }

@@ -11,10 +11,11 @@ import java.util.Set;
 
 @Service
 public class OrderService {
-    @Autowired
-    private OrderDao orderDao;
+    private final OrderDao orderDao;
 
-    public OrderService() {
+    @Autowired
+    public OrderService(OrderDao orderDao) {
+        this.orderDao = orderDao;
     }
 
     public boolean createOrderInCart(UserCustomer userCustomer, UserMerchant userMerchant, ShipAddress shipAddress){
@@ -42,11 +43,4 @@ public class OrderService {
         return orderDao.update(order);
     }
 
-    public OrderDao getOrderDao() {
-        return orderDao;
-    }
-
-    public void setOrderDao(OrderDao orderDao) {
-        this.orderDao = orderDao;
-    }
 }

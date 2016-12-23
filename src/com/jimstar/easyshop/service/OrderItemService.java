@@ -7,15 +7,13 @@ import com.jimstar.easyshop.entity.OrderItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-/**
- * Created by 63289 on 2016/12/23.
- */
 @Service
 public class OrderItemService {
-    @Autowired
-    private OrderItemDao orderItemDao;
+    private final OrderItemDao orderItemDao;
 
-    public OrderItemService() {
+    @Autowired
+    public OrderItemService(OrderItemDao orderItemDao) {
+        this.orderItemDao = orderItemDao;
     }
 
     public boolean createOrderItemByItemAndOrderAndCount(Item item, Order order, Integer count){
@@ -30,11 +28,4 @@ public class OrderItemService {
         return orderItemDao.deleteById(id);
     }
 
-    public OrderItemDao getOrderItemDao() {
-        return orderItemDao;
-    }
-
-    public void setOrderItemDao(OrderItemDao orderItemDao) {
-        this.orderItemDao = orderItemDao;
-    }
 }

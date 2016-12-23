@@ -11,6 +11,7 @@ import com.jimstar.easyshop.util.UUIDGenerator;
 import org.hibernate.Metamodel;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.metamodel.EntityType;
 import java.sql.Timestamp;
@@ -18,7 +19,7 @@ import java.util.Scanner;
 
 import static com.jimstar.easyshop.util.HibernateUtil.getSession;
 
-
+@Component
 public class Main {
     private static Scanner scanner = new Scanner(System.in);
 
@@ -52,7 +53,7 @@ public class Main {
         ItemService itemService = new ItemService();
         userCustomerService.addUserCustomerByNameAndPwd("c1", "cp1");
         userMerchantService.addUserMerchantByNameAndPwd("m1", "mp1", "shop1", "shopDesc1");
-        itemService.createItemByInf("item1", new Float(100.53), 100, userMerchantService.getUserMerchantByName("m1"), "itemDesc1", null);
+        itemService.createItemByInf("item1", 100.53f, 100, userMerchantService.getUserMerchantByName("m1"), "itemDesc1", null);
     }
 
     public static UserMerchant createMerchant() {
