@@ -13,6 +13,15 @@ public class Order implements Serializable {
     private String id;
     private Timestamp createTime;
     private Timestamp alterTime;
+    /*
+    1 待定（购物车）
+    2 已下单
+    3 已付款（可能用不上）
+    4 已发货
+    5 已完成
+    6 退货中(可能用不上)
+    7 已取消
+    */
     private Integer status;
     private UserCustomer customer;
     private UserMerchant merchant;
