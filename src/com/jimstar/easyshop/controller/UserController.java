@@ -29,6 +29,7 @@ public class UserController {
     @ResponseBody
     public String login(@RequestBody Map<String,Object> map) throws Exception{
 
+        System.out.println(map.toString());
         //TODO
         return null;
     }
