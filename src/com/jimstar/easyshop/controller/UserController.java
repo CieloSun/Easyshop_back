@@ -41,7 +41,7 @@ public class UserController {
                 UserCustomer userCustomer=userCustomerService.getUserCustomerByName(username);
                 Integer id=userCustomer.getId();
                 modelMap.addAttribute("id",id);
-                //TODO: discrimate type
+                //TODO: Discriminator type
                 modelMap.addAttribute("type","customer");
                 modelMap.addAttribute("status",0);
                 modelMap.addAttribute("info","Success to login!");
