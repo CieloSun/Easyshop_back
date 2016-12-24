@@ -38,6 +38,7 @@ public class UserController {
                 UserCustomer userCustomer=userCustomerService.getUserCustomerByName(username);
                 Integer userName=userCustomer.getId();
                 modelMap.addAttribute("userName",userName);
+                modelMap.addAttribute("type","customer");
                 modelMap.addAttribute("status",0);
                 modelMap.addAttribute("info","Success to login!");
             }
@@ -51,6 +52,7 @@ public class UserController {
                 UserMerchant userMerchant=userMerchantService.getUserMerchantByName(username);
                 Integer userName=userMerchant.getId();
                 modelMap.addAttribute("userName",userName);
+                modelMap.addAttribute("type","merchant");
                 modelMap.addAttribute("status",0);
                 modelMap.addAttribute("info","Success to login!");
             }
