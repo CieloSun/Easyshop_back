@@ -17,8 +17,13 @@ import java.sql.Blob;
 @Controller
 @RequestMapping("/Img")
 public class ImgController {
+    private final ImgService imgService;
+
     @Autowired
-    private ImgService imgService;
+    public ImgController(ImgService imgService) {
+        this.imgService = imgService;
+    }
+
     @RequestMapping("/add")
     public String add(){
         return "addImage";

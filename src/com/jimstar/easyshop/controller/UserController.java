@@ -20,10 +20,15 @@ import java.util.Map;
 @Controller
 @RequestMapping("/User")
 public class UserController {
+    private final UserCustomerService userCustomerService;
+    private final UserMerchantService userMerchantService;
+
     @Autowired
-    private UserCustomerService userCustomerService;
-    @Autowired
-    private UserMerchantService userMerchantService;
+    public UserController(UserCustomerService userCustomerService, UserMerchantService userMerchantService) {
+        this.userCustomerService = userCustomerService;
+        this.userMerchantService = userMerchantService;
+    }
+
     @RequestMapping("/firstPage")
     public String firstPage(){
         return "firstPage";
