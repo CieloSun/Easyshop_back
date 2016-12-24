@@ -28,8 +28,20 @@ public class UserController {
     @RequestMapping(value="/login",method = RequestMethod.POST)
     @ResponseBody
     public String login(@RequestBody Map<String,Object> map) throws Exception{
-
-        //TODO
-        return null;
+        String username=(String) map.get("username");
+        String password=(String)map.get("password");
+        if(map.get("type")=="customer"){
+            if(userCustomerService.checkPasswordByNameAndPwd(username,password)){
+                return "redirect:/Item/homePage";
+            }
+            else return "error";
+        }
+        else if(map.get("type")=="merchant"){
+            if(userMerchantService.checkPasswordByName(username,password)){
+                return "managePage";
+            }
+            else return "error";
+        }
+        else return "error";
     }
 }
