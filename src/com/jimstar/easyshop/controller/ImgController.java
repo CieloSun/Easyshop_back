@@ -11,23 +11,26 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.sql.Blob;
 
-/**
- * Created by 63289 on 2016/12/23.
- */
 @Controller
 @RequestMapping("/Img")
 public class ImgController {
+    private final ImgService imgService;
+
     @Autowired
-    private ImgService imgService;
+    public ImgController(ImgService imgService) {
+        this.imgService = imgService;
+    }
+
     @RequestMapping("/add")
     public String add(){
-        return "add";
+        return "addImage";
     }
     @RequestMapping(value = "/edit",method = RequestMethod.POST)
     @ResponseBody
-    public String edit(@RequestBody Blob value){
+    public String edit(@RequestBody Blob value,ModelMap modelMap){
         boolean success=imgService.addAnImageByValue(value);
-        if(success) return "edit";
+        if(success) return "editImage";
+        modelMap.addAttribute("info","Fail to save the image");
         return "error";
     }
 
@@ -36,6 +39,6 @@ public class ImgController {
     public String get(@RequestBody String id, ModelMap modelMap){
         Blob value=imgService.getImgById(id).getValue();
         modelMap.addAttribute("value",value);
-        return "get";
+        return "getImage";
     }
 }
