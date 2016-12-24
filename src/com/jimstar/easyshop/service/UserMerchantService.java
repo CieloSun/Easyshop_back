@@ -47,7 +47,6 @@ public class UserMerchantService {
     }
 
     public boolean changePasswordByName(String name, String password) {
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         try {
             String pwdDigest = DigestUtil.Md5Encoder(password);
             UserMerchant userMerchant = userMerchantDao.selectByName(name);
@@ -61,7 +60,6 @@ public class UserMerchantService {
     }
 
     public boolean changeShopByName(String name,String shopName, String shopDesc) {
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         UserMerchant userMerchant = userMerchantDao.selectByName(name);
         userMerchant.setShopName(shopName);
         userMerchant.setShopDesc(shopDesc);

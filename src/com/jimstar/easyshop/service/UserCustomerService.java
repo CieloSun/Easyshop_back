@@ -33,7 +33,7 @@ public class UserCustomerService {
         }
     }
 
-    public boolean checkPasswordByNameAndPwd(String name, String password){
+    public boolean checkPasswordByName(String name, String password){
         UserCustomer userCustomer=userCustomerDao.selectByName(name);
         try {
             return DigestUtil.checkPassword(password, userCustomer.getPwdDigest());
@@ -44,8 +44,7 @@ public class UserCustomerService {
         }
     }
 
-    public boolean changePasswordByNameAndPwd(String name, String password){
-        Timestamp timestamp=new Timestamp(System.currentTimeMillis());
+    public boolean changePasswordByName(String name, String password){
         try {
             String pwdDigest = DigestUtil.Md5Encoder(password);
             UserCustomer userCustomer=userCustomerDao.selectByName(name);
