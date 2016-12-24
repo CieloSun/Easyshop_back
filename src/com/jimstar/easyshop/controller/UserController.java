@@ -126,6 +126,7 @@ public class UserController {
                 if(userCustomerService.changePasswordByName(username,password))
                 {
                     modelMap.addAttribute("userName",username);
+                    modelMap.addAttribute("type","customer");
                     modelMap.addAttribute("status",0);
                     modelMap.addAttribute("info","Success to change password");
                 }
@@ -135,6 +136,7 @@ public class UserController {
                 }
             }
             else{
+                modelMap.addAttribute("verify",1);
                 modelMap.addAttribute("status",1);
                 modelMap.addAttribute("info","The original password is wrong.");
             }
@@ -145,6 +147,7 @@ public class UserController {
                 if(userMerchantService.changePasswordByName(username,password))
                 {
                     modelMap.addAttribute("userName",username);
+                    modelMap.addAttribute("typp","merchant");
                     modelMap.addAttribute("status",0);
                     modelMap.addAttribute("info","Success to change password");
                 }
