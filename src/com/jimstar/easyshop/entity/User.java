@@ -54,4 +54,13 @@ public class User implements Serializable {
         this.pwdDigest = pwdDigest;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", regTime=" + regTime +
+                ", pwdDigest='" + pwdDigest + '\'' +
+                '}';
+    }
 }

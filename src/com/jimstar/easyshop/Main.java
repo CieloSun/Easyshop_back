@@ -101,7 +101,7 @@ public class Main {
         //Item item = createItem(merchant);
 
         userCustomerService.addUserCustomerByNameAndPwd("c1", "cp1");
-        userMerchantService.addUserMerchantByNameAndPwd("m1", "mp1", "shop1", "shopDesc1");
+        userMerchantService.addUserMerchantByInfo("m1", "mp1", "shop1", "shopDesc1");
         itemService.createItemByInf("item1", 100.53f, 100, userMerchantService.getUserMerchantByName("m1"), "itemDesc1", null);
     }
 }

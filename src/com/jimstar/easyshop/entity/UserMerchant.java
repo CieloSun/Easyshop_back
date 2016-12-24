@@ -10,6 +10,9 @@ public class UserMerchant extends User implements Serializable {
     private String shopName;
     private String shopDesc;
 
+    public UserMerchant() {
+    }
+
     public String getShopName() {
         return shopName;
     }
@@ -28,7 +31,11 @@ public class UserMerchant extends User implements Serializable {
         this.shopDesc = shopDesc;
     }
 
-    public UserMerchant() {
+    @Override
+    public String toString() {
+        return "UserMerchant{" +
+                "shopName='" + shopName + '\'' +
+                ", shopDesc='" + shopDesc + '\'' +
+                "} " + super.toString();
     }
-
 }

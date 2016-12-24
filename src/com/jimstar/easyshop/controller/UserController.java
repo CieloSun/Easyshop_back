@@ -68,44 +68,44 @@ public class UserController {
     }
     @RequestMapping(value = "register",method = RequestMethod.POST)
     @ResponseBody
-    public ModelAndView register(Map<String,Object> map,ModelMap modelMap) throws Exception{
+    public ModelAndView register(@RequestBody Map<String, Object> map, ModelMap modelMap) throws Exception {
         ModelAndView modelAndView=new ModelAndView();
         String username=(String) map.get("username");
         String password=(String) map.get("password");
         String type=(String) map.get("type");
-        if(type.equals("customer")){
-            if(userCustomerService.addUserCustomerByNameAndPwd(username,password)){
-                UserCustomer userCustomer=userCustomerService.getUserCustomerByName(username);
-                String userName=userCustomer.getName();
-                modelMap.addAttribute("userName",userName);
-                modelMap.addAttribute("type","customer");
-                modelMap.addAttribute("status",0);
-                modelMap.addAttribute("info","Success to register!");
-            }
-            else{
-                modelMap.addAttribute("status",1);
-                modelMap.addAttribute("info","Cannot register, maybe username has been used.");
-            }
-        }
-        else if(type.equals("merchant")){
-            String shopName=(String) map.get("shopName");
-            String shopDescription=(String) map.get("shopDescription");
-            if(userMerchantService.addUserMerchantByInfo(username,password,shopName,shopDescription)){
-                UserMerchant userMerchant=userMerchantService.getUserMerchantByName(username);
-                String userName=userMerchant.getName();
-                modelMap.addAttribute("userName",userName);
-                modelMap.addAttribute("type","merchant");
-                modelMap.addAttribute("status",0);
-                modelMap.addAttribute("info","Success to register!");
-            }
-            else{
-                modelMap.addAttribute("info","Cannot register, maybe username has been used.");
-                modelMap.addAttribute("status",1);
-            }
-        }
-        else{
-            modelMap.addAttribute("status",1);
-            modelMap.addAttribute("info","Type is wrong.");
+        switch (type) {
+            case "customer":
+                if (userCustomerService.addUserCustomerByNameAndPwd(username, password)) {
+                    UserCustomer userCustomer = userCustomerService.getUserCustomerByName(username);
+                    String userName = userCustomer.getName();
+                    modelMap.addAttribute("userName", userName);
+                    modelMap.addAttribute("type", "customer");
+                    modelMap.addAttribute("status", 0);
+                    modelMap.addAttribute("info", "Success to register!");
+                } else {
+                    modelMap.addAttribute("status", 1);
+                    modelMap.addAttribute("info", "Cannot register, maybe username has been used.");
+                }
+                break;
+            case "merchant":
+                String shopName = (String) map.get("shopName");
+                String shopDescription = (String) map.get("shopDescription");
+                if (userMerchantService.addUserMerchantByInfo(username, password, shopName, shopDescription)) {
+                    UserMerchant userMerchant = userMerchantService.getUserMerchantByName(username);
+                    String userName = userMerchant.getName();
+                    modelMap.addAttribute("userName", userName);
+                    modelMap.addAttribute("type", "merchant");
+                    modelMap.addAttribute("status", 0);
+                    modelMap.addAttribute("info", "Success to register!");
+                } else {
+                    modelMap.addAttribute("info", "Cannot register, maybe username has been used.");
+                    modelMap.addAttribute("status", 1);
+                }
+                break;
+            default:
+                modelMap.addAttribute("status", 1);
+                modelMap.addAttribute("info", "Type is wrong.");
+                break;
         }
         modelAndView.addAllObjects(modelMap);
         return modelAndView;

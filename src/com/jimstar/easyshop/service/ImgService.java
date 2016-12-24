@@ -17,7 +17,7 @@ public class ImgService {
         this.imgDao = imgDao;
     }
 
-    public boolean addAnImageByValue(Blob value) {
+    public String addAnImageByValue(Blob value) {
         Img img = new Img();
         img.setValue(value);
         return imgDao.add(img);

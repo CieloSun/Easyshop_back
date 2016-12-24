@@ -16,14 +16,18 @@ public class ImgDao {
     public ImgDao() {
     }
 
-    public boolean add(Img img){
+    /**
+     * @param img Image Object
+     * @return String id if success, null for failed
+     */
+    public String add(Img img) {
         final Session session = getSession();
         try{
             session.beginTransaction();
             session.save(img);
             session.getTransaction().commit();
             LogUtil.log.debug("Add the img successfully");
-            return true;
+            return img.getId();
         }catch (Exception e){
             session.getTransaction().rollback();
             LogUtil.log.error("Failed to add " + img.toString(), e);
@@ -31,7 +35,7 @@ public class ImgDao {
         } finally {
             session.close();
         }
-        return false;
+        return null;
     }
 
     public boolean update(Img img){
