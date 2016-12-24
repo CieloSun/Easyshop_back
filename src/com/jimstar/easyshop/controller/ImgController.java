@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.portlet.ModelAndView;
 
 import java.sql.Blob;
 
@@ -20,25 +21,30 @@ public class ImgController {
     public ImgController(ImgService imgService) {
         this.imgService = imgService;
     }
-
-    @RequestMapping("/add")
-    public String add(){
-        return "addImage";
-    }
     @RequestMapping(value = "/edit",method = RequestMethod.POST)
     @ResponseBody
-    public String edit(@RequestBody Blob value,ModelMap modelMap){
+    public ModelAndView edit(Blob value,ModelMap modelMap){
+        ModelAndView modelAndView=new ModelAndView();
         boolean success=imgService.addAnImageByValue(value);
-        if(success) return "editImage";
-        modelMap.addAttribute("info","Fail to save the image");
-        return "error";
+        if(success){
+            modelMap.addAttribute("status",0);
+            modelMap.addAttribute("info","Success to save the image");
+        }
+        else{
+            modelMap.addAttribute("status",1);
+            modelMap.addAttribute("info","Fail to save the image");
+        }
+        modelAndView.addAllObjects(modelMap);
+        return modelAndView;
     }
 
     @RequestMapping(value = "/get")
     @ResponseBody
-    public String get(@RequestBody String id, ModelMap modelMap){
+    public ModelAndView get(String id, ModelMap modelMap){
+        ModelAndView modelAndView=new ModelAndView();
         Blob value=imgService.getImgById(id).getValue();
         modelMap.addAttribute("value",value);
-        return "getImage";
+        modelAndView.addAllObjects(modelMap);
+        return modelAndView;
     }
 }
