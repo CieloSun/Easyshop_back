@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.portlet.ModelAndView;
 
 import java.util.Map;
 
@@ -28,14 +29,10 @@ public class UserController {
         this.userCustomerService = userCustomerService;
         this.userMerchantService = userMerchantService;
     }
-
-    @RequestMapping("/firstPage")
-    public String firstPage(){
-        return "firstPage";
-    }
     @RequestMapping(value="/login",method = RequestMethod.POST)
     @ResponseBody
-    public String login(@RequestBody Map<String,Object> map, ModelMap modelMap) throws Exception{
+    public ModelAndView login(Map<String,Object> map, ModelMap modelMap) throws Exception{
+        ModelAndView modelAndView=new ModelAndView();
         String username=(String) map.get("username");
         String password=(String)map.get("password");
         if(map.get("type").equals("customer")){
@@ -45,11 +42,11 @@ public class UserController {
                 modelMap.addAttribute("id",id);
                 modelMap.addAttribute("status",0);
                 modelMap.addAttribute("info","Success to login!");
-                return "success";
             }
-            modelMap.addAttribute("status",1);
-            modelMap.addAttribute("info","Username or password is wrong.");
-            return "error";
+            else{
+                modelMap.addAttribute("status",1);
+                modelMap.addAttribute("info","Username or password is wrong.");
+            }
         }
         else if(map.get("type").equals("merchant")){
             if(userMerchantService.checkPasswordByName(username,password)){
@@ -58,19 +55,23 @@ public class UserController {
                 modelMap.addAttribute("id",id);
                 modelMap.addAttribute("status",0);
                 modelMap.addAttribute("info","Success to login!");
-                return "success";
             }
-            modelMap.addAttribute("status",1);
-            modelMap.addAttribute("info","Username or password is wrong.");
-            return "error";
+            else{
+                modelMap.addAttribute("status",1);
+                modelMap.addAttribute("info","Username or password is wrong.");
+            }
         }
-        modelMap.addAttribute("info","Type is wrong.");
-        modelMap.addAttribute("status",1);
-        return "error";
+        else{
+            modelMap.addAttribute("info","Type is wrong.");
+            modelMap.addAttribute("status",1);
+        }
+        modelAndView.addAllObjects(modelMap);
+        return modelAndView;
     }
     @RequestMapping(value = "register",method = RequestMethod.POST)
     @ResponseBody
-    public String register(@RequestBody Map<String,Object> map,ModelMap modelMap) throws Exception{
+    public ModelAndView register(Map<String,Object> map,ModelMap modelMap) throws Exception{
+        ModelAndView modelAndView=new ModelAndView();
         String username=(String) map.get("username");
         String password=(String) map.get("password");
         String type=(String) map.get("type");
@@ -81,11 +82,11 @@ public class UserController {
                 modelMap.addAttribute("id",id);
                 modelMap.addAttribute("status",0);
                 modelMap.addAttribute("info","Success to register!");
-                return "success";
             }
-            modelMap.addAttribute("status",1);
-            modelMap.addAttribute("info","Cannot register, maybe username has been used.");
-            return "error";
+            else{
+                modelMap.addAttribute("status",1);
+                modelMap.addAttribute("info","Cannot register, maybe username has been used.");
+            }
         }
         else if(type.equals("merchant")){
             String shopName=(String) map.get("shopName");
@@ -94,16 +95,19 @@ public class UserController {
                 UserMerchant userMerchant=userMerchantService.getUserMerchantByName(username);
                 Integer id=userMerchant.getId();
                 modelMap.addAttribute("id",id);
-                modelMap.addAttribute("status",1);
+                modelMap.addAttribute("status",0);
                 modelMap.addAttribute("info","Success to register!");
-                return "success";
             }
-            modelMap.addAttribute("info","Cannot register, maybe username has been used.");
-            modelMap.addAttribute("status",1);
-            return "error";
+            else{
+                modelMap.addAttribute("info","Cannot register, maybe username has been used.");
+                modelMap.addAttribute("status",1);
+            }
         }
-        modelMap.addAttribute("status",1);
-        modelMap.addAttribute("info","Type is wrong.");
-        return "error";
+        else{
+            modelMap.addAttribute("status",1);
+            modelMap.addAttribute("info","Type is wrong.");
+        }
+        modelAndView.addAllObjects(modelMap);
+        return modelAndView;
     }
 }
