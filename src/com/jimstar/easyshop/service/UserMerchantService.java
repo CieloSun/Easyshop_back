@@ -17,7 +17,7 @@ public class UserMerchantService {
         this.userMerchantDao = userMerchantDao;
     }
 
-    public boolean addUserMerchantByNameAndPwd(String name, String password, String shopName, String shopDesc) {
+    public boolean addUserMerchantByInfo(String name, String password, String shopName, String shopDesc) {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         try {
             String pwdDigest = DigestUtil.Md5Encoder(password);

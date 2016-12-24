@@ -58,4 +58,8 @@ public class UserCustomerService {
         }
     }
 
+    public UserCustomer getUserCustomerByName(String name){
+        return userCustomerDao.selectByName(name);
+    }
+
 }

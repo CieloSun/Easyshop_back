@@ -21,13 +21,14 @@ public class ImgController {
     private ImgService imgService;
     @RequestMapping("/add")
     public String add(){
-        return "add";
+        return "addImage";
     }
     @RequestMapping(value = "/edit",method = RequestMethod.POST)
     @ResponseBody
-    public String edit(@RequestBody Blob value){
+    public String edit(@RequestBody Blob value,ModelMap modelMap){
         boolean success=imgService.addAnImageByValue(value);
-        if(success) return "edit";
+        if(success) return "editImage";
+        modelMap.addAttribute("info","Fail to save the image");
         return "error";
     }
 
@@ -36,6 +37,6 @@ public class ImgController {
     public String get(@RequestBody String id, ModelMap modelMap){
         Blob value=imgService.getImgById(id).getValue();
         modelMap.addAttribute("value",value);
-        return "get";
+        return "getImage";
     }
 }
