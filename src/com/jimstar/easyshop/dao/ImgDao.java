@@ -17,20 +17,22 @@ public class ImgDao {
     }
 
     /**
-     * @param img Image Object
-     * @return String id if success, null for failed
+     * @param value raw bytes
+     * @return Img if success, null for failed
      */
-    public String add(Img img) {
+    public Img add(byte[] value) {
         final Session session = getSession();
         try{
+            Img img = new Img();
             session.beginTransaction();
+            img.setValue(value);
             session.save(img);
             session.getTransaction().commit();
             LogUtil.log.debug("Add the img successfully");
-            return img.getId();
+            return img;
         }catch (Exception e){
             session.getTransaction().rollback();
-            LogUtil.log.error("Failed to add " + img.toString(), e);
+            LogUtil.log.error("Failed to add img", e);
             e.printStackTrace();
         } finally {
             session.close();

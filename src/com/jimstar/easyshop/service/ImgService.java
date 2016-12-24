@@ -5,8 +5,6 @@ import com.jimstar.easyshop.entity.Img;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Blob;
-
 
 @Service
 public class ImgService {
@@ -17,10 +15,8 @@ public class ImgService {
         this.imgDao = imgDao;
     }
 
-    public String addAnImageByValue(Blob value) {
-        Img img = new Img();
-        img.setValue(value);
-        return imgDao.add(img);
+    public Img addAnImageByValue(byte[] value) {
+        return imgDao.add(value);
     }
 
     public Img getImgById(String id) {

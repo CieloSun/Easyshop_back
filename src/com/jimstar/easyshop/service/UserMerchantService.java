@@ -70,6 +70,10 @@ public class UserMerchantService {
         return userMerchantDao.selectByName(name);
     }
 
+    public UserMerchant getUserMerchantById(Integer id) {
+        return userMerchantDao.selectById(id);
+    }
+
 }
 
 

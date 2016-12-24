@@ -38,6 +38,6 @@
     <orderEntry type="library" scope="PROVIDED" name="Tomcat 8.0.39" level="application_server_libraries" />
     <orderEntry type="library" exported="" name="commons-io-2.5" level="project" />
     <orderEntry type="library" exported="" name="mysql-connector-java-5.1.40-bin" level="project" />
-    <orderEntry type="library" name="jackson-core-2.8.5" level="project" />
+    <orderEntry type="library" name="jackson" level="project" />
   </component>
 </module>

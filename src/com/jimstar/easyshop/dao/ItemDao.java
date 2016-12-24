@@ -16,14 +16,14 @@ public class ItemDao {
     public ItemDao() {
     }
 
-    public boolean add(Item item){
+    public Item add(Item item) {
         final Session session = getSession();
         try {
             session.beginTransaction();
             session.save(item);
             session.getTransaction().commit();
             LogUtil.log.debug("Add the item successfully");
-            return true;
+            return item;
         } catch (Exception e) {
             session.getTransaction().rollback();
             LogUtil.log.error("Failed to add " + item.toString(), e);
@@ -31,7 +31,7 @@ public class ItemDao {
         } finally {
             session.close();
         }
-        return false;
+        return null;
     }
 
     public boolean update(Item item){
@@ -94,12 +94,19 @@ public class ItemDao {
         return null;
     }
     //模糊查询
-    public List<Item> selectByName(String name){
+    public List<Item> selectByMatchName(String name) {
         try (Session session = getSession()) {
-            String hql="from Item as item where item.name like :name";
+            String hql = "from Item as item where item.name like :name order by item.iid";
             Query query=session.createQuery(hql);
             query.setParameter("name",'%'+name+'%');
-            return query.list();
+            List<Item> result = query.list();
+            for (int i = 1; i < result.size(); i++) {
+                if (result.get(i - 1).getIid().equals(result.get(i).getIid())) {
+                    if (result.get(i - 1).getVer() < result.get(i).getVer())
+                        result.remove(i - 1);
+                }
+            }
+            return result;
         }catch (Exception e){
             System.out.println("Fail to select the item by name");
             e.printStackTrace();

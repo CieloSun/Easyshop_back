@@ -24,7 +24,7 @@ public class ItemService {
         return itemDao;
     }
 
-    public boolean createItemByInf(String name, Float price, Integer count, UserMerchant userMerchant, String description, List<Img> imgs){
+    public Item createItemByInf(String name, Float price, Integer count, UserMerchant userMerchant, String description, List<Img> imgs) {
         Item item=new Item();
         String iid= UUIDGenerator.genShort();
         Integer ver=0;
@@ -67,7 +67,8 @@ public class ItemService {
         item.setUserMerchant(userMerchant);
         item.setDescription(description);
         item.setImgs(imgs);
-        return itemDao.add(item);
+        Item newItem = itemDao.add(item);
+        return (newItem != null);
     }
 
     public boolean deleteByUid(String uid){
@@ -78,4 +79,7 @@ public class ItemService {
         return itemDao.deleteByIid(iid);
     }
 
+    public List<Item> selectByMatchName(String pattern) {
+        return itemDao.selectByMatchName(pattern);
+    }
 }

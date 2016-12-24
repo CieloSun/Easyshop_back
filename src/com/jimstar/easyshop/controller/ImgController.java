@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.portlet.ModelAndView;
 
 import java.io.InputStream;
-import java.sql.Blob;
-import java.sql.SQLException;
 
 @Controller
 @RequestMapping("/Img")
@@ -48,12 +46,8 @@ public class ImgController {
     public ModelAndView get(String id, ModelMap modelMap){
         ModelAndView modelAndView=new ModelAndView();
         System.err.println("ImgID=" + id);
-        Blob value=imgService.getImgById(id).getValue();
-        try {
-            modelMap.addAttribute("valueCRC32", DigestUtil.Crc32Encode(value.getBinaryStream()));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        byte[] value = imgService.getImgById(id).getValue();
+        modelMap.addAttribute("valueCRC32", DigestUtil.Crc32Encode(value));
         modelAndView.addAllObjects(modelMap);
         return modelAndView;
     }
