@@ -123,11 +123,22 @@ public class ItemController {
         return JSONUtil.toJSON(map);
     }
 
+    //获取count与原count进行计算
     @RequestMapping("changeCount")
     @ResponseBody
-    public String changeCount(@RequestBody String jsonStr) throws IOException {
-        Map<String, Object> map = new HashMap<>();
-        map = JSONUtil.parseMap(jsonStr);
-        //TODO
+    public String changeCount(@RequestBody String mapString) throws IOException {
+        Map map = JSONUtil.parseMap(mapString);
+        String itemUid=(String)map.get("itemUid");
+        Integer count=(Integer)map.get("count");
+        Item item=itemService.changeCountByChangeNumber(itemUid,count);
+        if(item!=null){
+            map.put("status",0);
+            map.put("info","Success to changeCount");
+        }
+        else{
+            map.put("status",0);
+            map.put("info","Fail to changeCount");
+        }
+        return JSONUtil.toJSON(map);
     }
 }
