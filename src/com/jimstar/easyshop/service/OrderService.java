@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -31,6 +32,7 @@ public class OrderService {
         order.setMerchant(userMerchant);
         order.setShipAddress(shipAddress);
         order.setStatus(status);
+        order.setOrderItems(new HashSet<>());
         return orderDao.add(order);
     }
     public boolean addOrderItemToOrderById(String id, OrderItem orderItem){

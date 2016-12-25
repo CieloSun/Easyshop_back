@@ -133,6 +133,16 @@ itemUidList:List<String>
 total:Integer
 
 @RequestMapping
+/Item/list
+@RequestBody
+userMerchantName:String
+offset:Integer
+count:Integer
+@ResponseBody
+itemUidList:List<String>
+total:Integer
+
+@RequestMapping
 /Item/get
 @GET
 uid:String
@@ -196,4 +206,7 @@ count:Integer
 userMerchantName:String
 description:String
 imgs:List<Img>//Img{id:String, value:String}
+
+@RequestMapping
+/Img/add
 

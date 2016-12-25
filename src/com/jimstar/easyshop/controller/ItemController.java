@@ -69,7 +69,7 @@ public class ItemController {
         Map<String, Object> map = new HashMap<>();
         try {
             map = JSONUtil.parseMap(request);
-            String pattern = (String) map.get("pattern");
+            String pattern = (String) map.get("userMerchantName");
             Integer offset = (Integer) map.get("offset");
             Integer count = (Integer) map.get("count");
             List<Item> result = itemService.selectByMatchMerchant(pattern);

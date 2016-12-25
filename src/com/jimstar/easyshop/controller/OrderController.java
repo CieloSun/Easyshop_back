@@ -58,6 +58,24 @@ public class OrderController {
         }
         return JSONUtil.toJSON(map);
     }
+
+    @RequestMapping(value = "addItem", method = RequestMethod.POST)
+    @ResponseBody
+    public String addItem(@RequestBody String mapString) throws Exception{
+        Map map=JSONUtil.parseMap(mapString);
+        String orderId=(String) map.get("orderId");
+        String itemUid=(String) map.get("itemUid");
+        Order order=orderService.getOrderById(orderId);
+        Item item=itemService.getByUid(itemUid);
+        map.put("status",1);
+        map.put("info","Wrong to add item.");
+        OrderItem orderItem=orderItemService.createOrderItemByItemAndOrderAndCount(item,order,1);
+        if(orderItem!=null){
+            map.replace("status",0);
+            map.replace("info","Success to add item");
+        }
+        return JSONUtil.toJSON(map);
+    }
     @RequestMapping(value = "changeStatus",method = RequestMethod.POST)
     @ResponseBody
     public String changeStatus(@RequestBody String mapString) throws Exception{
