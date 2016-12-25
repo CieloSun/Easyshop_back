@@ -23,10 +23,13 @@ import static com.jimstar.easyshop.util.HibernateUtil.getSession;
 @Component
 public class Main {
     private static Scanner scanner = new Scanner(System.in);
+    @SuppressWarnings("SpringAutowiredFieldsWarningInspection")
     @Autowired
     ItemService itemService;
+    @SuppressWarnings("SpringAutowiredFieldsWarningInspection")
     @Autowired
     private UserCustomerService userCustomerService;
+    @SuppressWarnings("SpringAutowiredFieldsWarningInspection")
     @Autowired
     private UserMerchantService userMerchantService;
 

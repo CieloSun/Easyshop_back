@@ -5,9 +5,6 @@ import com.jimstar.easyshop.entity.ShipAddress;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-/**
- * Created by 63289 on 2016/12/25.
- */
 @Service
 public class ShipAddressService {
     private final ShipAddressDao shipAddressDao;

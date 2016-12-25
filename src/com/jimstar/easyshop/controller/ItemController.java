@@ -3,13 +3,11 @@ package com.jimstar.easyshop.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.jimstar.easyshop.entity.Img;
 import com.jimstar.easyshop.entity.Item;
-import com.jimstar.easyshop.entity.Order;
 import com.jimstar.easyshop.entity.UserMerchant;
 import com.jimstar.easyshop.service.ImgService;
 import com.jimstar.easyshop.service.ItemService;
 import com.jimstar.easyshop.service.UserMerchantService;
 import com.jimstar.easyshop.util.JSONUtil;
-import org.omg.CORBA.INTERNAL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,7 +16,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 @Controller
@@ -192,7 +193,7 @@ public class ItemController {
     @RequestMapping(value="changeCount",method = RequestMethod.POST)
     @ResponseBody
     public String changeCount(@RequestBody String mapString) throws IOException {
-        Map map = JSONUtil.parseMap(mapString);
+        Map<String, Object> map = JSONUtil.parseMap(mapString);
         String itemUid = (String) map.get("itemUid");
         Integer count = (Integer) map.get("count");
         Item item = itemService.changeCountByChangeNumber(itemUid, count);
@@ -209,14 +210,14 @@ public class ItemController {
     @RequestMapping(value = "edit",method = RequestMethod.POST)
     @ResponseBody
     public String edit(@RequestBody String mapString) throws Exception {
-        Map map = JSONUtil.parseMap(mapString);
+        Map<String, Object> map = JSONUtil.parseMap(mapString);
         String iid = (String) map.get("itemIid");
         String name = (String) map.get("name");
         Float price = (Float) map.get("price");
         Integer count = (Integer) map.get("count");
         String userMerchantName = (String) map.get("userMerchantName");
         String description = (String) map.get("description");
-        Map imgs = (Map<String, Img>) map.get("imgs");
+        Map<String, Img> imgs = (Map<String, Img>) map.get("imgs");
         List<Img> imgList = new ArrayList<Img>();
         for (Object img : imgs.values()) {
             imgList.add((Img) img);
