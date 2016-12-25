@@ -66,9 +66,13 @@ public class OrderController {
     @ResponseBody
     public String changeStatus(@RequestBody String mapString) throws Exception{
         Map map=JSONUtil.parseMap(mapString);
-        String orderId=(String)map.get("orderId");
+        String orderItemId=(String)map.get("orderItemId");
         Integer status=(Integer)map.get("orderStatus");
-        if(orderService.changeStatusById(orderId,status)){
+        OrderItem orderItem=orderItemService.getOrderItemById(orderItemId);
+        if(orderService.changeStatusById(orderItem.getOrder().getId(),status)){
+            if(status==3){
+                itemService.changeCountByChangeNumber(orderItem.getItem().getUid(),orderItem.getCount());
+            }
             map.put("status",0);
             map.put("info","Change order success!");
         }else{
@@ -77,5 +81,4 @@ public class OrderController {
         }
         return JSONUtil.toJSON(map);
     }
-
 }

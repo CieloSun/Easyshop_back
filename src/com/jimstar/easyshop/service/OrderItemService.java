@@ -24,6 +24,10 @@ public class OrderItemService {
         return orderItemDao.add(orderItem);
     }
 
+    public OrderItem getOrderItemById(String id){
+        return orderItemDao.selectById(id);
+    }
+
     public boolean deleteOrderItemById(String id){
         return orderItemDao.deleteById(id);
     }
