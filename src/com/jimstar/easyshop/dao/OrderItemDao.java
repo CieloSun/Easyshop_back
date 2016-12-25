@@ -82,4 +82,17 @@ public class OrderItemDao {
         }
         return false;
     }
+
+    public boolean delete(OrderItem orderItem) {
+        try (Session session = getSession()) {
+            session.beginTransaction();
+            session.delete(orderItem);
+            session.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            System.out.println("Fail to delete orderItem " + orderItem.getId());
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

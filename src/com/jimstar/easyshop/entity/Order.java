@@ -94,7 +94,7 @@ public class Order implements Serializable {
         this.shipAddress = shipAddress;
     }
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     public Set<OrderItem> getOrderItems() {
         return orderItems;
     }
@@ -104,12 +104,12 @@ public class Order implements Serializable {
     }
 
     public static class OrderStatus {
-        public final int UNDETERMINED = 1;
-        public final int GENERATED = 2;
-        public final int PAYED = 3;
-        public final int DISPATCHED = 4;
-        public final int COMPLETED = 5;
-        public final int RETURNING = 6;
-        public final int CANCELLED = 7;
+        public static final int UNDETERMINED = 1;
+        public static final int GENERATED = 2;
+        public static final int PAYED = 3;
+        public static final int DISPATCHED = 4;
+        public static final int COMPLETED = 5;
+        public static final int RETURNING = 6;
+        public static final int CANCELLED = 7;
     }
 }

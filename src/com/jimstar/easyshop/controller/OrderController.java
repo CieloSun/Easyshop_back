@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.*;
 
@@ -33,7 +34,7 @@ public class OrderController {
     }
     @RequestMapping(value="add",method = RequestMethod.POST)
     @ResponseBody
-    public String add(@RequestBody String mapString) throws Exception{
+    public String add(@RequestBody String mapString) throws IOException {
         Map<String, Object> map = JSONUtil.parseMap(mapString);
         String userName=(String) map.get("userName");
         String itemUId = (String) map.get("itemUid");

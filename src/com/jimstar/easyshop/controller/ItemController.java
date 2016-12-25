@@ -171,9 +171,12 @@ public class ItemController {
                 imgList.add(img);
             }
 
-            Item item = itemService.createItemByInf((String) map.get("name"),
-                    ((Double) map.get("price")).floatValue(), (Integer) map.get("count"), userMerchant,
-                    (String) map.get("description"), imgList);
+            Item item = itemService.createItemByInf(
+                    (String) map.get("name"),
+                    ((Double) map.get("price")).floatValue(),
+                    (Integer) map.get("count"), userMerchant,
+                    (String) map.get("description"),
+                    imgList);
             if (item != null) {
                 map.put("status", 0);
                 map.put("itemUid", item.getUid());
@@ -229,7 +232,7 @@ public class ItemController {
         String userMerchantName = (String) map.get("userMerchantName");
         String description = (String) map.get("description");
         Map<String, Img> imgs = (Map<String, Img>) map.get("imgs");
-        List<Img> imgList = new ArrayList<Img>();
+        List<Img> imgList = new ArrayList<>();
         for (Object img : imgs.values()) {
             imgList.add((Img) img);
         }

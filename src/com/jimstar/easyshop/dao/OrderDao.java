@@ -53,11 +53,7 @@ public class OrderDao {
 
     public Order selectById(String id){
         try (Session session = getSession()) {
-            String hql = "from Order as order where order.id=:id";
-            Query query = session.createQuery(hql);
-            query.setParameter("id", id);
-            List list = query.list();
-            return (Order) list.get(0);
+            return session.get(Order.class, id);
         } catch (Exception e) {
             System.out.println("Fail to select the order by id");
             e.printStackTrace();
@@ -66,22 +62,27 @@ public class OrderDao {
     }
 
     public boolean deleteById(String id){
-        final Session session = getSession();
-        try{
+        try (Session session = getSession()) {
+            Order order = session.get(Order.class, id);
+            return delete(order);
+        } catch (Exception e) {
+            System.out.println("Fail to delete order " + id);
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean delete(Order order) {
+        try (Session session = getSession()) {
             session.beginTransaction();
-            String hql="delete from Order as order where order.id=:id";
-            Query query=session.createQuery(hql);
-            query.setParameter("id",id);
+            session.delete(order);
             session.getTransaction().commit();
             return true;
         }catch (Exception e){
-            session.getTransaction().rollback();
-            System.out.println("Fail to delete the order by id");
+            System.out.println("Fail to delete order " + order.getId());
             e.printStackTrace();
-        } finally {
-            session.close();
+            return false;
         }
-        return false;
     }
 
     public List<Order> selectByCustomer(UserCustomer userCustomer) {

@@ -36,7 +36,7 @@ public class Main {
     public static void main(final String[] args) throws Exception {
         Main obj = new Main();
         InitUtil();
-        obj.TestMain();
+        //obj.TestMain();
     }
 
     public static void InitUtil() {

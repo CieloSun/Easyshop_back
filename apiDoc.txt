@@ -221,10 +221,9 @@ count:Integer
 /Item/edit
 @RequestBody
 itemIid:String
-name:String
-price:Float
-count:Integer
-userMerchantName:String
+[name:String]
+[price:Float]
+[count:Integer]
 description:String
 imgs:List<Img>//Img{id:String, value:String}
 
