@@ -61,8 +61,8 @@ public class UserMerchantService {
 
     public boolean changeShopByName(String name,String shopName, String shopDesc) {
         UserMerchant userMerchant = userMerchantDao.selectByName(name);
-        userMerchant.setShopName(shopName);
-        userMerchant.setShopDesc(shopDesc);
+        if (shopName != null) userMerchant.setShopName(shopName);
+        if (shopDesc != null) userMerchant.setShopDesc(shopDesc);
         return userMerchantDao.update(userMerchant);
     }
 

@@ -122,4 +122,12 @@ public class ItemController {
         }
         return JSONUtil.toJSON(map);
     }
+
+    @RequestMapping("changeCount")
+    @ResponseBody
+    public String changeCount(@RequestBody String jsonStr) throws IOException {
+        Map<String, Object> map = new HashMap<>();
+        map = JSONUtil.parseMap(jsonStr);
+        //TODO
+    }
 }

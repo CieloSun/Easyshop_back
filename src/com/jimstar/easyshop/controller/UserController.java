@@ -15,7 +15,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/User")
-@SessionAttributes({"username", "type", "userId"})
+@SessionAttributes({"userName", "type", "userId"})
 public class UserController {
     private final UserCustomerService userCustomerService;
     private final UserMerchantService userMerchantService;
@@ -30,7 +30,7 @@ public class UserController {
     @ResponseBody
     public String login(@RequestBody String mapString) throws Exception{
         Map<String, Object> map = JSONUtil.parseMap(mapString);
-        String username=(String) map.get("username");
+        String username = (String) map.get("userName");
         String password=(String)map.get("password");
         if(map.get("type").equals("customer")){
             if(userCustomerService.checkPasswordByName(username,password)){
@@ -68,7 +68,7 @@ public class UserController {
     @ResponseBody
     public String register(@RequestBody String mapString) throws Exception {
         Map<String, Object> map = JSONUtil.parseMap(mapString);
-        String username=(String) map.get("username");
+        String username = (String) map.get("userName");
         String password=(String) map.get("password");
         String type=(String) map.get("type");
         switch (type) {
@@ -76,7 +76,6 @@ public class UserController {
                 if (userCustomerService.addUserCustomerByNameAndPwd(username, password)) {
                     UserCustomer userCustomer = userCustomerService.getUserCustomerByName(username);
                     String userName = userCustomer.getName();
-                    map.put("userName", userName);
                     map.put("status", 0);
                     map.put("info", "Success to register!");
                 } else {
@@ -89,8 +88,8 @@ public class UserController {
                 String shopDescription = (String) map.get("shopDescription");
                 if (userMerchantService.addUserMerchantByInfo(username, password, shopName, shopDescription)) {
                     UserMerchant userMerchant = userMerchantService.getUserMerchantByName(username);
-                    String userName = userMerchant.getName();
-                    map.put("userName", userName);
+                    Integer userId = userMerchant.getId();
+                    map.put("userId", userId);
                     map.put("status", 0);
                     map.put("info", "Success to register!");
                 } else {
@@ -105,11 +104,12 @@ public class UserController {
         }
         return JSONUtil.toJSON(map);
     }
+
     @RequestMapping(value = "/changePwd",method = RequestMethod.POST)
     @ResponseBody
     public String changePwd(@RequestBody String mapString) throws Exception{
         Map<String, Object> map = JSONUtil.parseMap(mapString);
-        String username=(String)map.get("username");
+        String username = (String) map.get("userName");
         String originalPassword=(String)map.get("originalPassword");
         String password=(String)map.get("password");
         String type=(String)map.get("type");
@@ -210,7 +210,7 @@ public class UserController {
     @RequestMapping("setSession")
     @ResponseBody
     public String setSession(String username, String type, String userId, ModelMap modelMap) throws JsonProcessingException {
-        modelMap.addAttribute("username", username);
+        modelMap.addAttribute("userName", username);
         modelMap.addAttribute("type", type);
         modelMap.addAttribute("userId", userId);
         return modelMap.toString();

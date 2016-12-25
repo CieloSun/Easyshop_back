@@ -44,14 +44,18 @@ public class ItemService {
         return itemDao.selectByUid(uid);
     }
 
-    public boolean changeCountByChangeNumber(String uid, Integer changeNumber){
+    public Item changeCountByChangeNumber(String uid, Integer changeNumber) {
         Item item=itemDao.selectByUid(uid);
         Integer newCount=item.getCount()+changeNumber;
-        if(newCount>=0){
+        if (newCount < 0)
+            return null;
+        else {
             item.setCount(newCount);
-            return itemDao.update(item);
+            if (itemDao.update(item))
+                return item;
+            else
+                return null;
         }
-        return false;
     }
 
     public boolean updatedByIid(String iid,String name, Float price, Integer count, UserMerchant userMerchant, String description, List<Img> imgs) {
