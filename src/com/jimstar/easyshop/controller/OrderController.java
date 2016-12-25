@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -31,8 +32,7 @@ public class OrderController {
         this.shipAddressService=shipAddressService;
         this.userCustomerService=userCustomerService;
     }
-
-    @RequestMapping("add")
+    @RequestMapping(value="add",method = RequestMethod.POST)
     @ResponseBody
     public String add(@RequestBody String mapString) throws Exception{
         Map<String, Object> map = JSONUtil.parseMap(mapString);
@@ -60,7 +60,7 @@ public class OrderController {
         }
         return JSONUtil.toJSON(map);
     }
-    @RequestMapping("changeStatus")
+    @RequestMapping(value = "changeStatus",method = RequestMethod.POST)
     @ResponseBody
     public String changeStatus(@RequestBody String mapString) throws Exception{
         Map<String, Object> map = JSONUtil.parseMap(mapString);
@@ -118,11 +118,18 @@ public class OrderController {
         }
         return JSONUtil.toJSON(map);
     }
-
     @RequestMapping("get")
     @ResponseBody
-    public String get(){
-        //TODO
-        return null;
+    public String get(String orderId) throws Exception{
+        Map<String, Object> map = new HashMap<>();
+        Order order=orderService.getOrderById(orderId);
+        if (order == null) {
+            map.put("status", 1);
+            map.put("error", "No such order");
+        } else {
+            map.put("status", 0);
+            map.put("order", order);
+        }
+        return JSONUtil.toJSON(map);
     }
 }

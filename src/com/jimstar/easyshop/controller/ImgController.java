@@ -30,7 +30,7 @@ public class ImgController {
         this.imgService = imgService;
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @RequestMapping(value = "add", method = RequestMethod.POST)
     @ResponseBody
     public String add(@RequestBody String mapString) throws Exception {
         Map map=JSONUtil.parseMap(mapString);
@@ -49,7 +49,7 @@ public class ImgController {
         return JSONUtil.toJSON(map);
     }
 
-    @RequestMapping(value = "/get")
+    @RequestMapping(value = "get", method = RequestMethod.POST)
     @ResponseBody
     public String get(@RequestBody String mapString) throws Exception {
         Map map=JSONUtil.parseMap(mapString);

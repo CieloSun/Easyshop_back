@@ -35,7 +35,7 @@ public class ItemController {
         this.imgService = imgService;
     }
 
-    @RequestMapping("list")
+    @RequestMapping(value="list",method = RequestMethod.POST)
     @ResponseBody
     public String list(@RequestBody String request) throws JsonProcessingException {
         Map<String, Object> map = new HashMap<>();
@@ -100,7 +100,7 @@ public class ItemController {
         return get(uid);
     }
 
-    @RequestMapping("add")
+    @RequestMapping(value="add",method = RequestMethod.POST)
     @ResponseBody
     public String add(@RequestBody String request) throws JsonProcessingException {
         Map<String, Object> map = new HashMap<>();
@@ -138,7 +138,7 @@ public class ItemController {
     }
 
     //获取count与原count进行计算
-    @RequestMapping("changeCount")
+    @RequestMapping(value="changeCount",method = RequestMethod.POST)
     @ResponseBody
     public String changeCount(@RequestBody String mapString) throws IOException {
         Map map = JSONUtil.parseMap(mapString);
@@ -155,10 +155,7 @@ public class ItemController {
         return JSONUtil.toJSON(map);
     }
 
-    /*
-    String iid, String name, Float price, Integer count, UserMerchant userMerchant, String description, List<Img> imgs
-    */
-    @RequestMapping("edit")
+    @RequestMapping(value = "edit",method = RequestMethod.POST)
     @ResponseBody
     public String edit(@RequestBody String mapString) throws Exception {
         Map map = JSONUtil.parseMap(mapString);

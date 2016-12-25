@@ -26,7 +26,7 @@ public class UserController {
         this.userMerchantService = userMerchantService;
     }
 
-    @RequestMapping(value="/login",method = RequestMethod.POST)
+    @RequestMapping(value="login",method = RequestMethod.POST)
     @ResponseBody
     public String login(@RequestBody String mapString) throws Exception{
         Map<String, Object> map = JSONUtil.parseMap(mapString);
@@ -105,7 +105,7 @@ public class UserController {
         return JSONUtil.toJSON(map);
     }
 
-    @RequestMapping(value = "/changePwd",method = RequestMethod.POST)
+    @RequestMapping(value = "changePwd",method = RequestMethod.POST)
     @ResponseBody
     public String changePwd(@RequestBody String mapString) throws Exception{
         Map<String, Object> map = JSONUtil.parseMap(mapString);
@@ -154,7 +154,7 @@ public class UserController {
         }
         return JSONUtil.toJSON(map);
     }
-    @RequestMapping("/changeShop")
+    @RequestMapping(value = "changeShop",method = RequestMethod.POST)
     @ResponseBody
     public String changeShop(@RequestBody String mapString) throws Exception{
         Map<String, Object> map = JSONUtil.parseMap(mapString);
@@ -179,7 +179,7 @@ public class UserController {
         return JSONUtil.toJSON(map);
     }
 
-    @RequestMapping("/showInfo")
+    @RequestMapping(value = "showInfo",method = RequestMethod.POST)
     @ResponseBody
     public String showInfo(@RequestBody String mapString) throws Exception{
         Map<String, Object> map = JSONUtil.parseMap(mapString);
