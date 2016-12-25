@@ -1,0 +1,26 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" build-on-make="true" name="EasyShop:Web exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/EasyShop_Web_exploded</output-path>
+    <properties id="ant-postprocessing">
+      <options enabled="true" />
+    </properties>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="EasyShop/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="EasyShop" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Hibernate 5.2.3-5.2.3" />
+          <element id="library" level="project" name="Spring-4.3.4.RELEASE" />
+          <element id="library" level="project" name="Spring MVC-4.3.4.RELEASE" />
+          <element id="file-copy" path="$PROJECT_DIR$/lib/jackson-databind-2.8.5.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/lib/jackson-core-2.8.5.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/lib/jackson-annotations-2.8.0.jar" />
+          <element id="library" level="project" name="Commons IO" />
+          <element id="library" level="project" name="MySQL Connector" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

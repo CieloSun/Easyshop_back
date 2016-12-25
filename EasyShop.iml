@@ -36,32 +36,8 @@
     <orderEntry type="library" exported="" name="Spring-4.3.4.RELEASE" level="project" />
     <orderEntry type="library" exported="" name="Spring MVC-4.3.4.RELEASE" level="project" />
     <orderEntry type="library" exported="" scope="PROVIDED" name="Tomcat 8.0.39" level="application_server_libraries" />
-    <orderEntry type="module-library" exported="">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/jackson-databind-2.8.5.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/jackson-core-2.8.5.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/jackson-annotations-2.8.0.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
+    <orderEntry type="library" exported="" name="Commons IO" level="project" />
+    <orderEntry type="library" exported="" name="MySQL Connector" level="project" />
+    <orderEntry type="library" exported="" name="Jackson" level="project" />
   </component>
 </module>
