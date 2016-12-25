@@ -1,0 +1,66 @@
+General:
+[] is optional key
+if state=1 , response may be null
+All response in JSON includes original request and general key:
+state:int:0/1/2	//0 for success
+[error:string]
+[info:string]
+
+
+@RequestMapping
+/User/login
+@RequestBody
+userName:string
+password:string
+type:string:merchant/customer
+@ResponseBody
+userId:int
+
+
+@RequestMapping
+/User/register
+@RequestBody
+userName:string
+password:string
+type:string:merchant/customer
+//Only for merchant
+[shopName:string]
+[shopDescription:string]
+@ResponseBody
+userId:int
+
+
+@RequestMapping
+/User/changePwd
+@RequestBody
+userName:string
+password:string
+originalPassword:string
+type:string:merchant/customer
+@ResponseBody
+userId:int
+verify:int:0/1	//0 for current original password, 1 for wrong original password
+
+@RequestMapping
+/User/changeShop
+//Only for merchant
+@RequestBody
+userName:string
+type:string:merchant
+[shopName:string]
+[shopDescription:string]
+@ResponseBody
+userId:int
+
+
+@RequestMapping
+/User/showInfo
+//Only for merchant
+@RequestBody
+userName:string
+type:string:merchant
+@ResponseBody
+userId:int
+regTime:timestamp
+shopName:string
+shopDescription:string
