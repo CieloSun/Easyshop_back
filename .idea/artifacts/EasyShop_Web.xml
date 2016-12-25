@@ -3,6 +3,11 @@
     <output-path>$PROJECT_DIR$/out/artifacts/EasyShop_Web</output-path>
     <root id="archive" name="EasyShop_Web.war">
       <element id="artifact" artifact-name="EasyShop:Web exploded" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="mysql-connector-java-5.1.40-bin" />
+        </element>
+      </element>
     </root>
   </artifact>
 </component>

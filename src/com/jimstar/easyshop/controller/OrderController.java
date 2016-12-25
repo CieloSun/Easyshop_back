@@ -51,11 +51,9 @@ public class OrderController {
         if(order!=null){
             OrderItem orderItem=orderItemService.createOrderItemByItemAndOrderAndCount(item,order,count);
             if(orderItem!=null){
-                if(orderService.addOrderItemToOrderById(order.getId(),orderItem)){
-                    map.replace("status",0);
-                    map.replace("info","Success to add the order");
-                    map.put("orderId",order.getId());
-                }
+                map.replace("status",0);
+                map.replace("info","Success to add the order");
+                map.put("orderId",order.getId());
             }
         }
         return JSONUtil.toJSON(map);
