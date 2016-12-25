@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.sql.Timestamp;
 import java.util.*;
 
 @Controller
@@ -84,7 +85,7 @@ public class OrderController {
         Integer status=(Integer)map.get("orderStatus");
         Order order = orderService.getOrderById(orderId);
         Set<OrderItem> orderItems = order.getOrderItems();
-
+        order.setAlterTime(new Timestamp(System.currentTimeMillis()));
         if (orderService.changeStatusById(order.getId(), status)) {
             if(status==3){
                 for (OrderItem orderItem : orderItems) {
