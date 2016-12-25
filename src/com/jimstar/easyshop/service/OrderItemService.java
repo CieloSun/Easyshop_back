@@ -16,12 +16,16 @@ public class OrderItemService {
         this.orderItemDao = orderItemDao;
     }
 
-    public boolean createOrderItemByItemAndOrderAndCount(Item item, Order order, Integer count){
+    public OrderItem createOrderItemByItemAndOrderAndCount(Item item, Order order, Integer count){
         OrderItem orderItem=new OrderItem();
         orderItem.setItem(item);
         orderItem.setOrder(order);
         orderItem.setCount(count);
         return orderItemDao.add(orderItem);
+    }
+
+    public OrderItem getOrderItemById(String id){
+        return orderItemDao.selectById(id);
     }
 
     public boolean deleteOrderItemById(String id){

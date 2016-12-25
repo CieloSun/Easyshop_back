@@ -18,7 +18,7 @@ public class OrderService {
         this.orderDao = orderDao;
     }
 
-    public boolean createOrderInCart(UserCustomer userCustomer, UserMerchant userMerchant, ShipAddress shipAddress){
+    public Order createOrderInCart(UserCustomer userCustomer, UserMerchant userMerchant, ShipAddress shipAddress){
         Timestamp timestamp=new Timestamp(System.currentTimeMillis());
         Integer status=1;
         Order order=new Order();
@@ -42,5 +42,7 @@ public class OrderService {
         order.setStatus(status);
         return orderDao.update(order);
     }
-
+    public Order getOrderById(String id){
+        return orderDao.selectById(id);
+    }
 }

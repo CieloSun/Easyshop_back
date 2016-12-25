@@ -32,32 +32,32 @@ public class ImgController {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
-    public String add(@RequestBody String mapString, ModelMap modelMap) throws Exception {
+    public String add(@RequestBody String mapString) throws Exception {
         Map map=JSONUtil.parseMap(mapString);
         String value=(String) map.get("value");
         Img img=imgService.addAnImageByValue(value);
         String id=img.getId();
         if (id != null) {
-            modelMap.addAttribute("status",0);
-            modelMap.addAttribute("info","Success to save the image");
-            modelMap.addAttribute("id", id);
+            map.put("status",0);
+            map.put("info","Success to save the image");
+            map.put("id", id);
         }
         else{
-            modelMap.addAttribute("status",1);
-            modelMap.addAttribute("info","Fail to save the image");
+            map.put("status",1);
+            map.put("info","Fail to save the image");
         }
-        return JSONUtil.toJSON(modelMap);
+        return JSONUtil.toJSON(map);
     }
 
     @RequestMapping(value = "/get")
     @ResponseBody
-    public String get(@RequestBody String mapString, ModelMap modelMap) throws Exception {
+    public String get(@RequestBody String mapString) throws Exception {
         Map map=JSONUtil.parseMap(mapString);
         String id=(String) map.get("id");
         System.err.println("ImgID=" + id);
         String value = imgService.getImgById(id).getValue();
-        modelMap.addAttribute("value", value);
-        return JSONUtil.toJSON(modelMap);
+        map.put("value", value);
+        return JSONUtil.toJSON(map);
     }
 
 }

@@ -14,14 +14,14 @@ public class OrderItemDao {
     public OrderItemDao() {
     }
 
-    public boolean add(OrderItem orderItem){
+    public OrderItem add(OrderItem orderItem){
         final Session session = getSession();
         try{
             session.beginTransaction();
             session.save(orderItem);
             session.getTransaction().commit();
             System.out.println("Add the orderItem successfully");
-            return true;
+            return orderItem;
         }catch (Exception e){
             session.getTransaction().rollback();
             System.out.println("Fail to add orderItem");
@@ -29,7 +29,7 @@ public class OrderItemDao {
         } finally {
             session.close();
         }
-        return false;
+        return null;
     }
 
     public boolean update(OrderItem orderItem){
