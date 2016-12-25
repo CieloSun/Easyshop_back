@@ -20,7 +20,7 @@ public class OrderItem {
     @Id
     @GenericGenerator(name = "UUIDgen", strategy = "uuid")
     @GeneratedValue(generator = "UUIDgen")
-    private String getId() {
+    public String getId() {
         return id;
     }
 
