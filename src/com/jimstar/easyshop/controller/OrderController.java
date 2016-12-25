@@ -63,7 +63,7 @@ public class OrderController {
     @RequestMapping(value = "addItem", method = RequestMethod.POST)
     @ResponseBody
     public String addItem(@RequestBody String mapString) throws Exception{
-        Map map=JSONUtil.parseMap(mapString);
+        Map<String, Object> map = JSONUtil.parseMap(mapString);
         String orderId=(String) map.get("orderId");
         String itemUid=(String) map.get("itemUid");
         Order order=orderService.getOrderById(orderId);
@@ -103,13 +103,13 @@ public class OrderController {
     @RequestMapping(value="changeCount", method = RequestMethod.POST)
     @ResponseBody
     public String changeCount(@RequestBody String mapString) throws Exception{
-        Map map=JSONUtil.parseMap(mapString);
+        Map<String, Object> map = JSONUtil.parseMap(mapString);
         String orderId=(String)map.get("orderId");
         Integer count=(Integer) map.get("count");
         String itemUid=(String)map.get("itemUid");
         Order order=orderService.getOrderById(orderId);
         for(OrderItem orderItem:order.getOrderItems()){
-            if(orderItem.getItem().getUid()==itemUid){
+            if (orderItem.getItem().getUid().equals(itemUid)) {
                 if(count==0){
                     if(orderItemService.deleteOrderItemById(orderItem.getId())){
                         map.put("status",0);
