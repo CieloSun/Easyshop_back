@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -128,6 +129,21 @@ public class OrderController {
         } else {
             map.put("status", 0);
             map.put("order", order);
+        }
+        return JSONUtil.toJSON(map);
+    }
+
+    @RequestMapping("getByUser")
+    @ResponseBody
+    public String getByUser(String userName) throws Exception{
+        Map<String,Object> map=new HashMap<>();
+        List<Order> orders=orderService.getOrdersByCustomer(userName);
+        if (orders == null) {
+            map.put("status", 1);
+            map.put("error", "No such order");
+        } else {
+            map.put("status", 0);
+            map.put("orders",orders);
         }
         return JSONUtil.toJSON(map);
     }

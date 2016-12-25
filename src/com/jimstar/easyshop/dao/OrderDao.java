@@ -1,6 +1,7 @@
 package com.jimstar.easyshop.dao;
 
 import com.jimstar.easyshop.entity.Order;
+import com.jimstar.easyshop.entity.UserCustomer;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
@@ -81,5 +82,18 @@ public class OrderDao {
             session.close();
         }
         return false;
+    }
+
+    public List<Order> selectByCustomer(UserCustomer userCustomer) {
+        try (Session session = getSession()) {
+            String hql = "from Order as order where order.customer=:userCustomer";
+            Query query = session.createQuery(hql);
+            query.setParameter("userCustomer", userCustomer);
+            return query.list();
+        } catch (Exception e) {
+            System.out.println("Fail to select the order by customer");
+            e.printStackTrace();
+        }
+        return null;
     }
 }

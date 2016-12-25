@@ -1,20 +1,24 @@
 package com.jimstar.easyshop.service;
 
 import com.jimstar.easyshop.dao.OrderDao;
+import com.jimstar.easyshop.dao.UserCustomerDao;
 import com.jimstar.easyshop.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Set;
 
 @Service
 public class OrderService {
     private final OrderDao orderDao;
+    private final UserCustomerDao userCustomerDao;
 
     @Autowired
-    public OrderService(OrderDao orderDao) {
+    public OrderService(OrderDao orderDao, UserCustomerDao userCustomerDao) {
         this.orderDao = orderDao;
+        this.userCustomerDao=userCustomerDao;
     }
 
     public Order createOrderInCart(UserCustomer userCustomer, UserMerchant userMerchant, ShipAddress shipAddress){
@@ -43,5 +47,9 @@ public class OrderService {
     }
     public Order getOrderById(String id){
         return orderDao.selectById(id);
+    }
+    public List<Order> getOrdersByCustomer(String userCustomerName){
+        UserCustomer userCustomer=userCustomerDao.selectByName(userCustomerName);
+        return orderDao.selectByCustomer(userCustomer);
     }
 }
