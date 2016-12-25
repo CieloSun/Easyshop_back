@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by 63289 on 2016/12/25.
@@ -39,7 +40,7 @@ public class OrderController {
     public String add(@RequestBody String mapString) throws Exception{
         Map map= JSONUtil.parseMap(mapString);
         String userName=(String) map.get("userName");
-        String itemUId=(String)map.get("itemUId");
+        String itemUId=(String)map.get("itemUid");
         String address=(String)map.get("address");
         String phone=(String)map.get("phone");
         String shipName=(String)map.get("shipName");
@@ -66,12 +67,16 @@ public class OrderController {
     @ResponseBody
     public String changeStatus(@RequestBody String mapString) throws Exception{
         Map map=JSONUtil.parseMap(mapString);
-        String orderItemId=(String)map.get("orderItemId");
+        String orderId=(String)map.get("orderId");
         Integer status=(Integer)map.get("orderStatus");
-        OrderItem orderItem=orderItemService.getOrderItemById(orderItemId);
-        if(orderService.changeStatusById(orderItem.getOrder().getId(),status)){
+        Order order=orderService.getOrderById(orderId);
+        Set<OrderItem> orderItems=order.getOrderItems();
+
+        if(orderService.changeStatusById(order.getId(),status)){
             if(status==3){
-                itemService.changeCountByChangeNumber(orderItem.getItem().getUid(),orderItem.getCount());
+                for(OrderItem orderItem:orderItems){
+                    itemService.changeCountByChangeNumber(orderItem.getItem().getUid(),orderItem.getCount());
+                }
             }
             map.put("status",0);
             map.put("info","Change order success!");

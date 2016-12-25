@@ -32,7 +32,7 @@ public class OrderService {
     }
     public boolean addOrderItemToOrderById(String id, OrderItem orderItem){
         Order order=orderDao.selectById(id);
-        Set<OrderItem> orderItems=new HashSet<>();
+        Set<OrderItem> orderItems=order.getOrderItems();
         orderItems.add(orderItem);
         order.setOrderItems(orderItems);
         return orderDao.update(order);
