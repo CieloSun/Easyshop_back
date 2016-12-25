@@ -103,7 +103,7 @@ public class Item implements Serializable, Comparable<Item> {
     }
 
     @Lob
-    @Basic(fetch = FetchType.LAZY)
+    //@Basic(fetch = FetchType.LAZY)
     public String getDescription() {
         return description;
     }
@@ -112,7 +112,7 @@ public class Item implements Serializable, Comparable<Item> {
         this.description = description;
     }
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     public List<Img> getImgs() {
         return imgs;
     }

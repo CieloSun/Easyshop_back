@@ -52,9 +52,13 @@ public class ItemDao {
         return false;
     }
 
+    /**
+     * @param iid iid of item
+     * @return list of item ordered by ver, latest at first
+     */
     public List<Item> selectByIid(String iid){
         try (Session session = getSession()) {
-            String hql = "from Item as item where item.iid=:iid";
+            String hql = "from Item as item where item.iid=:iid order by item.ver desc";
             Query query = session.createQuery(hql);
             query.setParameter("iid", iid);
             return query.list();
@@ -82,11 +86,11 @@ public class ItemDao {
 
     public Item selectByUid(String uid){
         try (Session session = getSession()) {
-            String hql = "from Item as item where item.uid=:uid";
+            /*String hql = "from Item as item where item.uid=:uid";
             Query query = session.createQuery(hql);
             query.setParameter("uid", uid);
-            List list = query.list();
-            return (Item) list.get(0);
+            List list = query.list();*/
+            return session.get(Item.class, uid);
         } catch (Exception e) {
             System.out.println("Fail to select the item by uid");
             e.printStackTrace();

@@ -36,8 +36,6 @@
     <orderEntry type="library" exported="" name="Spring-4.3.4.RELEASE" level="project" />
     <orderEntry type="library" exported="" name="Spring MVC-4.3.4.RELEASE" level="project" />
     <orderEntry type="library" exported="" scope="PROVIDED" name="Tomcat 8.0.39" level="application_server_libraries" />
-    <orderEntry type="library" exported="" name="JPA 2.1-JPA 2.1" level="project" />
-    <orderEntry type="library" exported="" name="jackson-core-2.8.5" level="project" />
-    <orderEntry type="library" exported="" name="jackson-databind-2.8.5" level="project" />
+    <orderEntry type="library" exported="" name="jackson" level="project" />
   </component>
 </module>

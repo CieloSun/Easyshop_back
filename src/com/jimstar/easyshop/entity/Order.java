@@ -94,7 +94,7 @@ public class Order implements Serializable {
         this.shipAddress = shipAddress;
     }
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     public Set<OrderItem> getOrderItems() {
         return orderItems;
     }
