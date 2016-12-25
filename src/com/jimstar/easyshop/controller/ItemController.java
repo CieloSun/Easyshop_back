@@ -63,6 +63,34 @@ public class ItemController {
         return JSONUtil.toJSON(map);
     }
 
+    @RequestMapping(value="listByMerchant",method = RequestMethod.POST)
+    @ResponseBody
+    public String listByMerchant(@RequestBody String request) throws JsonProcessingException {
+        Map<String, Object> map = new HashMap<>();
+        try {
+            map = JSONUtil.parseMap(request);
+            String pattern = (String) map.get("pattern");
+            Integer offset = (Integer) map.get("offset");
+            Integer count = (Integer) map.get("count");
+            List<Item> result = itemService.selectByMatchMerchant(pattern);
+            List<String> idList = new ArrayList<>();
+            if (offset > result.size()) {
+                throw new Exception("Invalid offset");
+            }
+            Integer maxItemNo = Integer.min(offset + count, result.size());
+            for (int i = offset; i < maxItemNo; i++) {
+                idList.add(result.get(i).getUid());
+            }
+            map.put("itemUidList", idList);
+            map.put("total", result.size());
+            map.put("status", 0);
+        } catch (Exception e) {
+            map.put("error", e.getMessage());
+            map.put("status", 1);
+        }
+        return JSONUtil.toJSON(map);
+    }
+
     @RequestMapping(value = "get", method = RequestMethod.GET)
     @ResponseBody
     public String get(String uid) throws JsonProcessingException {

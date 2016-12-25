@@ -1,6 +1,7 @@
 package com.jimstar.easyshop.dao;
 
 import com.jimstar.easyshop.entity.Item;
+import com.jimstar.easyshop.entity.UserMerchant;
 import com.jimstar.easyshop.util.LogUtil;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -113,6 +114,26 @@ public class ItemDao {
             return result;
         }catch (Exception e){
             System.out.println("Fail to select the item by name");
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<Item> selectByMatchMerchant(UserMerchant userMerchant) {
+        try (Session session = getSession()) {
+            String hql = "from Item as item where item.userMerchant.name like :userMerchantName order by item.iid";
+            Query query=session.createQuery(hql);
+            query.setParameter("userMerchantName",'%'+userMerchant.getName()+'%');
+            List<Item> result = query.list();
+            for (int i = 1; i < result.size(); i++) {
+                if (result.get(i - 1).getIid().equals(result.get(i).getIid())) {
+                    if (result.get(i - 1).getVer() < result.get(i).getVer())
+                        result.remove(i - 1);
+                }
+            }
+            return result;
+        }catch (Exception e){
+            System.out.println("Fail to select the item by merchant");
             e.printStackTrace();
         }
         return null;

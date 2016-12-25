@@ -1,6 +1,7 @@
 package com.jimstar.easyshop.service;
 
 import com.jimstar.easyshop.dao.ItemDao;
+import com.jimstar.easyshop.dao.UserMerchantDao;
 import com.jimstar.easyshop.entity.Img;
 import com.jimstar.easyshop.entity.Item;
 import com.jimstar.easyshop.entity.UserMerchant;
@@ -14,10 +15,12 @@ import java.util.List;
 @Service
 public class ItemService {
     private final ItemDao itemDao;
+    private final UserMerchantDao userMerchantDao;
 
     @Autowired
-    public ItemService(ItemDao itemDao) {
+    public ItemService(ItemDao itemDao, UserMerchantDao userMerchantDao) {
         this.itemDao = itemDao;
+        this.userMerchantDao=userMerchantDao;
     }
 
     public ItemDao getItemDao() {
@@ -102,5 +105,10 @@ public class ItemService {
 
     public List<Item> selectByMatchName(String pattern) {
         return itemDao.selectByMatchName(pattern);
+    }
+
+    public List<Item> selectByMatchMerchant(String merchantName){
+        UserMerchant userMerchant=userMerchantDao.selectByName(merchantName);
+        return itemDao.selectByMatchMerchant(userMerchant);
     }
 }

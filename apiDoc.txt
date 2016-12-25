@@ -180,7 +180,7 @@ description:String
 @ResponseBody
 
 @RequestMapping
-/Item/changeCount
+/Item/changeCount //changeCount is delta value, can be positive or negetive
 @RequestBody
 itemUid:String
 count:Integer
