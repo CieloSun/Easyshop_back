@@ -16,7 +16,7 @@ public class OrderItemService {
         this.orderItemDao = orderItemDao;
     }
 
-    public boolean createOrderItemByItemAndOrderAndCount(Item item, Order order, Integer count){
+    public OrderItem createOrderItemByItemAndOrderAndCount(Item item, Order order, Integer count){
         OrderItem orderItem=new OrderItem();
         orderItem.setItem(item);
         orderItem.setOrder(order);

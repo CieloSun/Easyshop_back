@@ -11,39 +11,11 @@ public class ShipAddressDao {
     public ShipAddressDao() {
     }
 
-    public boolean add(ShipAddress shipAddress){
-        final Session session = getSession();
-        try{
-            session.beginTransaction();
-            session.save(shipAddress);
-            session.getTransaction().commit();
-            System.out.println("Add the shipAddress successfully");
-            return true;
-        }catch (Exception e){
-            session.getTransaction().rollback();
-            System.out.println("Fail to add shipAddress");
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
-        return false;
-    }
-
-    public boolean update(ShipAddress shipAddress){
-        final Session session = getSession();
-        try{
-            session.beginTransaction();
-            session.update(shipAddress);
-            session.getTransaction().commit();
-            System.out.println("Update the shipAddress successfully");
-            return true;
-        }catch (Exception e){
-            session.getTransaction().rollback();
-            System.out.println("Fail to add shipAddress");
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
-        return false;
+    public ShipAddress add(String name,String address, String phone){
+        ShipAddress shipAddress=new ShipAddress();
+        shipAddress.setName(name);
+        shipAddress.setAddress(address);
+        shipAddress.setPhone(phone);
+        return shipAddress;
     }
 }
