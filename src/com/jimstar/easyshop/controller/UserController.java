@@ -4,6 +4,7 @@ import com.jimstar.easyshop.entity.UserCustomer;
 import com.jimstar.easyshop.entity.UserMerchant;
 import com.jimstar.easyshop.service.UserCustomerService;
 import com.jimstar.easyshop.service.UserMerchantService;
+import com.jimstar.easyshop.util.JSONUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -27,8 +28,8 @@ public class UserController {
 
     @RequestMapping(value="/login",method = RequestMethod.POST)
     @ResponseBody
-    public ModelAndView login(Map<String,Object> map, ModelMap modelMap) throws Exception{
-        ModelAndView modelAndView=new ModelAndView();
+    public String login(@RequestBody String mapString, ModelMap modelMap) throws Exception{
+        Map map= JSONUtil.parseMap(mapString);
         String username=(String) map.get("username");
         String password=(String)map.get("password");
         if(map.get("type").equals("customer")){
@@ -63,13 +64,12 @@ public class UserController {
             modelMap.addAttribute("info","Type is wrong.");
             modelMap.addAttribute("status",1);
         }
-        modelAndView.addAllObjects(modelMap);
-        return modelAndView;
+        return JSONUtil.toJSON(modelMap);
     }
     @RequestMapping(value = "register",method = RequestMethod.POST)
     @ResponseBody
-    public ModelAndView register(@RequestBody Map<String, Object> map, ModelMap modelMap) throws Exception {
-        ModelAndView modelAndView=new ModelAndView();
+    public String register(@RequestBody String mapString, ModelMap modelMap) throws Exception {
+        Map map=JSONUtil.parseMap(mapString);
         String username=(String) map.get("username");
         String password=(String) map.get("password");
         String type=(String) map.get("type");
@@ -107,13 +107,12 @@ public class UserController {
                 modelMap.addAttribute("info", "Type is wrong.");
                 break;
         }
-        modelAndView.addAllObjects(modelMap);
-        return modelAndView;
+        return JSONUtil.toJSON(modelMap);
     }
     @RequestMapping(value = "/changePwd",method = RequestMethod.POST)
     @ResponseBody
-    public ModelAndView changePwd(Map<String,Object> map,ModelMap modelMap) throws Exception{
-        ModelAndView modelAndView=new ModelAndView();
+    public String changePwd(@RequestBody String mapString,ModelMap modelMap) throws Exception{
+        Map map=JSONUtil.parseMap(mapString);
         String username=(String)map.get("username");
         String originalPassword=(String)map.get("originalPassword");
         String password=(String)map.get("password");
@@ -159,13 +158,12 @@ public class UserController {
                 modelMap.addAttribute("info","The original password is wrong.");
             }
         }
-        modelAndView.addAllObjects(modelMap);
-        return modelAndView;
+        return JSONUtil.toJSON(modelMap);
     }
     @RequestMapping("/changeShop")
     @ResponseBody
-    public ModelAndView changeShop(Map<String,Object> map,ModelMap modelMap) throws Exception{
-        ModelAndView modelAndView=new ModelAndView();
+    public String changeShop(@RequestBody String mapString,ModelMap modelMap) throws Exception{
+        Map map=JSONUtil.parseMap(mapString);
         String userName=(String)map.get("userName");
         String shopName=(String)map.get("shopName");
         String shopDescription=(String)map.get("shopDescription");
@@ -184,12 +182,12 @@ public class UserController {
             modelMap.addAttribute("status",1);
             modelMap.addAttribute("info","You are not merchant account!");
         }
-        modelAndView.addAllObjects(modelMap);
-        return modelAndView;
+        return JSONUtil.toJSON(modelMap);
     }
     @RequestMapping("/showInfo")
     @ResponseBody
-    public ModelAndView showInfo(Map<String,Object> map, ModelMap modelMap) throws Exception{
+    public String showInfo(@RequestBody String mapString, ModelMap modelMap) throws Exception{
+        Map map=JSONUtil.parseMap(mapString);
         String type=(String)map.get("type");
         String userName=(String)map.get("userName");
         if(type.equals("merchant")){
@@ -205,8 +203,6 @@ public class UserController {
             modelMap.addAttribute("status",1);
             modelMap.addAttribute("info","This is not a merchant account.");
         }
-        ModelAndView modelAndView=new ModelAndView();
-        modelAndView.addAllObjects(modelMap);
-        return modelAndView;
+        return JSONUtil.toJSON(map);
     }
 }
