@@ -58,6 +58,7 @@ userId:int
 //Only for merchant
 @RequestBody
 userName:String
+id:Integer
 type:String:merchant
 @ResponseBody
 userId:int
@@ -196,6 +197,18 @@ price:Float
 count:Integer
 description:String
 @ResponseBody
+itemUid:String
+itemIid:String
+itemVer:Integer
+itemName:String
+itemPrice:Float
+itemCount:Integer
+itemShopUser:String
+itemShopName:String
+itemShopDesc:String
+itemCreateTime:Timestamp
+itemDesc:String
+itemImgList:List<Img>//Img{id:String, value:String}
 
 @RequestMapping
 /Item/changeCount //changeCount is delta value, can be positive or negetive
