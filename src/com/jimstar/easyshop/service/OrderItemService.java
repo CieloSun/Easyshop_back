@@ -24,6 +24,12 @@ public class OrderItemService {
         return orderItemDao.add(orderItem);
     }
 
+    public boolean changeCountByOrderItemId(String orderItemId, Integer count){
+        OrderItem orderItem=orderItemDao.selectById(orderItemId);
+        orderItem.setCount(count);
+        return orderItemDao.update(orderItem);
+    }
+
     public OrderItem getOrderItemById(String id){
         return orderItemDao.selectById(id);
     }

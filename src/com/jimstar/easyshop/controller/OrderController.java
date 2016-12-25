@@ -83,4 +83,38 @@ public class OrderController {
         }
         return JSONUtil.toJSON(map);
     }
+    @RequestMapping("/changeCount")
+    @ResponseBody
+    public String changeCount(@RequestBody String mapString) throws Exception{
+        Map map=JSONUtil.parseMap(mapString);
+        String orderId=(String)map.get("orderId");
+        Integer count=(Integer) map.get("count");
+        String itemUid=(String)map.get("itemUid");
+        Order order=orderService.getOrderById(orderId);
+        for(OrderItem orderItem:order.getOrderItems()){
+            if(orderItem.getItem().getUid()==itemUid){
+                if(count==0){
+                    if(orderItemService.deleteOrderItemById(orderItem.getId())){
+                        map.put("status",0);
+                        map.put("info","Success to delete the item");
+                    }
+                    else{
+                        map.put("status",1);
+                        map.put("info","Fail to delete the item");
+                    }
+                }
+                else{
+                    if(orderItemService.changeCountByOrderItemId(orderItem.getId(),count)){
+                        map.put("status",0);
+                        map.put("info","Success to update the item numbers");
+                    }
+                    else{
+                        map.put("status",1);
+                        map.put("info","Fail to update the item numbers");
+                    }
+                }
+            }
+        }
+        return JSONUtil.toJSON(map);
+    }
 }
