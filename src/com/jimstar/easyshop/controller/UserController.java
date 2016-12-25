@@ -187,11 +187,19 @@ public class UserController {
         String userName=(String)map.get("userName");
         if(type.equals("merchant")){
             UserMerchant userMerchant=userMerchantService.getUserMerchantByName(userName);
+            map.put("id",userMerchant.getId());
             map.put("regTime",userMerchant.getRegTime());
             map.put("shopName",userMerchant.getShopName());
             map.put("shopDescription",userMerchant.getShopDesc());
             map.put("status",0);
             map.put("info","Success to get the information of the merchant.");
+        }
+        else if(type.equals("customer")){
+            UserCustomer userCustomer=userCustomerService.getUserCustomerByName(userName);
+            map.put("id",userCustomer.getId());
+            map.put("regTime",userCustomer.getRegTime());
+            map.put("status",0);
+            map.put("info","Success to get the information of the customer.");
         }
         else{
             map.put("status",1);
