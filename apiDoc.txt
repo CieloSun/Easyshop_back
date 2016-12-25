@@ -78,6 +78,14 @@ count:Integer
 orderId:String
 
 @RequestMapping
+/Order/addItem
+@RequestBody
+orderId:String
+itemId:String
+@ResponseBody
+
+
+@RequestMapping
 /Order/changeStatus
 @RequestBody
 orderId:String
@@ -133,7 +141,7 @@ itemUidList:List<String>
 total:Integer
 
 @RequestMapping
-/Item/list
+/Item/listByMerchant
 @RequestBody
 userMerchantName:String
 offset:Integer
@@ -209,4 +217,14 @@ imgs:List<Img>//Img{id:String, value:String}
 
 @RequestMapping
 /Img/add
+@RequestBody
+value:String
+@ResponseBody
+value:id
 
+@RequestMapping
+/Img/get
+@RequestBody
+id:String
+@ResponseBody
+value:String
