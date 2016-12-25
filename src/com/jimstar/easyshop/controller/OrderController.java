@@ -10,10 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @Controller
 @RequestMapping("Order")
@@ -138,15 +135,33 @@ public class OrderController {
     public String getByUser(String userName) throws Exception{
         Map<String,Object> map=new HashMap<>();
         List<Order> orders=orderService.getOrdersByCustomer(userName);
+        List<Map<String,Object>> orderList=new ArrayList<>();
         for(Order order:orders){
-            
+            Map<String,Object> orderMap=new HashMap<>();
+            orderMap.put("id",order.getId());
+            orderMap.put("createTime",order.getCreateTime());
+            orderMap.put("alterTime",order.getAlterTime());
+            orderMap.put("status",order.getStatus());
+            orderMap.put("customerName",order.getCustomer().getName());
+            orderMap.put("merchantName",order.getMerchant().getName());
+            orderMap.put("shipAddressName",order.getShipAddress().getName());
+            orderMap.put("shipAddressAddress",order.getShipAddress().getAddress());
+            orderMap.put("shipAddressPhone",order.getShipAddress().getPhone());
+            Map<String,Object> orderItemMap=new HashMap<>();
+            for(OrderItem orderItem:order.getOrderItems()){
+                orderItemMap.put("orderItemId",orderItem.getId());
+                orderItemMap.put("itemUid",orderItem.getItem().getUid());
+                orderItemMap.put("count",orderItem.getCount());
+            }
+            orderMap.put("orderItems",orderItemMap);
+            orderList.add(orderMap);
         }
         if (orders == null) {
             map.put("status", 1);
             map.put("error", "No such order");
         } else {
             map.put("status", 0);
-            map.put("orders",orders);
+            map.put("orders",orderList);
         }
         return JSONUtil.toJSON(map);
     }

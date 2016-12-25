@@ -103,7 +103,24 @@ orderId:String
 @GET
 userName
 @ResponseBody
-orders:List<Order>
+orders:List<Map<String,Object>>
+{
+id:String
+creatTime:Timestamp
+alterTime:Timestamp
+status:Integer
+customerName:String
+merchantName:String
+shipAddressName:String
+shipAddressAddress:String
+shipAddressPhone:String
+orderItems:Map<String,Object>
+{
+orderItemId:String
+itemUid:String
+count:Integer
+}
+}
 
 @RequestMapping
 /Item/list
