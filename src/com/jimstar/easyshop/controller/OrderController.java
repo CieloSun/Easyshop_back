@@ -7,13 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Map;
 import java.util.Set;
 
 @Controller
-@RequestMapping("/Order")
+@RequestMapping("Order")
 public class OrderController {
     private final OrderService orderService;
     private final OrderItemService orderItemService;
@@ -31,7 +32,7 @@ public class OrderController {
         this.userCustomerService=userCustomerService;
     }
 
-    @RequestMapping("/add")
+    @RequestMapping("add")
     @ResponseBody
     public String add(@RequestBody String mapString) throws Exception{
         Map<String, Object> map = JSONUtil.parseMap(mapString);
@@ -59,7 +60,7 @@ public class OrderController {
         }
         return JSONUtil.toJSON(map);
     }
-    @RequestMapping("/changeStatus")
+    @RequestMapping("changeStatus")
     @ResponseBody
     public String changeStatus(@RequestBody String mapString) throws Exception{
         Map<String, Object> map = JSONUtil.parseMap(mapString);
@@ -83,7 +84,7 @@ public class OrderController {
         }
         return JSONUtil.toJSON(map);
     }
-    @RequestMapping("/changeCount")
+    @RequestMapping(value="changeCount", method = RequestMethod.POST)
     @ResponseBody
     public String changeCount(@RequestBody String mapString) throws Exception{
         Map map=JSONUtil.parseMap(mapString);
@@ -116,5 +117,12 @@ public class OrderController {
             }
         }
         return JSONUtil.toJSON(map);
+    }
+
+    @RequestMapping("get")
+    @ResponseBody
+    public String get(){
+        //TODO
+        return null;
     }
 }

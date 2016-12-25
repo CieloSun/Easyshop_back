@@ -3,11 +3,13 @@ package com.jimstar.easyshop.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.jimstar.easyshop.entity.Img;
 import com.jimstar.easyshop.entity.Item;
+import com.jimstar.easyshop.entity.Order;
 import com.jimstar.easyshop.entity.UserMerchant;
 import com.jimstar.easyshop.service.ImgService;
 import com.jimstar.easyshop.service.ItemService;
 import com.jimstar.easyshop.service.UserMerchantService;
 import com.jimstar.easyshop.util.JSONUtil;
+import org.omg.CORBA.INTERNAL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,14 +18,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 @Controller
-@RequestMapping("/Item")
+@RequestMapping("Item")
 public class ItemController {
     private final ItemService itemService;
     private final UserMerchantService userMerchantService;
@@ -36,7 +35,7 @@ public class ItemController {
         this.imgService = imgService;
     }
 
-    @RequestMapping("/list")
+    @RequestMapping("list")
     @ResponseBody
     public String list(@RequestBody String request) throws JsonProcessingException {
         Map<String, Object> map = new HashMap<>();
@@ -69,6 +68,21 @@ public class ItemController {
     public String get(String uid) throws JsonProcessingException {
         Map<String, Object> map = new HashMap<>();
         Item item = itemService.getByUid(uid);
+        if (item == null) {
+            map.put("status", 1);
+            map.put("error", "No such item");
+        } else {
+            map.put("status", 0);
+            map.put("item", item);
+        }
+        return JSONUtil.toJSON(map);
+    }
+
+    @RequestMapping(value = "getByIid", method = RequestMethod.GET)
+    @ResponseBody
+    public String getByIid(String iid) throws JsonProcessingException {
+        Map<String, Object> map = new HashMap<>();
+        Item item = itemService.getByIid(iid);
         if (item == null) {
             map.put("status", 1);
             map.put("error", "No such item");
@@ -128,16 +142,47 @@ public class ItemController {
     @ResponseBody
     public String changeCount(@RequestBody String mapString) throws IOException {
         Map map = JSONUtil.parseMap(mapString);
-        String itemUid=(String)map.get("itemUid");
-        Integer count=(Integer)map.get("count");
-        Item item=itemService.changeCountByChangeNumber(itemUid,count);
+        String itemUid = (String) map.get("itemUid");
+        Integer count = (Integer) map.get("count");
+        Item item = itemService.changeCountByChangeNumber(itemUid, count);
+        if (item != null) {
+            map.put("status", 0);
+            map.put("info", "Success to changeCount");
+        } else {
+            map.put("status", 0);
+            map.put("info", "Fail to changeCount");
+        }
+        return JSONUtil.toJSON(map);
+    }
+
+    /*
+    String iid, String name, Float price, Integer count, UserMerchant userMerchant, String description, List<Img> imgs
+    */
+    @RequestMapping("edit")
+    @ResponseBody
+    public String edit(@RequestBody String mapString) throws Exception {
+        Map map = JSONUtil.parseMap(mapString);
+        String iid = (String) map.get("itemIid");
+        String name = (String) map.get("name");
+        Float price = (Float) map.get("price");
+        Integer count = (Integer) map.get("count");
+        String userMerchantName = (String) map.get("userMerchantName");
+        String description = (String) map.get("description");
+        Map imgs = (Map<String, Img>) map.get("imgs");
+        List<Img> imgList = new ArrayList<Img>();
+        for (Object img : imgs.values()) {
+            imgList.add((Img) img);
+        }
+        UserMerchant userMerchant = userMerchantService.getUserMerchantByName(userMerchantName);
+        Item item = itemService.updatedByIid(iid, name, price, count, userMerchant, description, imgList);
         if(item!=null){
             map.put("status",0);
-            map.put("info","Success to changeCount");
+            map.put("itemUid",item.getUid());
+            map.put("info","Success to edit the item.");
         }
         else{
-            map.put("status",0);
-            map.put("info","Fail to changeCount");
+            map.put("status",1);
+            map.put("info","Error to generate the new item.");
         }
         return JSONUtil.toJSON(map);
     }

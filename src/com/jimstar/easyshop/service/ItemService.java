@@ -25,10 +25,10 @@ public class ItemService {
     }
 
     public Item createItemByInf(String name, Float price, Integer count, UserMerchant userMerchant, String description, List<Img> imgs) {
-        Item item=new Item();
-        String iid= UUIDGenerator.genShort();
-        Integer ver=0;
-        Timestamp timestamp=new Timestamp(System.currentTimeMillis());
+        Item item = new Item();
+        String iid = UUIDGenerator.genShort();
+        Integer ver = 0;
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         item.setIid(iid);
         item.setVer(ver);
         item.setName(name);
@@ -40,13 +40,18 @@ public class ItemService {
         item.setImgs(imgs);
         return itemDao.add(item);
     }
-    public Item getByUid(String uid){
+
+    public Item getByUid(String uid) {
         return itemDao.selectByUid(uid);
     }
 
+    public Item getByIid(String iid){
+        return itemDao.selectLatestByIid(iid);
+    }
+
     public Item changeCountByChangeNumber(String uid, Integer changeNumber) {
-        Item item=itemDao.selectByUid(uid);
-        Integer newCount=item.getCount()+changeNumber;
+        Item item = itemDao.selectByUid(uid);
+        Integer newCount = item.getCount() + changeNumber;
         if (newCount < 0)
             return null;
         else {
@@ -58,28 +63,40 @@ public class ItemService {
         }
     }
 
-    public boolean updatedByIid(String iid,String name, Float price, Integer count, UserMerchant userMerchant, String description, List<Img> imgs) {
-        Item itemOld=itemDao.selectLatestByIid(iid);
-        Item item=new Item();
+    public Item updatedByIid(String iid, String name, Float price,
+                                Integer count, UserMerchant userMerchant, String description, List<Img> imgs) {
+        Item itemOld = itemDao.selectLatestByIid(iid);
+        Item item = new Item();
         item.setIid(itemOld.getIid());
-        item.setVer(itemOld.getVer()+1);
+        item.setVer(itemOld.getVer() + 1);
         item.setCreateTime(itemOld.getCreateTime());
 
-        item.setName(name);
-        item.setPrice(price);
-        item.setCount(count);
-        item.setUserMerchant(userMerchant);
-        item.setDescription(description);
-        item.setImgs(imgs);
-        Item newItem = itemDao.add(item);
-        return (newItem != null);
+        if (name != null)
+            item.setName(name);
+        else item.setName(itemOld.getName());
+        if (price != null)
+            item.setPrice(price);
+        else item.setPrice(itemOld.getPrice());
+        if (count != null)
+            item.setCount(count);
+        else item.setCount(itemOld.getCount());
+        if (userMerchant != null)
+            item.setUserMerchant(userMerchant);
+        else item.setUserMerchant(itemOld.getUserMerchant());
+        if (description != null)
+            item.setDescription(description);
+        else item.setDescription(itemOld.getDescription());
+        if (!imgs.isEmpty())
+            item.setImgs(imgs);
+        else item.setImgs(itemOld.getImgs());
+        return itemDao.add(item);
     }
 
-    public boolean deleteByUid(String uid){
+    public boolean deleteByUid(String uid) {
         return itemDao.deleteByUid(uid);
     }
 
-    public boolean deleteByIid(String iid){
+    public boolean deleteByIid(String iid) {
         return itemDao.deleteByIid(iid);
     }
 
