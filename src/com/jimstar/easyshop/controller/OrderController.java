@@ -62,4 +62,20 @@ public class OrderController {
         }
         return JSONUtil.toJSON(map);
     }
+    @RequestMapping("/changeStatus")
+    @ResponseBody
+    public String changeStatus(@RequestBody String mapString) throws Exception{
+        Map map=JSONUtil.parseMap(mapString);
+        String orderId=(String)map.get("orderId");
+        Integer status=(Integer)map.get("orderStatus");
+        if(orderService.changeStatusById(orderId,status)){
+            map.put("status",0);
+            map.put("info","Change order success!");
+        }else{
+            map.put("status",1);
+            map.put("info","Change order fail");
+        }
+        return JSONUtil.toJSON(map);
+    }
+
 }
