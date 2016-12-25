@@ -73,6 +73,7 @@ public class ItemController {
             map.put("error", "No such item");
         } else {
             map.put("status", 0);
+            map.put("info","Get item successfully.");
             map.put("itemUid", item.getUid());
             map.put("itemIid",item.getIid());
             map.put("itemVer",item.getVer());

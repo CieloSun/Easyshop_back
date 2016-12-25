@@ -138,6 +138,9 @@ public class OrderController {
     public String getByUser(String userName) throws Exception{
         Map<String,Object> map=new HashMap<>();
         List<Order> orders=orderService.getOrdersByCustomer(userName);
+        for(Order order:orders){
+            
+        }
         if (orders == null) {
             map.put("status", 1);
             map.put("error", "No such order");
