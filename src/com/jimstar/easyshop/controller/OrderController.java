@@ -5,16 +5,12 @@ import com.jimstar.easyshop.service.*;
 import com.jimstar.easyshop.util.JSONUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Map;
 
-/**
- * Created by 63289 on 2016/12/25.
- */
 @Controller
 @RequestMapping("/Order")
 public class OrderController {
@@ -37,7 +33,7 @@ public class OrderController {
     @RequestMapping("/add")
     @ResponseBody
     public String add(@RequestBody String mapString) throws Exception{
-        Map map= JSONUtil.parseMap(mapString);
+        Map<String, Object> map = JSONUtil.parseMap(mapString);
         String userName=(String) map.get("userName");
         String itemUId=(String)map.get("itemUId");
         String address=(String)map.get("address");
@@ -65,7 +61,7 @@ public class OrderController {
     @RequestMapping("/changeStatus")
     @ResponseBody
     public String changeStatus(@RequestBody String mapString) throws Exception{
-        Map map=JSONUtil.parseMap(mapString);
+        Map<String, Object> map = JSONUtil.parseMap(mapString);
         String orderItemId=(String)map.get("orderItemId");
         Integer status=(Integer)map.get("orderStatus");
         OrderItem orderItem=orderItemService.getOrderItemById(orderItemId);

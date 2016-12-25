@@ -1,5 +1,6 @@
 package com.jimstar.easyshop.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.jimstar.easyshop.entity.UserCustomer;
 import com.jimstar.easyshop.entity.UserMerchant;
 import com.jimstar.easyshop.service.UserCustomerService;
@@ -9,13 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.portlet.ModelAndView;
 
 import java.util.Map;
 
 @Controller
 @RequestMapping("/User")
-@SessionAttributes("userName")
+@SessionAttributes({"username", "type", "userId"})
 public class UserController {
     private final UserCustomerService userCustomerService;
     private final UserMerchantService userMerchantService;
@@ -29,7 +29,7 @@ public class UserController {
     @RequestMapping(value="/login",method = RequestMethod.POST)
     @ResponseBody
     public String login(@RequestBody String mapString) throws Exception{
-        Map map= JSONUtil.parseMap(mapString);
+        Map<String, Object> map = JSONUtil.parseMap(mapString);
         String username=(String) map.get("username");
         String password=(String)map.get("password");
         if(map.get("type").equals("customer")){
@@ -65,7 +65,7 @@ public class UserController {
     @RequestMapping(value = "register",method = RequestMethod.POST)
     @ResponseBody
     public String register(@RequestBody String mapString) throws Exception {
-        Map map=JSONUtil.parseMap(mapString);
+        Map<String, Object> map = JSONUtil.parseMap(mapString);
         String username=(String) map.get("username");
         String password=(String) map.get("password");
         String type=(String) map.get("type");
@@ -106,7 +106,7 @@ public class UserController {
     @RequestMapping(value = "/changePwd",method = RequestMethod.POST)
     @ResponseBody
     public String changePwd(@RequestBody String mapString) throws Exception{
-        Map map=JSONUtil.parseMap(mapString);
+        Map<String, Object> map = JSONUtil.parseMap(mapString);
         String username=(String)map.get("username");
         String originalPassword=(String)map.get("originalPassword");
         String password=(String)map.get("password");
@@ -155,7 +155,7 @@ public class UserController {
     @RequestMapping("/changeShop")
     @ResponseBody
     public String changeShop(@RequestBody String mapString) throws Exception{
-        Map map=JSONUtil.parseMap(mapString);
+        Map<String, Object> map = JSONUtil.parseMap(mapString);
         String userName=(String)map.get("userName");
         String shopName=(String)map.get("shopName");
         String shopDescription=(String)map.get("shopDescription");
@@ -176,10 +176,11 @@ public class UserController {
         }
         return JSONUtil.toJSON(map);
     }
+
     @RequestMapping("/showInfo")
     @ResponseBody
     public String showInfo(@RequestBody String mapString) throws Exception{
-        Map map=JSONUtil.parseMap(mapString);
+        Map<String, Object> map = JSONUtil.parseMap(mapString);
         String type=(String)map.get("type");
         String userName=(String)map.get("userName");
         if(type.equals("merchant")){
@@ -195,5 +196,21 @@ public class UserController {
             map.put("info","This is not a merchant account.");
         }
         return JSONUtil.toJSON(map);
+    }
+
+    @RequestMapping("getSession")
+    @ResponseBody
+    public String getSession(@ModelAttribute String userId, @ModelAttribute String username, ModelMap modelMap) throws JsonProcessingException {
+        //Map<String,Object> map = new HashMap<>();
+        return JSONUtil.toJSON(modelMap);
+    }
+
+    @RequestMapping("setSession")
+    @ResponseBody
+    public String setSession(String username, String type, String userId, ModelMap modelMap) throws JsonProcessingException {
+        modelMap.addAttribute("username", username);
+        modelMap.addAttribute("type", type);
+        modelMap.addAttribute("userId", userId);
+        return modelMap.toString();
     }
 }
