@@ -223,7 +223,6 @@ count:Integer
 itemIid:String
 [name:String]
 [price:Float]
-[count:Integer]
 description:String
 imgs:List<Img>//Img{id:String, value:String}
 

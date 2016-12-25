@@ -20,7 +20,7 @@ public class ItemService {
     @Autowired
     public ItemService(ItemDao itemDao, UserMerchantDao userMerchantDao) {
         this.itemDao = itemDao;
-        this.userMerchantDao=userMerchantDao;
+        this.userMerchantDao = userMerchantDao;
     }
 
     public ItemDao getItemDao() {
@@ -48,7 +48,7 @@ public class ItemService {
         return itemDao.selectByUid(uid);
     }
 
-    public Item getByIid(String iid){
+    public Item getByIid(String iid) {
         return itemDao.selectLatestByIid(iid);
     }
 
@@ -66,13 +66,14 @@ public class ItemService {
         }
     }
 
-    public Item updatedByIid(String iid, String name, Float price,
-                                Integer count, UserMerchant userMerchant, String description, List<Img> imgs) {
+    public Item updatedByIid(String iid, String name, Float price, String description, List<Img> imgs) {
         Item itemOld = itemDao.selectLatestByIid(iid);
         Item item = new Item();
         item.setIid(itemOld.getIid());
         item.setVer(itemOld.getVer() + 1);
         item.setCreateTime(itemOld.getCreateTime());
+        item.setCount(itemOld.getCount());
+        item.setUserMerchant(itemOld.getUserMerchant());
 
         if (name != null)
             item.setName(name);
@@ -80,18 +81,12 @@ public class ItemService {
         if (price != null)
             item.setPrice(price);
         else item.setPrice(itemOld.getPrice());
-        if (count != null)
-            item.setCount(count);
-        else item.setCount(itemOld.getCount());
-        if (userMerchant != null)
-            item.setUserMerchant(userMerchant);
-        else item.setUserMerchant(itemOld.getUserMerchant());
         if (description != null)
             item.setDescription(description);
         else item.setDescription(itemOld.getDescription());
-        if (!imgs.isEmpty())
-            item.setImgs(imgs);
-        else item.setImgs(itemOld.getImgs());
+        if (imgs.isEmpty() || imgs == null)
+            item.setImgs(itemOld.getImgs());
+        else item.setImgs(imgs);
         return itemDao.add(item);
     }
 
@@ -107,8 +102,8 @@ public class ItemService {
         return itemDao.selectByMatchName(pattern);
     }
 
-    public List<Item> selectByMatchMerchant(String merchantName){
-        UserMerchant userMerchant=userMerchantDao.selectByName(merchantName);
+    public List<Item> selectByMatchMerchant(String merchantName) {
+        UserMerchant userMerchant = userMerchantDao.selectByName(merchantName);
         return itemDao.selectByMatchMerchant(userMerchant);
     }
 }

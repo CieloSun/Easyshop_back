@@ -3,11 +3,13 @@ package com.jimstar.easyshop.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.jimstar.easyshop.entity.Img;
 import com.jimstar.easyshop.entity.Item;
+import com.jimstar.easyshop.entity.Order;
 import com.jimstar.easyshop.entity.UserMerchant;
 import com.jimstar.easyshop.service.ImgService;
 import com.jimstar.easyshop.service.ItemService;
 import com.jimstar.easyshop.service.UserMerchantService;
 import com.jimstar.easyshop.util.JSONUtil;
+import org.omg.CORBA.INTERNAL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,10 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 @Controller
@@ -227,17 +226,19 @@ public class ItemController {
         Map<String, Object> map = JSONUtil.parseMap(mapString);
         String iid = (String) map.get("itemIid");
         String name = (String) map.get("name");
-        Float price = (Float) map.get("price");
-        Integer count = (Integer) map.get("count");
-        String userMerchantName = (String) map.get("userMerchantName");
+        Double priceTemp = (Double) map.get("price");
+        Float price=priceTemp.floatValue();
         String description = (String) map.get("description");
         Map<String, Img> imgs = (Map<String, Img>) map.get("imgs");
-        List<Img> imgList = new ArrayList<>();
-        for (Object img : imgs.values()) {
-            imgList.add((Img) img);
+        List<Img> imgList = new ArrayList<Img>();
+        if(imgs!=null){
+            Iterator it=imgs.keySet().iterator();
+            while (it.hasNext()) {
+                String key=it.next().toString();
+                imgList.add(imgs.get(key));
+            }
         }
-        UserMerchant userMerchant = userMerchantService.getUserMerchantByName(userMerchantName);
-        Item item = itemService.updatedByIid(iid, name, price, count, userMerchant, description, imgList);
+        Item item = itemService.updatedByIid(iid, name, price, description, imgList);
         if(item!=null){
             map.put("status",0);
             map.put("itemUid",item.getUid());
