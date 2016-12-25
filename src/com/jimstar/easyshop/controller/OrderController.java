@@ -1,6 +1,9 @@
 package com.jimstar.easyshop.controller;
 
-import com.jimstar.easyshop.entity.*;
+import com.jimstar.easyshop.entity.Item;
+import com.jimstar.easyshop.entity.Order;
+import com.jimstar.easyshop.entity.OrderItem;
+import com.jimstar.easyshop.entity.UserCustomer;
 import com.jimstar.easyshop.service.*;
 import com.jimstar.easyshop.util.JSONUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,14 +41,12 @@ public class OrderController {
         Map<String, Object> map = JSONUtil.parseMap(mapString);
         String userName=(String) map.get("userName");
         String itemUId = (String) map.get("itemUid");
-        String address=(String)map.get("address");
-        String phone=(String)map.get("phone");
-        String shipName=(String)map.get("shipName");
+
         Integer count=(Integer)map.get("count");
         Item item=itemService.getByUid(itemUId);
-        ShipAddress shipAddress=shipAddressService.getShipAdress(shipName,address,phone);
+
         UserCustomer userCustomer=userCustomerService.getUserCustomerByName(userName);
-        Order order=orderService.createOrderInCart(userCustomer,item.getUserMerchant(),shipAddress);
+        Order order = orderService.createOrderInCart(userCustomer, item.getUserMerchant(), null);
         map.put("status",1);
         map.put("info","Fail to add the order");
         if(order!=null){
