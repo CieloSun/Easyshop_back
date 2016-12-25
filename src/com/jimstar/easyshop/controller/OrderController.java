@@ -64,7 +64,6 @@ public class OrderController {
     @ResponseBody
     public String changeStatus(@RequestBody String mapString) throws Exception{
         Map<String, Object> map = JSONUtil.parseMap(mapString);
-        String orderItemId=(String)map.get("orderItemId");
         String orderId = (String) map.get("orderId");
         Integer status=(Integer)map.get("orderStatus");
         Order order = orderService.getOrderById(orderId);

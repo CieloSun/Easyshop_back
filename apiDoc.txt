@@ -3,16 +3,16 @@ General:
 if state=1 , response may be null
 All response in JSON includes original request and general key:
 state:int:0/1/2	//0 for success
-[error:string]
-[info:string]
+[error:String]
+[info:String]
 
 
 @RequestMapping
 /User/login
 @RequestBody
-userName:string
-password:string
-type:string:merchant/customer
+userName:String
+password:String
+type:String:merchant/customer
 @ResponseBody
 userId:int
 
@@ -20,12 +20,12 @@ userId:int
 @RequestMapping
 /User/register
 @RequestBody
-userName:string
-password:string
-type:string:merchant/customer
+userName:String
+password:String
+type:String:merchant/customer
 //Only for merchant
-[shopName:string]
-[shopDescription:string]
+[shopName:String]
+[shopDescription:String]
 @ResponseBody
 userId:int
 
@@ -33,10 +33,10 @@ userId:int
 @RequestMapping
 /User/changePwd
 @RequestBody
-userName:string
-password:string
-originalPassword:string
-type:string:merchant/customer
+userName:String
+password:String
+originalPassword:String
+type:String:merchant/customer
 @ResponseBody
 userId:int
 verify:int:0/1	//0 for current original password, 1 for wrong original password
@@ -45,10 +45,10 @@ verify:int:0/1	//0 for current original password, 1 for wrong original password
 /User/changeShop
 //Only for merchant
 @RequestBody
-userName:string
-type:string:merchant
-[shopName:string]
-[shopDescription:string]
+userName:String
+type:String:merchant
+[shopName:String]
+[shopDescription:String]
 @ResponseBody
 userId:int
 
@@ -57,10 +57,59 @@ userId:int
 /User/showInfo
 //Only for merchant
 @RequestBody
-userName:string
-type:string:merchant
+userName:String
+type:String:merchant
 @ResponseBody
 userId:int
 regTime:timestamp
-shopName:string
-shopDescription:string
+shopName:String
+shopDescription:String
+
+@RequestMapping
+/Order/add
+@RequestBody
+userName:String
+itemUid:String
+address:String
+phone:String
+shipName:String
+count:Integer
+@ResponseBody
+orderId:String
+
+@RequestMapping
+/Order/changeStatus
+@RequestBody
+orderId:String
+orderStatus:Integer
+@ResponseBody
+
+@RequestMapping
+/Order/changeCount
+@RequestBody
+orderId:String
+count:Integer
+itemUid:String
+@ResponseBody
+
+@RequestMapping
+/Order/get
+@GET
+orderId:String
+@ResponseBody
+
+@RequestMapping
+/Item/list
+@RequestBody
+pattern:String
+offset:Integer
+count:Integer
+@ResponseBody
+itemUidList:List<String>
+total:Integer
+
+@RequestMapping
+/Item/get
+@GET
+uid:String
+@ResponseBody

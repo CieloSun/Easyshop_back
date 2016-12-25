@@ -73,7 +73,18 @@ public class ItemController {
             map.put("error", "No such item");
         } else {
             map.put("status", 0);
-            map.put("item", item);
+            map.put("itemUid", item.getUid());
+            map.put("itemIid",item.getIid());
+            map.put("itemVer",item.getVer());
+            map.put("itemName",item.getName());
+            map.put("itemPrice",item.getPrice());
+            map.put("itemCount",item.getCount());
+            map.put("itemShopUser",item.getUserMerchant().getName());
+            map.put("itemShopName",item.getUserMerchant().getShopName());
+            map.put("itemShopDesc",item.getUserMerchant().getShopDesc());
+            map.put("itemCreateTime",item.getCreateTime());
+            map.put("itemDesc",item.getDescription());
+            map.put("itemImgList",item.getImgs());
         }
         return JSONUtil.toJSON(map);
     }
@@ -88,7 +99,18 @@ public class ItemController {
             map.put("error", "No such item");
         } else {
             map.put("status", 0);
-            map.put("item", item);
+            map.put("itemUid", item.getUid());
+            map.put("itemIid",item.getIid());
+            map.put("itemVer",item.getVer());
+            map.put("itemName",item.getName());
+            map.put("itemPrice",item.getPrice());
+            map.put("itemCount",item.getCount());
+            map.put("itemShopUser",item.getUserMerchant().getName());
+            map.put("itemShopName",item.getUserMerchant().getShopName());
+            map.put("itemShopDesc",item.getUserMerchant().getShopDesc());
+            map.put("itemCreateTime",item.getCreateTime());
+            map.put("itemDesc",item.getDescription());
+            map.put("itemImgList",item.getImgs());
         }
         return JSONUtil.toJSON(map);
     }
