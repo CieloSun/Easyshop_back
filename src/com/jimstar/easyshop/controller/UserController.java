@@ -35,7 +35,9 @@ public class UserController {
         if(map.get("type").equals("customer")){
             if(userCustomerService.checkPasswordByName(username,password)){
                 UserCustomer userCustomer=userCustomerService.getUserCustomerByName(username);
-                Integer userName=userCustomer.getId();
+                String userName = userCustomer.getName();
+                Integer userId = userCustomer.getId();
+                map.put("userId", userId);
                 map.put("status",0);
                 map.put("info","Success to login!");
             }

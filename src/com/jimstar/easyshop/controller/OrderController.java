@@ -36,7 +36,7 @@ public class OrderController {
     public String add(@RequestBody String mapString) throws Exception{
         Map<String, Object> map = JSONUtil.parseMap(mapString);
         String userName=(String) map.get("userName");
-        String itemUId=(String)map.get("itemUid");
+        String itemUId = (String) map.get("itemUid");
         String address=(String)map.get("address");
         String phone=(String)map.get("phone");
         String shipName=(String)map.get("shipName");
@@ -64,15 +64,15 @@ public class OrderController {
     public String changeStatus(@RequestBody String mapString) throws Exception{
         Map<String, Object> map = JSONUtil.parseMap(mapString);
         String orderItemId=(String)map.get("orderItemId");
-        String orderId=(String)map.get("orderId");
+        String orderId = (String) map.get("orderId");
         Integer status=(Integer)map.get("orderStatus");
-        Order order=orderService.getOrderById(orderId);
-        Set<OrderItem> orderItems=order.getOrderItems();
+        Order order = orderService.getOrderById(orderId);
+        Set<OrderItem> orderItems = order.getOrderItems();
 
-        if(orderService.changeStatusById(order.getId(),status)){
+        if (orderService.changeStatusById(order.getId(), status)) {
             if(status==3){
-                for(OrderItem orderItem:orderItems){
-                    itemService.changeCountByChangeNumber(orderItem.getItem().getUid(),orderItem.getCount());
+                for (OrderItem orderItem : orderItems) {
+                    itemService.changeCountByChangeNumber(orderItem.getItem().getUid(), orderItem.getCount());
                 }
             }
             map.put("status",0);
