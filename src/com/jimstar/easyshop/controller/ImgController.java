@@ -59,5 +59,4 @@ public class ImgController {
         map.put("value", value);
         return JSONUtil.toJSON(map);
     }
-
 }
