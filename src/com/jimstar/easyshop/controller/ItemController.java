@@ -223,17 +223,19 @@ public class ItemController {
         Map map = JSONUtil.parseMap(mapString);
         String iid = (String) map.get("itemIid");
         String name = (String) map.get("name");
-        Float price = (Float) map.get("price");
-        Integer count = (Integer) map.get("count");
-        String userMerchantName = (String) map.get("userMerchantName");
+        Double priceTemp = (Double) map.get("price");
+        Float price=priceTemp.floatValue();
         String description = (String) map.get("description");
-        Map imgs = (Map<String, Img>) map.get("imgs");
+        Map<String, Img> imgs = (Map<String, Img>) map.get("imgs");
         List<Img> imgList = new ArrayList<Img>();
-        for (Object img : imgs.values()) {
-            imgList.add((Img) img);
+        if(imgs!=null){
+            Iterator it=imgs.keySet().iterator();
+            while (it.hasNext()) {
+                String key=it.next().toString();
+                imgList.add(imgs.get(key));
+            }
         }
-        UserMerchant userMerchant = userMerchantService.getUserMerchantByName(userMerchantName);
-        Item item = itemService.updatedByIid(iid, name, price, count, userMerchant, description, imgList);
+        Item item = itemService.updatedByIid(iid, name, price, description, imgList);
         if(item!=null){
             map.put("status",0);
             map.put("itemUid",item.getUid());

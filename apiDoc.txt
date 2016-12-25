@@ -223,8 +223,6 @@ count:Integer
 itemIid:String
 name:String
 price:Float
-count:Integer
-userMerchantName:String
 description:String
 imgs:List<Img>//Img{id:String, value:String}
 
