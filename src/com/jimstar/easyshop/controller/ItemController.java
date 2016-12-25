@@ -171,12 +171,23 @@ public class ItemController {
                 imgList.add(img);
             }
 
-            Item newItem = itemService.createItemByInf((String) map.get("name"),
+            Item item = itemService.createItemByInf((String) map.get("name"),
                     ((Double) map.get("price")).floatValue(), (Integer) map.get("count"), userMerchant,
                     (String) map.get("description"), imgList);
-            if (newItem != null) {
+            if (item != null) {
                 map.put("status", 0);
-                map.put("item", newItem);
+                map.put("itemUid", item.getUid());
+                map.put("itemIid",item.getIid());
+                map.put("itemVer",item.getVer());
+                map.put("itemName",item.getName());
+                map.put("itemPrice",item.getPrice());
+                map.put("itemCount",item.getCount());
+                map.put("itemShopUser",item.getUserMerchant().getName());
+                map.put("itemShopName",item.getUserMerchant().getShopName());
+                map.put("itemShopDesc",item.getUserMerchant().getShopDesc());
+                map.put("itemCreateTime",item.getCreateTime());
+                map.put("itemDesc",item.getDescription());
+                map.put("itemImgList",item.getImgs());
             } else
                 throw new Exception("Failed to add new Item");
         } catch (IOException e) {
