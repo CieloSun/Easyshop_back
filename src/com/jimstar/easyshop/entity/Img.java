@@ -12,7 +12,7 @@ import java.io.Serializable;
 @Entity
 public class Img implements Serializable {
     private String id;
-    private byte[] value;
+    private String value;
 
     public Img() {
     }
@@ -30,16 +30,11 @@ public class Img implements Serializable {
 
     @Lob
     //@Basic(fetch = FetchType.LAZY)
-    public byte[] getValue() {
+    public String getValue() {
         return value;
     }
 
-    public void setValue(byte[] value) {
+    public void setValue(String value) {
         this.value = value;
-    }
-
-    @Override
-    public String toString() {
-        return "Img{" + id + ":" + DigestUtil.Crc32Encode(getValue()) + '}';
     }
 }

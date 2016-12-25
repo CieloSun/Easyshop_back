@@ -46,8 +46,8 @@ public class ImgController {
     public ModelAndView get(String id, ModelMap modelMap){
         ModelAndView modelAndView=new ModelAndView();
         System.err.println("ImgID=" + id);
-        byte[] value = imgService.getImgById(id).getValue();
-        modelMap.addAttribute("valueCRC32", DigestUtil.Crc32Encode(value));
+        String value = imgService.getImgById(id).getValue();
+        modelMap.addAttribute("value", value);
         modelAndView.addAllObjects(modelMap);
         return modelAndView;
     }

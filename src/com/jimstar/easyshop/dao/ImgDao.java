@@ -20,7 +20,7 @@ public class ImgDao {
      * @param value raw bytes
      * @return Img if success, null for failed
      */
-    public Img add(byte[] value) {
+    public Img add(String value) {
         final Session session = getSession();
         try{
             Img img = new Img();

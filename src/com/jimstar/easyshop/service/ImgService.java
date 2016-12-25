@@ -15,7 +15,7 @@ public class ImgService {
         this.imgDao = imgDao;
     }
 
-    public Img addAnImageByValue(byte[] value) {
+    public Img addAnImageByValue(String value) {
         return imgDao.add(value);
     }
 
