@@ -39,14 +39,14 @@ public class OrderController {
         Map<String, Object> map = JSONUtil.parseMap(mapString);
         String userName = (String) map.get("userName");
         String itemUId = (String) map.get("itemUid");
-        String address = (String) map.get("address");
-        String phone = (String) map.get("phone");
-        String shipName = (String) map.get("shipName");
+        //String address = (String) map.get("address");
+        //String phone = (String) map.get("phone");
+        //String shipName = (String) map.get("shipName");
         Integer count = (Integer) map.get("count");
         Item item = itemService.getByUid(itemUId);
-        ShipAddress shipAddress = shipAddressService.getShipAdress(shipName, address, phone);
+        //ShipAddress shipAddress = shipAddressService.getShipAdress(shipName, address, phone);
         UserCustomer userCustomer = userCustomerService.getUserCustomerByName(userName);
-        Order order = orderService.createOrderInCart(userCustomer, item.getUserMerchant(), shipAddress);
+        Order order = orderService.createOrderInCart(userCustomer, item.getUserMerchant(), null);
         map.put("status", 1);
         map.put("info", "Fail to add the order");
         if (order != null) {

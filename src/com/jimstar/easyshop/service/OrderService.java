@@ -27,10 +27,8 @@ public class OrderService {
 
     public Order createOrderInCart(UserCustomer userCustomer, UserMerchant userMerchant, ShipAddress shipAddress){
         Timestamp timestamp=new Timestamp(System.currentTimeMillis());
-        Order order = userCustomer.getCert();
-        if (order.getStatus() == Order.OrderStatus.UNDETERMINED)
-            orderDao.delete(order);
-        order = new Order();
+
+        Order order = new Order();
         Integer status = Order.OrderStatus.UNDETERMINED;
         order.setCreateTime(timestamp);
         order.setAlterTime(timestamp);
@@ -47,6 +45,7 @@ public class OrderService {
 
     public Order createOrderByOldOrder(Order order){
         Timestamp timestamp=new Timestamp(System.currentTimeMillis());
+
         Order newOrder=new Order();
         newOrder.setCreateTime(timestamp);
         newOrder.setAlterTime(timestamp);
@@ -55,7 +54,8 @@ public class OrderService {
         newOrder.setShipAddress(order.getShipAddress());
         newOrder.setStatus(Order.OrderStatus.UNDETERMINED);
         newOrder.setOrderItems(new HashSet<>());
-        return orderDao.add(newOrder);
+        newOrder = orderDao.add(newOrder);
+        return newOrder;
     }
 
     public boolean updateOrder(Order order) {
