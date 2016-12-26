@@ -26,15 +26,7 @@ public class OrderItemService {
         orderItem.setItem(item);
         orderItem.setOrder(order);
         orderItem.setCount(count);
-        Set<OrderItem> orderItems=order.getOrderItems();
-        orderItems.add(orderItem);
-        order.setOrderItems(orderItems);
-        if(orderDao.update(order)){
-            return orderItemDao.add(orderItem);
-        }
-        else {
-            return null;
-        }
+        return orderItemDao.add(orderItem);
     }
 
     public boolean changeCountByOrderItemId(String orderItemId, Integer count){
