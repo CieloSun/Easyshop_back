@@ -103,6 +103,20 @@ public class Order implements Serializable {
         this.orderItems = orderItems;
     }
 
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id='" + id + '\'' +
+                ", createTime=" + createTime +
+                ", alterTime=" + alterTime +
+                ", status=" + status +
+                ", customer=" + customer +
+                ", merchant=" + merchant +
+                ", shipAddress=" + shipAddress +
+                ", orderItems=" + orderItems +
+                '}';
+    }
+
     public static class OrderStatus {
         public static final int UNDETERMINED = 1;
         public static final int GENERATED = 2;
