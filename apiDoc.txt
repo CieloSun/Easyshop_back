@@ -137,12 +137,13 @@ merchantName:String
 shipAddressName:String
 shipAddressAddress:String
 shipAddressPhone:String
-orderItems:Map<String,Object>
+orderItems:List<
+Map<String,Object>
 {
 orderItemId:String
 itemUid:String
 count:Integer
-}
+}>
 }
 
 @RequestMapping
