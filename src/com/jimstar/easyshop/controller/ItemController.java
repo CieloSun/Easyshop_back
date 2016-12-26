@@ -35,7 +35,7 @@ public class ItemController {
         this.imgService = imgService;
     }
 
-    @RequestMapping(value="list",method = RequestMethod.POST)
+    @RequestMapping(value = "list", method = RequestMethod.POST)
     @ResponseBody
     public String list(@RequestBody String request) throws JsonProcessingException {
         Map<String, Object> map = new HashMap<>();
@@ -63,7 +63,7 @@ public class ItemController {
         return JSONUtil.toJSON(map);
     }
 
-    @RequestMapping(value="listByMerchant",method = RequestMethod.POST)
+    @RequestMapping(value = "listByMerchant", method = RequestMethod.POST)
     @ResponseBody
     public String listByMerchant(@RequestBody String request) throws JsonProcessingException {
         Map<String, Object> map = new HashMap<>();
@@ -101,19 +101,19 @@ public class ItemController {
             map.put("error", "No such item");
         } else {
             map.put("status", 0);
-            map.put("info","Get item successfully.");
+            map.put("info", "Get item successfully.");
             map.put("itemUid", item.getUid());
-            map.put("itemIid",item.getIid());
-            map.put("itemVer",item.getVer());
-            map.put("itemName",item.getName());
-            map.put("itemPrice",item.getPrice());
-            map.put("itemCount",item.getCount());
-            map.put("itemShopUser",item.getUserMerchant().getName());
-            map.put("itemShopName",item.getUserMerchant().getShopName());
-            map.put("itemShopDesc",item.getUserMerchant().getShopDesc());
-            map.put("itemCreateTime",item.getCreateTime());
-            map.put("itemDesc",item.getDescription());
-            map.put("itemImgList",item.getImgs());
+            map.put("itemIid", item.getIid());
+            map.put("itemVer", item.getVer());
+            map.put("itemName", item.getName());
+            map.put("itemPrice", item.getPrice());
+            map.put("itemCount", item.getCount());
+            map.put("itemShopUser", item.getUserMerchant().getName());
+            map.put("itemShopName", item.getUserMerchant().getShopName());
+            map.put("itemShopDesc", item.getUserMerchant().getShopDesc());
+            map.put("itemCreateTime", item.getCreateTime());
+            map.put("itemDesc", item.getDescription());
+            map.put("itemImgList", item.getImgs());
         }
         return JSONUtil.toJSON(map);
     }
@@ -129,17 +129,17 @@ public class ItemController {
         } else {
             map.put("status", 0);
             map.put("itemUid", item.getUid());
-            map.put("itemIid",item.getIid());
-            map.put("itemVer",item.getVer());
-            map.put("itemName",item.getName());
-            map.put("itemPrice",item.getPrice());
-            map.put("itemCount",item.getCount());
-            map.put("itemShopUser",item.getUserMerchant().getName());
-            map.put("itemShopName",item.getUserMerchant().getShopName());
-            map.put("itemShopDesc",item.getUserMerchant().getShopDesc());
-            map.put("itemCreateTime",item.getCreateTime());
-            map.put("itemDesc",item.getDescription());
-            map.put("itemImgList",item.getImgs());
+            map.put("itemIid", item.getIid());
+            map.put("itemVer", item.getVer());
+            map.put("itemName", item.getName());
+            map.put("itemPrice", item.getPrice());
+            map.put("itemCount", item.getCount());
+            map.put("itemShopUser", item.getUserMerchant().getName());
+            map.put("itemShopName", item.getUserMerchant().getShopName());
+            map.put("itemShopDesc", item.getUserMerchant().getShopDesc());
+            map.put("itemCreateTime", item.getCreateTime());
+            map.put("itemDesc", item.getDescription());
+            map.put("itemImgList", item.getImgs());
         }
         return JSONUtil.toJSON(map);
     }
@@ -151,7 +151,7 @@ public class ItemController {
         return get(uid);
     }
 
-    @RequestMapping(value="add",method = RequestMethod.POST)
+    @RequestMapping(value = "add", method = RequestMethod.POST)
     @ResponseBody
     public String add(@RequestBody String request) throws JsonProcessingException {
         Map<String, Object> map = new HashMap<>();
@@ -179,17 +179,17 @@ public class ItemController {
             if (item != null) {
                 map.put("status", 0);
                 map.put("itemUid", item.getUid());
-                map.put("itemIid",item.getIid());
-                map.put("itemVer",item.getVer());
-                map.put("itemName",item.getName());
-                map.put("itemPrice",item.getPrice());
-                map.put("itemCount",item.getCount());
-                map.put("itemShopUser",item.getUserMerchant().getName());
-                map.put("itemShopName",item.getUserMerchant().getShopName());
-                map.put("itemShopDesc",item.getUserMerchant().getShopDesc());
-                map.put("itemCreateTime",item.getCreateTime());
-                map.put("itemDesc",item.getDescription());
-                map.put("itemImgList",item.getImgs());
+                map.put("itemIid", item.getIid());
+                map.put("itemVer", item.getVer());
+                map.put("itemName", item.getName());
+                map.put("itemPrice", item.getPrice());
+                map.put("itemCount", item.getCount());
+                map.put("itemShopUser", item.getUserMerchant().getName());
+                map.put("itemShopName", item.getUserMerchant().getShopName());
+                map.put("itemShopDesc", item.getUserMerchant().getShopDesc());
+                map.put("itemCreateTime", item.getCreateTime());
+                map.put("itemDesc", item.getDescription());
+                map.put("itemImgList", item.getImgs());
             } else
                 throw new Exception("Failed to add new Item");
         } catch (IOException e) {
@@ -203,7 +203,7 @@ public class ItemController {
     }
 
     //获取count与原count进行计算
-    @RequestMapping(value="changeCount",method = RequestMethod.POST)
+    @RequestMapping(value = "changeCount", method = RequestMethod.POST)
     @ResponseBody
     public String changeCount(@RequestBody String mapString) throws IOException {
         Map<String, Object> map = JSONUtil.parseMap(mapString);
@@ -220,49 +220,64 @@ public class ItemController {
         return JSONUtil.toJSON(map);
     }
 
-    @RequestMapping(value = "edit",method = RequestMethod.POST)
+    @RequestMapping(value = "edit", method = RequestMethod.POST)
     @ResponseBody
     public String edit(@RequestBody String mapString) throws Exception {
         Map<String, Object> map = JSONUtil.parseMap(mapString);
         String iid = (String) map.get("itemIid");
         String name = (String) map.get("name");
         Double priceTemp = (Double) map.get("price");
-        Float price=priceTemp.floatValue();
+        Float price = priceTemp.floatValue();
         String description = (String) map.get("description");
         Map<String, Img> imgs = (Map<String, Img>) map.get("imgs");
         List<Img> imgList = new ArrayList<Img>();
-        if(imgs!=null){
-            Iterator it=imgs.keySet().iterator();
+        if (imgs != null) {
+            Iterator it = imgs.keySet().iterator();
             while (it.hasNext()) {
-                String key=it.next().toString();
+                String key = it.next().toString();
                 imgList.add(imgs.get(key));
             }
         }
         Item item = itemService.updatedByIid(iid, name, price, description, imgList);
-        if(item!=null){
-            map.put("status",0);
-            map.put("itemUid",item.getUid());
-            map.put("info","Success to edit the item.");
-        }
-        else{
-            map.put("status",1);
-            map.put("info","Error to generate the new item.");
+        if (item != null) {
+            map.put("status", 0);
+            map.put("itemUid", item.getUid());
+            map.put("info", "Success to edit the item.");
+        } else {
+            map.put("status", 1);
+            map.put("info", "Error to generate the new item.");
         }
         return JSONUtil.toJSON(map);
     }
 
     @RequestMapping("getAll")
     @ResponseBody
-    public String getAll() throws Exception{
-        List<Item> list = itemService.selectAllItem();
-        List<String> itemUids=new ArrayList<>();
-        for(Item item:list){
+    public String getAll() throws Exception {
+        List<Item> items = itemService.selectAllItem();
+        List<String> itemUids = new ArrayList<>();
+        for (Item item : items) {
             itemUids.add(item.getUid());
         }
-        Map<String,Object> map=new HashMap<>();
-        map.put("itemUids",itemUids);
-        map.put("status",0);
-        map.put("info","selectAll");
+        Map<String, Object> map = new HashMap<>();
+        map.put("itemUids", itemUids);
+        map.put("status", 0);
+        map.put("info", "selectAll");
+        return JSONUtil.toJSON(map);
+    }
+
+    @RequestMapping("getRecommend")
+    @ResponseBody
+    public String getRecommend(Integer number) throws Exception {
+        List<Item> items = itemService.selectRec();
+        List<String> itemUids = new ArrayList<>();
+        for (int i = 0; i < number; ++i) {
+            if (i >= items.size()) break;
+            itemUids.add(items.get(i).getUid());
+        }
+        Map<String, Object> map = new HashMap<>();
+        map.put("itemUids", itemUids);
+        map.put("status", 0);
+        map.put("info", "selectAll");
         return JSONUtil.toJSON(map);
     }
 }

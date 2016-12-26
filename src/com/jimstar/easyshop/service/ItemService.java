@@ -110,4 +110,7 @@ public class ItemService {
     public List<Item> selectAllItem(){
         return itemDao.selectAll();
     }
+    public List<Item> selectRec(){
+        return itemDao.selectRec();
+    }
 }

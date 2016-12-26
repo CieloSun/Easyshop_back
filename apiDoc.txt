@@ -232,6 +232,13 @@ itemImgList:List<Img>//Img{id:String, value:String}
 itemUids:List<String>
 
 @RequestMapping
+/Item/getRecommend
+@GET
+Integer id
+@ResponseBody
+itemUids:List<String>
+
+@RequestMapping
 /Item/add
 @RequestBody
 userMerchantId:String
