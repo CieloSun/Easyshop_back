@@ -29,6 +29,11 @@ public class OrderItemService {
         orderItem.setCount(count);
         orderItem=orderItemDao.add(orderItem);
         Set<OrderItem> orderItems=order.getOrderItems();
+        if (order.getMerchant() == null) {
+            order.setMerchant(orderItem.getItem().getUserMerchant());
+        } else if (!order.getMerchant().getId().equals(orderItem.getItem().getUserMerchant().getId())) {
+            return null;
+        }
         orderItems.add(orderItem);
         order.setOrderItems(orderItems);
         orderDao.update(order);

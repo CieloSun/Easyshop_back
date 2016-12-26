@@ -38,6 +38,18 @@ public class OrderService {
         order.setOrderItems(new HashSet<>());
         return orderDao.add(order);
     }
+    public Order createOrderByOldOrder(Order order){
+        Timestamp timestamp=new Timestamp(System.currentTimeMillis());
+        Order newOrder=new Order();
+        newOrder.setCreateTime(timestamp);
+        newOrder.setAlterTime(timestamp);
+        newOrder.setCustomer(order.getCustomer());
+        newOrder.setMerchant(null);
+        newOrder.setShipAddress(order.getShipAddress());
+        newOrder.setStatus(1);
+        newOrder.setOrderItems(new HashSet<>());
+        return orderDao.add(newOrder);
+    }
     public boolean addOrderItemToOrderById(String id, OrderItem orderItem){
         Order order=orderDao.selectById(id);
         Set<OrderItem> orderItems = order.getOrderItems();

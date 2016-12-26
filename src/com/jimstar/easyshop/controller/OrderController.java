@@ -71,6 +71,9 @@ public class OrderController {
         Item item = itemService.getByUid(itemUid);
         map.put("status", 1);
         map.put("info", "Wrong to add item.");
+        if(order.getOrderItems().isEmpty()){
+            order.setMerchant(item.getUserMerchant());
+        }
         OrderItem orderItem = orderItemService.createOrderItemByItemAndOrderAndCount(item, order, 1);
         if (orderItem != null) {
             map.replace("status", 0);
@@ -93,6 +96,8 @@ public class OrderController {
                 for (OrderItem orderItem : orderItems) {
                     itemService.changeCountByChangeNumber(orderItem.getItem().getUid(), orderItem.getCount());
                 }
+                Order newOrder=orderService.createOrderByOldOrder(order);
+                map.put("newOrderId",newOrder.getId());
             }
             map.put("status", 0);
             map.put("info", "Change order success!");
