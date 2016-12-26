@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -106,7 +107,7 @@ public class ItemDao {
 
     public List<Item> selectRec(){
         try (Session session = getSession()) {
-            String hql = "from Item as item order by item.createTime";
+            String hql = "from Item as item order by item.createTime desc";
             Query query = session.createQuery(hql);
             List<Item> result = query.list();
             for (Item i:result) {

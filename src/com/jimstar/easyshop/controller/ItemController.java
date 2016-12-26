@@ -265,9 +265,9 @@ public class ItemController {
         return JSONUtil.toJSON(map);
     }
 
-    @RequestMapping("getRecommend")
+    @RequestMapping("getNew")
     @ResponseBody
-    public String getRecommend(Integer number) throws Exception {
+    public String getNew(Integer number) throws Exception {
         List<Item> items = itemService.selectRec();
         List<String> itemUids = new ArrayList<>();
         for (int i = 0; i < number; ++i) {
@@ -277,7 +277,24 @@ public class ItemController {
         Map<String, Object> map = new HashMap<>();
         map.put("itemUids", itemUids);
         map.put("status", 0);
-        map.put("info", "selectAll");
+        map.put("info", "select the new list");
+        return JSONUtil.toJSON(map);
+    }
+
+    @RequestMapping("getRandom")
+    @ResponseBody
+    public String getRandom(Integer number) throws Exception {
+        List<Item> items = itemService.selectRec();
+        Collections.shuffle(items);
+        List<String> itemUids = new ArrayList<>();
+        for (int i = 0; i < number; ++i) {
+            if (i >= items.size()) break;
+            itemUids.add(items.get(i).getUid());
+        }
+        Map<String, Object> map = new HashMap<>();
+        map.put("itemUids", itemUids);
+        map.put("status", 0);
+        map.put("info", "select the recommend list");
         return JSONUtil.toJSON(map);
     }
 }
