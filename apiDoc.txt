@@ -232,9 +232,16 @@ itemImgList:List<Img>//Img{id:String, value:String}
 itemUids:List<String>
 
 @RequestMapping
-/Item/getRecommend
+/Item/getNew
 @GET
-Integer id
+Integer number
+@ResponseBody
+itemUids:List<String>
+
+@RequestMapping
+/Item/getRandom
+@GET
+Integer number
 @ResponseBody
 itemUids:List<String>
 

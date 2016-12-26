@@ -227,7 +227,10 @@ public class ItemController {
         String iid = (String) map.get("itemIid");
         String name = (String) map.get("name");
         Double priceTemp = (Double) map.get("price");
-        Float price = priceTemp.floatValue();
+        Float price=null;
+        if(priceTemp!=null){
+            price = priceTemp.floatValue();
+        }
         String description = (String) map.get("description");
         Map<String, Img> imgs = (Map<String, Img>) map.get("imgs");
         List<Img> imgList = new ArrayList<Img>();
