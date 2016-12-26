@@ -106,6 +106,19 @@ itemUid:String
 @GET
 orderId:String
 @ResponseBody
+userCustomerId:int
+userCustomerName:string
+createTime:timestamp
+alterTime:timestamp
+orderStatus:int
+[userMerchantId:int]
+[userMerchantName:string]
+[shopName:string]
+[shipAddressName:string]
+[shipAddressAddress:string]
+[shipAddressPhone:string]
+ItemIid_count:[iid1:count1 , iid2:count2 , ...]
+
 
 @RequestMapping
 /Order/getByUser

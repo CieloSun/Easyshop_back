@@ -140,6 +140,7 @@ public class OrderService {
         }
 
         order.setOrderItems(orderItems);
+        order.setAlterTime(new Timestamp(System.currentTimeMillis()));
         orderDao.update(order);
         return order;
     }
@@ -167,6 +168,9 @@ public class OrderService {
             }
         }
         order.setStatus(Order.OrderStatus.PAYED);
+        Timestamp currentTime = new Timestamp(System.currentTimeMillis());
+        order.setCreateTime(currentTime);
+        order.setAlterTime(currentTime);
         orderDao.update(order);
         userCustomer.setCert(null);
         return order;
