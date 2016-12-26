@@ -36,8 +36,7 @@
     <orderEntry type="library" exported="" name="Spring-4.3.4.RELEASE" level="project" />
     <orderEntry type="library" exported="" name="Spring MVC-4.3.4.RELEASE" level="project" />
     <orderEntry type="library" exported="" scope="PROVIDED" name="Tomcat 8.0.39" level="application_server_libraries" />
-    <orderEntry type="library" exported="" name="Commons IO" level="project" />
-    <orderEntry type="library" exported="" name="Jackson" level="project" />
-    <orderEntry type="library" exported="" name="MySQL Connector" level="project" />
+    <orderEntry type="library" exported="" name="jackson" level="project" />
+    <orderEntry type="library" exported="" name="mysql-connector-java-5.1.40-bin" level="project" />
   </component>
 </module>

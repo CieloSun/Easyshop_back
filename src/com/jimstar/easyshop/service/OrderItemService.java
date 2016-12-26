@@ -8,6 +8,7 @@ import com.jimstar.easyshop.entity.OrderItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -27,7 +28,10 @@ public class OrderItemService {
         orderItem.setOrder(order);
         orderItem.setCount(count);
         orderItem=orderItemDao.add(orderItem);
-        orderDao.update(orderItem.getOrder());
+        Set<OrderItem> orderItems=order.getOrderItems();
+        orderItems.add(orderItem);
+        order.setOrderItems(orderItems);
+        orderDao.update(order);
         return orderItem;
     }
 
