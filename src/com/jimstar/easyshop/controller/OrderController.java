@@ -1,9 +1,6 @@
 package com.jimstar.easyshop.controller;
 
-import com.jimstar.easyshop.entity.Item;
-import com.jimstar.easyshop.entity.Order;
-import com.jimstar.easyshop.entity.OrderItem;
-import com.jimstar.easyshop.entity.UserCustomer;
+import com.jimstar.easyshop.entity.*;
 import com.jimstar.easyshop.service.*;
 import com.jimstar.easyshop.util.JSONUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -136,6 +133,7 @@ public class OrderController {
         }
         return JSONUtil.toJSON(map);
     }
+
     @RequestMapping("get")
     @ResponseBody
     public String get(String orderId) throws Exception{
@@ -146,7 +144,30 @@ public class OrderController {
             map.put("error", "No such order");
         } else {
             map.put("status", 0);
-            map.put("order", order);
+            UserCustomer customer = order.getCustomer();
+            UserMerchant merchant = order.getMerchant();
+            ShipAddress address = order.getShipAddress();
+            map.put("userCustomerName", customer.getName());
+            map.put("userCustomerId", customer.getId());
+            map.put("createTime", order.getCreateTime());
+            map.put("createAlterTime", order.getAlterTime());
+            map.put("orderStatus", order.getStatus());
+            if (merchant != null) {
+                map.put("userMerchantName", merchant.getName());
+                map.put("userMerchantId", merchant.getId());
+                map.put("shopName", merchant.getShopName());
+            }
+            if (address != null) {
+                map.put("shipAddressName", address.getName());
+                map.put("shipAddressAddress", address.getAddress());
+                map.put("shipAddressPhone", address.getPhone());
+            }
+            Set<OrderItem> orderItems = order.getOrderItems();
+            Map<String, Integer> itemPair = new HashMap<>();
+            for (OrderItem it : orderItems) {
+                itemPair.put(it.getItem().getIid(), it.getCount());
+            }
+            map.put("itemIid_count", itemPair);
         }
         return JSONUtil.toJSON(map);
     }
