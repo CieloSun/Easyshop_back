@@ -1,9 +1,6 @@
 package com.jimstar.easyshop.service;
 
-import com.jimstar.easyshop.dao.ItemDao;
-import com.jimstar.easyshop.dao.OrderDao;
-import com.jimstar.easyshop.dao.OrderItemDao;
-import com.jimstar.easyshop.dao.UserCustomerDao;
+import com.jimstar.easyshop.dao.*;
 import com.jimstar.easyshop.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,15 +12,17 @@ import java.util.*;
 public class OrderService {
     private final OrderDao orderDao;
     private final UserCustomerDao userCustomerDao;
+    private final UserMerchantDao userMerchantDao;
     private final ItemDao itemDao;
     private final OrderItemDao orderItemDao;
 
     @Autowired
-    public OrderService(OrderDao orderDao, UserCustomerDao userCustomerDao, ItemDao itemDao, OrderItemDao orderItemDao) {
+    public OrderService(OrderDao orderDao, UserCustomerDao userCustomerDao, ItemDao itemDao, OrderItemDao orderItemDao, UserMerchantDao userMerchantDao) {
         this.orderDao = orderDao;
         this.userCustomerDao=userCustomerDao;
         this.itemDao = itemDao;
         this.orderItemDao = orderItemDao;
+        this.userMerchantDao=userMerchantDao;
     }
 
     public Order createOrderInCart(UserCustomer userCustomer, UserMerchant userMerchant, ShipAddress shipAddress){
@@ -57,6 +56,11 @@ public class OrderService {
     public List<Order> getOrdersByCustomer(String userCustomerName){
         UserCustomer userCustomer=userCustomerDao.selectByName(userCustomerName);
         return orderDao.selectByCustomer(userCustomer);
+    }
+
+    public List<Order> getOrdersByMerchant(String userMerchantName){
+        UserMerchant userMerchant=userMerchantDao.selectByName(userMerchantName);
+        return orderDao.selectByMerchant(userMerchant);
     }
 
     public Order createCert(UserCustomer userCustomer) {

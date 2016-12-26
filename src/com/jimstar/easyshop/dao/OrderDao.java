@@ -2,6 +2,7 @@ package com.jimstar.easyshop.dao;
 
 import com.jimstar.easyshop.entity.Order;
 import com.jimstar.easyshop.entity.UserCustomer;
+import com.jimstar.easyshop.entity.UserMerchant;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
@@ -93,6 +94,19 @@ public class OrderDao {
             return query.list();
         } catch (Exception e) {
             System.out.println("Fail to select the order by customer");
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<Order> selectByMerchant(UserMerchant userMerchant) {
+        try (Session session = getSession()) {
+            String hql = "from Order as order where order.merchant=:userMerchant";
+            Query query = session.createQuery(hql);
+            query.setParameter("userMerchant", userMerchant);
+            return query.list();
+        } catch (Exception e) {
+            System.out.println("Fail to select the order by merchant");
             e.printStackTrace();
         }
         return null;
