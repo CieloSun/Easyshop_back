@@ -279,6 +279,7 @@ public class ItemController {
         }
         Map<String, Object> map = new HashMap<>();
         map.put("itemUids", itemUids);
+        map.put("length",itemUids.size());
         map.put("status", 0);
         map.put("info", "select the new list");
         return JSONUtil.toJSON(map);
@@ -296,6 +297,7 @@ public class ItemController {
         }
         Map<String, Object> map = new HashMap<>();
         map.put("itemUids", itemUids);
+        map.put("length",itemUids.size());
         map.put("status", 0);
         map.put("info", "select the recommend list");
         return JSONUtil.toJSON(map);

@@ -237,6 +237,7 @@ itemUids:List<String>
 Integer number
 @ResponseBody
 itemUids:List<String>
+length:Integer
 
 @RequestMapping
 /Item/getRandom
@@ -244,6 +245,7 @@ itemUids:List<String>
 Integer number
 @ResponseBody
 itemUids:List<String>
+length:Integer
 
 @RequestMapping
 /Item/add
