@@ -15,6 +15,7 @@
           <element id="library" level="project" name="Commons IO" />
           <element id="library" level="project" name="Jackson" />
           <element id="library" level="project" name="MySQL Connector" />
+          <element id="library" level="project" name="commons-io-2.5" />
         </element>
       </element>
       <element id="javaee-facet-resources" facet="EasyShop/web/Web" />
