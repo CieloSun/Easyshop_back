@@ -3,7 +3,6 @@ package com.jimstar.easyshop.controller;
 import com.jimstar.easyshop.entity.*;
 import com.jimstar.easyshop.service.*;
 import com.jimstar.easyshop.util.JSONUtil;
-import com.jimstar.easyshop.util.LogUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -57,6 +56,35 @@ public class OrderController {
                 map.replace("info", "Success to add the order");
                 map.put("orderId", order.getId());
             }
+        }
+        return JSONUtil.toJSON(map);
+    }
+
+    @RequestMapping(value = "changeAddress", method = RequestMethod.POST)
+    @ResponseBody
+    public String changeAddress(@RequestBody String request) throws IOException {
+        Map<String, Object> map = new HashMap<>();
+        try {
+            map = JSONUtil.parseMap(request);
+            String userName = (String) map.get("userName");
+            String address = (String) map.get("address");
+            String phone = (String) map.get("phone");
+            String shipName = (String) map.get("shipName");
+            UserCustomer userCustomer = userCustomerService.getUserCustomerByName(userName);
+            Order order = userCustomer.getCert();
+            ShipAddress shipAddress = order.getShipAddress();
+            if (shipAddress == null) shipAddress = new ShipAddress();
+            if (address != null) shipAddress.setAddress(address);
+            if (shipName != null) shipAddress.setName(shipName);
+            if (phone != null) shipAddress.setPhone(phone);
+            order.setShipAddress(shipAddress);
+            orderService.updateOrder(order);
+            map.put("status", 0);
+            map.put("orderId", order.getId());
+            map.put("userCustomerId", userCustomer.getId());
+        } catch (Exception e) {
+            map.put("status", 1);
+            map.put("error", e.getMessage());
         }
         return JSONUtil.toJSON(map);
     }

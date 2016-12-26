@@ -13,6 +13,12 @@ public class ShipAddress implements Serializable {
     public ShipAddress() {
     }
 
+    public ShipAddress(String name, String address, String phone) {
+        this.name = name;
+        this.address = address;
+        this.phone = phone;
+    }
+
     @Column(name = "name_")
     public String getName() {
         return name;

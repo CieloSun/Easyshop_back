@@ -27,8 +27,11 @@ public class OrderService {
 
     public Order createOrderInCart(UserCustomer userCustomer, UserMerchant userMerchant, ShipAddress shipAddress){
         Timestamp timestamp=new Timestamp(System.currentTimeMillis());
-        Integer status=1;
-        Order order=new Order();
+        Order order = userCustomer.getCert();
+        if (order.getStatus() == Order.OrderStatus.UNDETERMINED)
+            orderDao.delete(order);
+        order = new Order();
+        Integer status = Order.OrderStatus.UNDETERMINED;
         order.setCreateTime(timestamp);
         order.setAlterTime(timestamp);
         order.setCustomer(userCustomer);
@@ -36,8 +39,12 @@ public class OrderService {
         order.setShipAddress(shipAddress);
         order.setStatus(status);
         order.setOrderItems(new HashSet<>());
-        return orderDao.add(order);
+        order = orderDao.add(order);
+        userCustomer.setCert(order);
+        userCustomerDao.update(userCustomer);
+        return order;
     }
+
     public Order createOrderByOldOrder(Order order){
         Timestamp timestamp=new Timestamp(System.currentTimeMillis());
         Order newOrder=new Order();
@@ -46,10 +53,15 @@ public class OrderService {
         newOrder.setCustomer(order.getCustomer());
         newOrder.setMerchant(null);
         newOrder.setShipAddress(order.getShipAddress());
-        newOrder.setStatus(1);
+        newOrder.setStatus(Order.OrderStatus.UNDETERMINED);
         newOrder.setOrderItems(new HashSet<>());
         return orderDao.add(newOrder);
     }
+
+    public boolean updateOrder(Order order) {
+        return orderDao.update(order);
+    }
+
     public boolean addOrderItemToOrderById(String id, OrderItem orderItem){
         Order order=orderDao.selectById(id);
         Set<OrderItem> orderItems = order.getOrderItems();
