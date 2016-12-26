@@ -106,4 +106,8 @@ public class ItemService {
         UserMerchant userMerchant = userMerchantDao.selectByName(merchantName);
         return itemDao.selectByMatchMerchant(userMerchant);
     }
+
+    public List<Item> selectAllItem(){
+        return itemDao.selectAll();
+    }
 }

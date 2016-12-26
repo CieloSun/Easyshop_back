@@ -251,5 +251,18 @@ public class ItemController {
         return JSONUtil.toJSON(map);
     }
 
-
+    @RequestMapping("getAll")
+    @ResponseBody
+    public String getAll() throws Exception{
+        List<Item> list = itemService.selectAllItem();
+        List<String> itemUids=new ArrayList<>();
+        for(Item item:list){
+            itemUids.add(item.getUid());
+        }
+        Map<String,Object> map=new HashMap<>();
+        map.put("itemUids",itemUids);
+        map.put("status",0);
+        map.put("info","selectAll");
+        return JSONUtil.toJSON(map);
+    }
 }

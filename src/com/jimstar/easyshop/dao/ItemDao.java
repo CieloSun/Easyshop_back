@@ -85,6 +85,25 @@ public class ItemDao {
         return null;
     }
 
+    public List<Item> selectAll(){
+        try (Session session = getSession()) {
+            String hql = "from Item as item order by item.iid";
+            Query query = session.createQuery(hql);
+            List<Item> result = query.list();
+            for (int i = 1; i < result.size(); i++) {
+                if (result.get(i - 1).getIid().equals(result.get(i).getIid())) {
+                    if (result.get(i - 1).getVer() < result.get(i).getVer())
+                        result.remove(i - 1);
+                }
+            }
+            return result;
+        } catch (Exception e) {
+            System.out.println("Fail to select the last item by iid");
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public Item selectByUid(String uid){
         try (Session session = getSession()) {
             /*String hql = "from Item as item where item.uid=:uid";
@@ -176,4 +195,6 @@ public class ItemDao {
         }
         return false;
     }
+
+
 }

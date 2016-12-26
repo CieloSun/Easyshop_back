@@ -92,6 +92,7 @@ itemId:String
 orderId:String
 orderStatus:Integer
 @ResponseBody
+[newOrderId:String]
 
 @RequestMapping
 /Order/changeCount
@@ -223,6 +224,12 @@ itemShopDesc:String
 itemCreateTime:Timestamp
 itemDesc:String
 itemImgList:List<Img>//Img{id:String, value:String}
+
+@RequestMapping
+/Item/getAll
+@GET
+@ResponseBody
+itemUids:List<String>
 
 @RequestMapping
 /Item/add
