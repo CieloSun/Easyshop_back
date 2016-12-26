@@ -148,7 +148,7 @@ public class OrderController {
             map.put("userCustomerName", customer.getName());
             map.put("userCustomerId", customer.getId());
             map.put("createTime", order.getCreateTime());
-            map.put("createAlterTime", order.getAlterTime());
+            map.put("alterTime", order.getAlterTime());
             map.put("orderStatus", order.getStatus());
             if (merchant != null) {
                 map.put("userMerchantName", merchant.getName());

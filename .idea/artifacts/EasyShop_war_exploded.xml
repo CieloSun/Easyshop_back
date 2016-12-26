@@ -12,6 +12,9 @@
           <element id="library" level="project" name="Spring MVC-4.3.4.RELEASE" />
           <element id="library" level="project" name="jackson" />
           <element id="library" level="project" name="mysql-connector-java-5.1.40-bin" />
+          <element id="library" level="project" name="Commons IO" />
+          <element id="library" level="project" name="Jackson" />
+          <element id="library" level="project" name="MySQL Connector" />
         </element>
       </element>
       <element id="javaee-facet-resources" facet="EasyShop/web/Web" />
