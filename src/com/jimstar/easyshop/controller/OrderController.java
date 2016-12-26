@@ -224,13 +224,18 @@ public class OrderController {
             orderMap.put("shipAddressName", order.getShipAddress().getName());
             orderMap.put("shipAddressAddress", order.getShipAddress().getAddress());
             orderMap.put("shipAddressPhone", order.getShipAddress().getPhone());
-            Map<String, Object> orderItemMap = new HashMap<>();
+            List orderItemList = new ArrayList();
+            Float total=new Float(0.0);
             for (OrderItem orderItem : order.getOrderItems()) {
+                Map<String, Object> orderItemMap = new HashMap<>();
                 orderItemMap.put("orderItemId", orderItem.getId());
                 orderItemMap.put("itemUid", orderItem.getItem().getUid());
                 orderItemMap.put("count", orderItem.getCount());
+                orderItemList.add(orderItemMap);
+                total+=orderItem.getItem().getPrice()*orderItem.getCount();
             }
-            orderMap.put("orderItems", orderItemMap);
+            orderMap.put("orderItems", orderItemList);
+            orderMap.put("total",total);
             orderList.add(orderMap);
         }
         if (orders == null) {
@@ -260,13 +265,15 @@ public class OrderController {
             orderMap.put("shipAddressName", order.getShipAddress().getName());
             orderMap.put("shipAddressAddress", order.getShipAddress().getAddress());
             orderMap.put("shipAddressPhone", order.getShipAddress().getPhone());
-            Map<String, Object> orderItemMap = new HashMap<>();
+            List orderItemList = new ArrayList();
             for (OrderItem orderItem : order.getOrderItems()) {
+                Map<String, Object> orderItemMap = new HashMap<>();
                 orderItemMap.put("orderItemId", orderItem.getId());
                 orderItemMap.put("itemUid", orderItem.getItem().getUid());
                 orderItemMap.put("count", orderItem.getCount());
+                orderItemList.add(orderItemMap);
             }
-            orderMap.put("orderItems", orderItemMap);
+            orderMap.put("orderItems", orderItemList);
             orderList.add(orderMap);
         }
         if (orders == null) {
